@@ -14,8 +14,9 @@ DROP TABLE IF EXISTS app_user;
 DROP TABLE IF EXISTS family;
 
 
+
 CREATE TABLE family (
-  family_id SERIAL NOT NULL,
+  family_id serial NOT NULL, 
   family_name varchar(100) NOT NULL,
 
   CONSTRAINT pk_family_id PRIMARY KEY(family_id)
@@ -29,11 +30,10 @@ CREATE TABLE app_user (
   role varchar(32),
   salt varchar(255) NOT NULL,
   first_name varchar(100) NOT NULL,
-  last_name varchar(100) NOT NULL,
-  friend_id SERIAL NOT NULL,
+  last_name varchar(100) NOT NULL, 
   family_id int NOT NULL,
-
-  CONSTRAINT fk_family_id FOREIGN KEY (family_id) REFERENCES family (family_id)
+  
+  CONSTRAINT fk_family_id FOREIGN KEY (family_id) REFERENCES family(family_id)
 );
 
 
@@ -74,8 +74,8 @@ CREATE TABLE prize (
   milestone varchar(100) NOT NULL,
   user_group varchar(100) NOT NULL,
   max_prizes int NOT NULL,
-  start_date date NOT NULL,
-  end_date date NOT NULL,
+  start_date date,
+  end_date date,
 
   CONSTRAINT pk_prize_id PRIMARY KEY(prize_id)
 );
@@ -83,9 +83,9 @@ CREATE TABLE prize (
 CREATE TABLE user_prize (
   prize_id int NOT NULL,
   user_id int NOT NULL,
-  
-  CONSTRAINT fk_prize_id FOREIGN KEY (prize_id) REFERENCES prize (prize_id),
-  CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES app_user (id)
+
+CONSTRAINT fk_prize_id FOREIGN KEY (prize_id) REFERENCES prize (prize_id),
+CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES app_user (id)
 );
 
 COMMIT;
