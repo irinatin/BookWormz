@@ -4,7 +4,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 public class Family {
 	
-	long familyId;
+	private long familyId;
 	
 	@NotBlank(message = "Family name is required")
     private String familyName;
