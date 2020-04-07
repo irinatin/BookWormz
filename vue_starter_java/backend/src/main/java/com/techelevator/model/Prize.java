@@ -1,6 +1,7 @@
 package com.techelevator.model;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.validation.constraints.Min;
 
@@ -30,11 +31,11 @@ public class Prize {
 	
 	@NotBlank(message = "Start date is required")
 	@DateTimeFormat(pattern = "MM-dd-yyyy")
-	private LocalDate startDate;
+	private Date startDate;
 	
 	@NotBlank(message = "End date is required")
 	@DateTimeFormat(pattern = "MM-dd-yyyy")
-	private LocalDate endDate;
+	private Date endDate;
 
 	public long getPrizeId() {
 		return prizeId;
@@ -84,19 +85,19 @@ public class Prize {
 		this.numOfPrizes = numOfPrizes;
 	}
 
-	public LocalDate getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public LocalDate getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(LocalDate endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 	
