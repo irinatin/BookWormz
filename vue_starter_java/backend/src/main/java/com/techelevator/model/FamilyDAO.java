@@ -6,5 +6,6 @@ public interface FamilyDAO {
 
 	public List<Family> getAllFamilies();
 	public boolean createFamily(String familyName);
-	String getFamilyNameById(long familyId);
+	public String getFamilyNameById(long familyId);
+	public long getFamilyIdByName(String familyName);
 }

@@ -53,7 +53,13 @@ public class JdbcFamilyDAO implements FamilyDAO{
 	@Override
 	public long getFamilyIdByName(String familyName) {
 		
-		return long;
+		long getFamilyId = "SELECT family_id FROM family WHERE family_name = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(getFamilyId, familyName);
+		
+		results.next();
+		long familyId = results.getLong(2);
+		
+		return familyId;
 	}
 	
 	
