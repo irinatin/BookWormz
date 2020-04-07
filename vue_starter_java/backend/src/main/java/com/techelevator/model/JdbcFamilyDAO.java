@@ -31,7 +31,7 @@ public class JdbcFamilyDAO implements FamilyDAO{
 
 	@Override
 	public boolean createFamily(String familyName) {
-			int	 familyId = getNextFamilyId();
+			long familyId = getNextFamilyId();
 			String insertIntoFamily = "INSERT INTO family VALUES (?, ?)";
 			jdbcTemplate.update(insertIntoFamily, familyId, familyName);
 
@@ -53,7 +53,7 @@ public class JdbcFamilyDAO implements FamilyDAO{
 	@Override
 	public long getFamilyIdByName(String familyName) {
 		
-		long getFamilyId = "SELECT family_id FROM family WHERE family_name = ?";
+		String getFamilyId = "SELECT family_id FROM family WHERE family_name = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(getFamilyId, familyName);
 		
 		results.next();
@@ -66,10 +66,10 @@ public class JdbcFamilyDAO implements FamilyDAO{
 	
 	
 	
-	public int getNextFamilyId() {
+	public long getNextFamilyId() {
 		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('family_family_id_seq')");
 		if (nextIdResult.next()) {
-			return nextIdResult.getInt(1);
+			return nextIdResult.getLong(1); //changed from int to long
 		}
 		else {
 			throw new RuntimeException("Something went wrong with family sequence");
