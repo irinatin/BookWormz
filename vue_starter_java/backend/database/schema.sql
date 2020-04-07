@@ -5,12 +5,15 @@
 BEGIN;
 
 -- CREATE statements go here
+
 DROP TABLE IF EXISTS user_prize;
 DROP TABLE IF EXISTS prize;
 DROP TABLE IF EXISTS user_book;
 DROP TABLE IF EXISTS friends;
 DROP TABLE IF EXISTS book;
 DROP TABLE IF EXISTS app_user;
+DROP TABLE IF EXISTS user_info;
+DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS family;
 
 
@@ -23,17 +26,23 @@ CREATE TABLE family (
 );
 
 
-CREATE TABLE app_user (
-  id SERIAL PRIMARY KEY,
-  user_name varchar(32) NOT NULL UNIQUE,
-  password varchar(32) NOT NULL,
-  role varchar(32),
-  salt varchar(255) NOT NULL,
+CREATE TABLE users (
+  id serial PRIMARY KEY,
+  username varchar(255) NOT NULL UNIQUE,
+  password varchar(32) NOT NULL, 
+  salt varchar(256) NOT NULL,   
+  role varchar(255) NOT NULL default('user')
+);
+
+CREATE TABLE user_info (
+  user_info_id serial PRIMARY KEY,
+  user_id int NOT NULL,
   first_name varchar(100) NOT NULL,
-  last_name varchar(100) NOT NULL, 
+  last_name varchar(100) NOT NULL,
   family_id int NOT NULL,
-  
-  CONSTRAINT fk_family_id FOREIGN KEY (family_id) REFERENCES family(family_id)
+
+  CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id),
+  CONSTRAINT fk_family_id FOREIGN KEY (family_id) REFERENCES family (family_id)
 );
 
 
@@ -41,8 +50,8 @@ CREATE TABLE friends (
   user_id int NOT NULL,
   friend_id int NOT NULL,
   
-  CONSTRAINT fk_friend_id FOREIGN KEY (friend_id) REFERENCES app_user (id),
-  CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES app_user (id)
+  CONSTRAINT fk_friend_id FOREIGN KEY (friend_id) REFERENCES users (id),
+  CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 CREATE TABLE book (
@@ -63,7 +72,7 @@ CREATE TABLE user_book (
   reading_format varchar(100) NOT NULL,
 
   CONSTRAINT pk_reading_event_id PRIMARY KEY(reading_event_id),
-  CONSTRAINT fk_id FOREIGN KEY (user_id) REFERENCES app_user (id),
+  CONSTRAINT fk_id FOREIGN KEY (user_id) REFERENCES users (id),
   CONSTRAINT fk_book_id FOREIGN KEY (book_id) REFERENCES book (book_id)
 );
 
@@ -85,7 +94,7 @@ CREATE TABLE user_prize (
   user_id int NOT NULL,
 
 CONSTRAINT fk_prize_id FOREIGN KEY (prize_id) REFERENCES prize (prize_id),
-CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES app_user (id)
+CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 COMMIT;

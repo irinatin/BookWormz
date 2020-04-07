@@ -20,14 +20,6 @@ public class User {
 
     @NotBlank(message = "Role is required")
     private String role;
-    
-    @NotBlank(message = "First Name is required")
-    private String firstName;
-    
-    @NotBlank(message = "First Name is required")
-    private String lastName;
-    
-    private long familyId;
 
     @AssertTrue(message = "Passwords must match")
     public boolean isPasswordMatching() {
@@ -37,8 +29,6 @@ public class User {
         return true;
     }
     
-    
-
     public String getPassword() {
         return password;
     }
@@ -96,30 +86,6 @@ public class User {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public long getFamilyId() {
-		return familyId;
-	}
-
-	public void setFamilyId(long familyId) {
-		this.familyId = familyId;
-	}
     
     
 }
