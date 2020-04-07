@@ -73,7 +73,7 @@ export default {
       })
         .then((response) => {
           if (response.ok) {
-            this.$router.push({ path: '/login', query: { registration: 'success' } });
+            this.$router.push({ path: '/userinfo', query: { registration: 'success' } });
           } else {
             this.registrationErrors = true;
           }
