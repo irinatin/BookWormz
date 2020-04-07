@@ -10,13 +10,13 @@ public interface BookDAO {
 	
 	public boolean deleteBook(Book bookie);
 	
-	public Book findBookByTitle(String title);
+	public String findBookByTitle(String title);
 	
-	public Book findBookByAuthor(String author);
+	public List<Book> findBookByAuthor(String author);
 	
-	public Book findBookByIsbn(int Isbn);
+	public String findBookByIsbn(String isbn);
 	
-	public Book findBookById(long id);
+	public String findBookById(long id);
 	
 
 }
