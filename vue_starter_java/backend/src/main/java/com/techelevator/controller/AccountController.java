@@ -47,5 +47,13 @@ public class AccountController {
         auth.register(user.getUsername(), user.getPassword(), user.getRole());
         return "{\"success\":true}";
     }
+    
+    @RequestMapping(path = "/logoff", method = RequestMethod.POST)
+    public String logoff() {
+        if(auth.isLoggedIn()) {
+            auth.logOff();
+        }
+        return "{\"success\":true}";
+    }
 
 }
