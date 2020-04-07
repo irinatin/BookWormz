@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+
 public class JDBCBookDAO implements BookDAO{
 	
 	private JdbcTemplate jdbcTemplate;
@@ -36,11 +37,11 @@ public class JDBCBookDAO implements BookDAO{
 		while(results.next()) {
 			bookie = mapRowToBook(results);
 			allBooksPerUser.add(bookie);
-			
 		}
 				
 		return allBooksPerUser;
 	}
+	
 
 	@Override
 	public boolean deleteBook(Book bookie) {
@@ -50,34 +51,65 @@ public class JDBCBookDAO implements BookDAO{
 		
 		return true;
 	}
+	
 
 	@Override
-	public Book findBookByTitle(String title) {
+	public String findBookByTitle(String title) {
+	
 		
-		List<Book> getAllBooksByTitle = new ArrayList<Book>();
+		String getTheBookByTitle = "SELECT title FROM book WHERE title LIKE ?"; //not sure if LIKE will work here
+		//if they look for a book by one word that can be a part of a title for multiple books
+	
+		SqlRowSet results = jdbcTemplate.queryForRowSet(getTheBookByTitle, title);
 		
-		String getAllBooks = "SELECT "
-		// TODO Auto-generated method stub
-		return null;
+		results.next();
+		String bookTitle = results.getString(3); //not sure if index is right, need to update my db
+		
+		return bookTitle;
+	}
+	
+
+	@Override
+	public List<Book> findBookByAuthor(String author) {
+		
+		List<Book> booksByAuthor = new ArrayList<Book>();
+		String getBooksByAuthor = "SELECT * FROM book WHERE author = ?";
+		
+		Book bookie = new Book();
+		SqlRowSet results = jdbcTemplate.queryForRowSet(getBooksByAuthor);
+		
+		while(results.next()) {
+			bookie = mapRowToBook(results);
+			booksByAuthor.add(bookie);
+		}
+		
+		return booksByAuthor;
 	}
 
 	@Override
-	public Book findBookByAuthor(String author) {
-		// TODO Auto-generated method stub
-		return null;
+	public String findBookByIsbn(String isbn) {
+		
+		String getBookByIsbn = "SELECT title FROM book WHERE isbn = ?";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(getBookByIsbn, isbn);
+		results.next();
+		String bookTitle = results.getString(3);
+		
+		return bookTitle;
 	}
 
 	@Override
-	public Book findBookByIsbn(int Isbn) {
-		// TODO Auto-generated method stub
-		return null;
+	public String findBookById(long id) {
+		
+		String getBookById = "SELECT title FROM book WHERE id = ?";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(getBookById, id);
+		results.next();
+		String bookTitle = results.getString(3);
+		
+		return bookTitle;
 	}
-
-	@Override
-	public Book findBookById(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	
 	public long getNextBookId() {
 		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('book_book_id_seq')");
@@ -88,6 +120,7 @@ public class JDBCBookDAO implements BookDAO{
 			throw new RuntimeException("Something went wrong with book sequence");
 		}
 	}
+	
 	
 	private Book mapRowToBook(SqlRowSet results) {
 		Book bookie = new Book();
