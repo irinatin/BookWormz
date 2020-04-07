@@ -3,7 +3,7 @@
 -- *****************************************************************************
 
 BEGIN;
-
+/*
 -- INSERT statements go here
 INSERT INTO family
 VALUES (DEFAULT, 'Quigley'),
@@ -73,5 +73,5 @@ VALUES((SELECT prize_id FROM prize WHERE prize_name = 'Liquor'), (SELECT id FROM
 ((SELECT prize_id FROM prize WHERE prize_name = 'Video Game'), (SELECT id FROM app_user WHERE first_name = 'Joe')),
 ((SELECT prize_id FROM prize WHERE prize_name = 'Walk'), (SELECT id FROM app_user WHERE first_name = 'Irina')),
 ((SELECT prize_id FROM prize WHERE prize_name = 'Nap'), (SELECT id FROM app_user WHERE first_name = 'Adam'));
-
+*/
 COMMIT;
