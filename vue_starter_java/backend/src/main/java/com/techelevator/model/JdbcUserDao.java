@@ -134,4 +134,11 @@ public class JdbcUserDao implements UserDao {
         }
     }
 
+
+	@Override
+	public List<User> getAllFriends(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
