@@ -50,10 +50,10 @@ public class AccountController {
     
     @RequestMapping(path = "/logoff", method = RequestMethod.POST)
     public String logoff() {
-        if(auth.isLoggedIn()) {
-            auth.logOff();
-        }
-        return "{\"success\":true}";
+    	if(auth.isLoggedIn()) {
+    		auth.logOff();
+    	}
+    	return "{\"success\":true}";
     }
 
 }
