@@ -55,7 +55,7 @@ public class JDBCBookDAO implements BookDAO{
 
 	@Override
 	public String findBookByTitle(String title) {
-	
+
 		
 		String getTheBookByTitle = "SELECT title FROM book WHERE title LIKE ?"; //not sure if LIKE will work here
 		//if they look for a book by one word that can be a part of a title for multiple books
