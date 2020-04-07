@@ -5,7 +5,7 @@
     </div>
   <div id="login" class="text-center">
     <form class="form-signin" @submit.prevent="login">
-      <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
+      <h1 class="sign-in-message">Please Sign In</h1>
       <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
         Invalid username and password!
       </div>
@@ -22,6 +22,7 @@
         required
         autofocus
       />
+      
       <label for="password" class="sr-only">Password</label>
       <input
         type="password"
@@ -31,8 +32,9 @@
         v-model="user.password"
         required
       />
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
-      <button type="submit">Sign in</button>
+      
+      <button type="submit" class="sign-in-button">Sign in</button>
+      <router-link :to="{ name: 'register' }" class="need-account">Need an account?</router-link>
     </form>
     
   </div>
@@ -90,7 +92,7 @@ export default {
 
 <style scoped>
 body {
-  margin: -10px;
+  margin: 0px;
   padding: 400px 100px;
   background: linear-gradient(to bottom, rgba(102, 255, 102, 0.7), rgba(0, 128, 0, 0.25));
   background-size: cover;
@@ -116,6 +118,22 @@ body {
   box-sizing: border-box;
   box-shadow: 0px 0px 8px rgba(0,0,0,0.9);
   padding: 70px 30px;
+}
+.sign-in-message{
+  top: 10%;
+  left: 50%;
+  text-align: start;
+
+}
+.form-control{
+  margin: 10px;
+}
+.need-account{
+  margin: 20px;
+}
+.sign-in-button{
+  margin: 10px;
+  
 }
 
 

@@ -33,12 +33,15 @@
         v-model="user.confirmPassword"
         required
       />
-      <router-link :to="{ name: 'login' }">
-        Have an account?
-      </router-link>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
+      <br>
+      <button class="create-account-button" type="submit">
         Create Account
       </button>
+      <br>
+      
+      <router-link :to="{ name: 'login' }" class="have-an-account">
+        Have an account?
+      </router-link>
     </form>
   </div>
   </body>
@@ -105,5 +108,18 @@ body {
   box-sizing: border-box;
   box-shadow: 0px 0px 8px rgba(0,0,0,0.9);
   padding: 70px 30px;
+}
+.form-control{
+  margin: 10px;
+}
+.have-an-account{
+  margin: 10px;
+}
+.create-account-button{
+  margin: 10px;
+  
+}
+#confirm-password{
+  left: 50%;
 }
 </style>
