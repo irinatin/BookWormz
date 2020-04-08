@@ -4,7 +4,7 @@ import auth from './auth'
 import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
-import UserInfo from './components/UserInfo.vue'
+import UserInfo from './views/UserInfo.vue'
 
 Vue.use(Router)
 
@@ -50,7 +50,7 @@ const router = new Router({
       name: "userinfo",
       component: UserInfo,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     }
   ]
