@@ -10,7 +10,10 @@
       <button :disabled="!isValidForm" v-on:click="searchBooks">Search</button>
     </div>
     <div>
-      <span>isbn: {{book.isbn}} title:{{book.title}}</span>
+      <span><img v-bind:src="book.thumbnail"/> isbn: {{book.isbn}} title:{{book.title}} author:{{book.author}}</span>
+    </div>
+    <div>
+      <button v-on:click="addBookToLibrary">Add To Library</button>
     </div>
   </div>
 </template>
@@ -46,7 +49,10 @@ export default {
         //this.book.title = response.data.ISBN.title;
         //this.book.title = response.data['ISBN:1847246923'].title; THIS WORKS!!!
         let tempIsbn = this.book.isbn;
+        
         this.book.title = response.data['ISBN:'+ tempIsbn].title;
+        this.book.author = response.data['ISBN:' + tempIsbn].authors[0].name;
+        this.book.thumbnail = response.data['ISBN:' + tempIsbn].cover.small;
 
 
         //this.book.author = response.data.authors.name;
