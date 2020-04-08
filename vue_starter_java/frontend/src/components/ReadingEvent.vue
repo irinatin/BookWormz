@@ -37,13 +37,19 @@ export default {
   methods: {
     
     searchBooks() {
+      //axios.get('https://api2.isbndb.com/book/' + this.book.isbn)
       axios.get('https://openlibrary.org/api/books?format=json&jscmd=data&bibkeys=ISBN:' + this.book.isbn)
 
       .then(response => {
-        //console.log(response.data);
-        this.title = `response.data.ISBN:${this.book.isbn}.title`;
-        //this.author = response.data.authors.name;
-        //this.thumbnail = response.data.cover.small;
+        
+        console.log(response.data);
+        //this.book.title = response.data.ISBN.title;
+        //this.book.title = response.data['ISBN:1847246923'].title; THIS WORKS!!!
+        this.book.title = response.data['ISBN: + this.book.isbn'].title;
+
+
+        //this.book.author = response.data.authors.name;
+        //this.book.thumbnail = response.data.cover.small;
       
       })
       .catch(error => {
