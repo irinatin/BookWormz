@@ -28,17 +28,7 @@ import auth from './auth';
 export default {
   methods: {
   quitter(){
-    auth.destroyToken;
-    fetch(`${process.env.VUE_APP_REMOTE_API}/logoff`, {
-        method: 'POST'
-      })
-        .then((response) => {
-          if (response.ok) {
-            this.$router.push({ path: '/login', query: { registration: 'success' } });
-          } else {
-            this.registrationErrors = true;
-          }
-        })
+    auth.logout();
     alert("You have logged out!");
     
   },
