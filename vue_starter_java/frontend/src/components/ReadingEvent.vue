@@ -45,7 +45,8 @@ export default {
         console.log(response.data);
         //this.book.title = response.data.ISBN.title;
         //this.book.title = response.data['ISBN:1847246923'].title; THIS WORKS!!!
-        this.book.title = response.data['ISBN: + this.book.isbn'].title;
+        let tempIsbn = this.book.isbn;
+        this.book.title = response.data['ISBN:'+ tempIsbn].title;
 
 
         //this.book.author = response.data.authors.name;
