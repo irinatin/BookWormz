@@ -9,6 +9,9 @@
       </div>
       <button :disabled="!isValidForm" v-on:click="searchBooks">Search</button>
     </div>
+    <div>
+      <span>isbn: {{book.isbn}} title:{{book.title}}</span>
+    </div>
   </div>
 </template>
 
@@ -33,18 +36,28 @@ export default {
   },
   methods: {
     
-    addBook() {
-      axios.get('https://openlibrary.org/api/books?format=json&jscmd=data&bibkeys=ISBN:' + book.isbn)
+    searchBooks() {
+      //axios.get('https://api2.isbndb.com/book/' + this.book.isbn)
+      axios.get('https://openlibrary.org/api/books?format=json&jscmd=data&bibkeys=ISBN:' + this.book.isbn)
 
       .then(response => {
-        (this.book = response.data)
+        
+        console.log(response.data);
+        //this.book.title = response.data.ISBN.title;
+        //this.book.title = response.data['ISBN:1847246923'].title; THIS WORKS!!!
+        let tempIsbn = this.book.isbn;
+        this.book.title = response.data['ISBN:'+ tempIsbn].title;
+
+
+        //this.book.author = response.data.authors.name;
+        //this.book.thumbnail = response.data.cover.small;
       
       })
       .catch(error => {
         console.log(error + ' there was an error')
       })
-    },
-    
+    }
+  },
   //   updateReview() {
   //     axios.put(`${this.apiURL}/${this.reviewID}`,this.review)
   //     .then((response) => {
@@ -62,6 +75,8 @@ export default {
       return this.book.isbn != '';
     },
     
+  
+}
   
 };
 </script>
