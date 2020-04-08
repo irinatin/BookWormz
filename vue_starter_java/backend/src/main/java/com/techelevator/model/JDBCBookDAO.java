@@ -87,7 +87,7 @@ public class JDBCBookDAO implements BookDAO{
 	}
 
 	@Override
-	public String findBookByIsbn(String isbn) {
+	public String findBookByIsbn(long isbn) {
 		
 		String getBookByIsbn = "SELECT title FROM book WHERE isbn = ?";
 		
@@ -125,7 +125,7 @@ public class JDBCBookDAO implements BookDAO{
 	private Book mapRowToBook(SqlRowSet results) {
 		Book bookie = new Book();
 		bookie.setId(results.getLong("book_id"));
-		bookie.setIsbn(results.getString("isbn"));
+		bookie.setIsbn(results.getLong("isbn"));
 		bookie.setTitle(results.getString("title"));
 		bookie.setAuthor(results.getString("author"));
 		

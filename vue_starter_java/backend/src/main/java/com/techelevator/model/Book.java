@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Book {
 	
 	@NotBlank(message = "ISBN is required")
-    private String isbn;
+    private long isbn;
 	
 	@NotBlank(message = "Username is required")
     private String title;
@@ -24,11 +24,11 @@ public class Book {
 		this.id = id;
 	}
 
-	public String getIsbn() {
+	public long getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(String isbn) {
+	public void setIsbn(long isbn) {
 		this.isbn = isbn;
 	}
 
