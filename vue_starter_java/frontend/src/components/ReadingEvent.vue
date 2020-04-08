@@ -9,6 +9,9 @@
       </div>
       <button :disabled="!isValidForm" v-on:click="searchBooks">Search</button>
     </div>
+    <div>
+      <span>isbn: {{book.isbn}} title:{{book.title}}</span>
+    </div>
   </div>
 </template>
 
@@ -33,18 +36,21 @@ export default {
   },
   methods: {
     
-    addBook() {
-      axios.get('https://openlibrary.org/api/books?format=json&jscmd=data&bibkeys=ISBN:' + book.isbn)
+    searchBooks() {
+      axios.get('https://openlibrary.org/api/books?format=json&jscmd=data&bibkeys=ISBN:' + this.book.isbn)
 
       .then(response => {
-        (this.book = response.data)
+        //console.log(response.data);
+        this.title = `response.data.ISBN:${this.book.isbn}.title`;
+        //this.author = response.data.authors.name;
+        //this.thumbnail = response.data.cover.small;
       
       })
       .catch(error => {
         console.log(error + ' there was an error')
       })
-    },
-    
+    }
+  },
   //   updateReview() {
   //     axios.put(`${this.apiURL}/${this.reviewID}`,this.review)
   //     .then((response) => {
@@ -62,6 +68,8 @@ export default {
       return this.book.isbn != '';
     },
     
+  
+}
   
 };
 </script>
