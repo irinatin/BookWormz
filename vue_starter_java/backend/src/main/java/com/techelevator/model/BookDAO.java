@@ -14,7 +14,7 @@ public interface BookDAO {
 	
 	public List<Book> findBookByAuthor(String author);
 	
-	public String findBookByIsbn(String isbn);
+	public String findBookByIsbn(long isbn);
 	
 	public String findBookById(long id);
 	
