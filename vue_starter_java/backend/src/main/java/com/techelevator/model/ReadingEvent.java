@@ -23,10 +23,10 @@ public class ReadingEvent {
 	@Min(value = 1, message = "Please enter valid time in minutes")
 	private int readingTime;
 	
-//	@NotBlank(message = "Date is required")
-//	//@DateTimeFormat(pattern = "MM-dd-yyyy")
-//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")  
-//	private LocalDate readingDate;
+	@NotBlank(message = "Date is required")
+	@DateTimeFormat(pattern = "MM-dd-yyyy")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")  
+	private String readingDate;
 	
 	@NotBlank(message = "Format is required")
 	private String format;
@@ -65,13 +65,13 @@ public class ReadingEvent {
 		this.readingTime = readingTime;
 	}
 
-//	public LocalDate getReadingDate() {
-//		return readingDate;
-//	}
-//
-//	public void setReadingDate(LocalDate readingDate) {
-//		this.readingDate = readingDate;
-//	}
+	public String getReadingDate() {
+		return readingDate;
+	}
+
+	public void setReadingDate(String readingDate) {
+		this.readingDate = readingDate;
+	}
 
 	public String getFormat() {
 		return format;
