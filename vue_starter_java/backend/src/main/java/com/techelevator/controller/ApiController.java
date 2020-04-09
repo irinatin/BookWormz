@@ -1,5 +1,7 @@
 package com.techelevator.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +15,8 @@ import com.techelevator.model.Book;
 import com.techelevator.model.BookDAO;
 import com.techelevator.model.ReadingEvent;
 import com.techelevator.model.ReadingEventDAO;
+import com.techelevator.model.User;
+import com.techelevator.model.UserDao;
 
 /**
  * ApiController
@@ -27,6 +31,9 @@ public class ApiController {
     
     @Autowired
     private BookDAO bookDAO;
+    
+    @Autowired
+    private UserDao userDAO;
     
     @Autowired ReadingEventDAO reDAO;
     
@@ -54,5 +61,16 @@ public class ApiController {
     public ReadingEvent addReadingEvent(@RequestBody ReadingEvent reads) {
     	return reDAO.addReadingEvent(reads);
     }
+    
+    @RequestMapping(path = "/getAllBooks", method = RequestMethod.GET)
+    public List<Book> getAllBooks() {
+    	return bookDAO.getAllBooks();
+    }
+    
+    @RequestMapping(path = "/getUser", method = RequestMethod.GET)
+    public List<User> getAllUsers() {
+    	return userDAO.getAllUsers();
+    }
+    
     
 }
