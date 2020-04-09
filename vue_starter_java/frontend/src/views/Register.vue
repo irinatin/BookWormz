@@ -73,13 +73,17 @@ export default {
       })
         .then((response) => {
           if (response.ok) {
+            console.log('OK');
             this.$router.push({ path: '/userinfo' });
           } else {
+            console.log('else fired');
+            console.log(response.text());
             this.registrationErrors = true;
           }
         })
 
-        .then((err) => console.error(err));
+        .then((err) => 
+        console.error(err));
     },
   },
 };

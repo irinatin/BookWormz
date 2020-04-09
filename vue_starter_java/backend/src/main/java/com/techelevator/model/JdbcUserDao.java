@@ -133,6 +133,14 @@ public class JdbcUserDao implements UserDao {
             return null;
         }
     }
+    
+    @Override
+    public void deleteUser (Long userId) {
+    	
+    	String sqlDeleteUser = "DELETE FROM users WHERE id = ?";
+    	jdbcTemplate.update(sqlDeleteUser, userId);
+    	
+    }
 
 
 	@Override

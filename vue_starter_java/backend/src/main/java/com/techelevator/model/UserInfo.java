@@ -14,8 +14,16 @@ public class UserInfo {
 	
 	private long familyId;
 	
+	private boolean newFamily;
 	
-	
+	public boolean isNewFamily() {
+		return newFamily;
+	}
+
+	public void setNewFamily(boolean newFamily) {
+		this.newFamily = newFamily;
+	}
+
 	public String getFamilyName() {
 		return familyName;
 	}
