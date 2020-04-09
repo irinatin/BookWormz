@@ -2,7 +2,7 @@
   <div class="home">
      <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
-        There were problems registering this user.
+        This family does no exist. Do you want to create a new family?
       </div>
 
 <form class="form-register" @submit.prevent="userregister">
@@ -27,7 +27,7 @@
         required
         autofocus
       />
-
+      <span v-if="userinfo.newFamily">
       <label for="familyName">Family Name</label>
       <input
         type="text"
@@ -38,6 +38,26 @@
         required
         autofocus
       />
+      </span>
+
+      <span v-if="!userinfo.newFamily">
+        <label for="newFamilyName">Search For Family</label>
+      <input
+        type="text"
+        id="newFamilyName"
+        class="form-control"
+        placeholder="Search For Family"
+        v-model="userinfo.familyName"
+        required
+        autofocus
+      />
+      </span>
+
+      <a v-if="userinfo.newFamily" href="#" v-on:click="userinfo.newFamily = false">Search For Family 
+      </a>
+
+      <a v-if="!userinfo.newFamily" href="#" v-on:click="userinfo.newFamily = true">Make New Family 
+      </a>
 
       <br>
       <button class="create-account-button" type="submit">
@@ -50,6 +70,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'userinfo',
 data() {
@@ -57,32 +79,31 @@ data() {
       userinfo: {
         firstName: '',
         lastName: '',
-        familyName: ''
+        familyName: '',
+        newFamily: true
       },
-      registrationErrors: false,
+      registrationErrors: false
     };
   },
   methods: {
-    userregister() {
-      fetch(`${process.env.VUE_APP_REMOTE_API}/userinfo`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(this.userinfo),
-      })
-        .then((response) => {
-          if (response.ok) {
-            this.$router.push({ path: '/login', query: { registration: 'success' } });
-
-          } else {
+    userregister(){
+      axios.post(`${process.env.VUE_APP_REMOTE_API}/userinfo`, this.userinfo)
+      .then(response => {
+        if(response.status === 200){
+          this.$router.push({ path: '/login', query: { registration: 'success' } });
+          console.log('200');
+        }
+        else {
+          console.log('else fired')
             this.registrationErrors = true;
-          }
-        })
-
-        .then((err) => console.error(err));
-    },
+            console.log(this.registrationErrors);
+         }
+      })
+      .catch(err => {
+        this.registrationErrors = true;
+        console.log(err);
+      })
+    }
   },
 };
 </script>

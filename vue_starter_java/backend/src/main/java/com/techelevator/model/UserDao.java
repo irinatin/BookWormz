@@ -38,5 +38,7 @@ public interface UserDao {
     public User getUserByUsername(String username);
     
     public List<User> getAllFriends(String username);
+    
+    public void deleteUser (Long userId);
 
 }

@@ -16,7 +16,9 @@ import com.techelevator.authentication.AuthProvider;
 import com.techelevator.authentication.JwtTokenHandler;
 import com.techelevator.authentication.UnauthorizedException;
 import com.techelevator.authentication.UserCreationException;
+import com.techelevator.model.FamilyDAO;
 import com.techelevator.model.User;
+import com.techelevator.model.UserDao;
 import com.techelevator.model.UserInfo;
 import com.techelevator.model.UserInfoDao;
 
@@ -27,55 +29,75 @@ import com.techelevator.model.UserInfoDao;
 @CrossOrigin
 @RestController
 public class AccountController {
+
+	@Autowired
+	private AuthProvider auth;
+
+	@Autowired
+	private UserInfoDao userInfo;
+
+	@Autowired
+	private FamilyDAO family;
+
+	@Autowired
+	private JwtTokenHandler tokenHandler;
 	
-    @Autowired
-    private AuthProvider auth;
-    
-    @Autowired UserInfoDao userInfo;
+	@Autowired
+	private UserDao user;
 
-    @Autowired
-    private JwtTokenHandler tokenHandler;
-    
-    String userName;
+	String userName;
 
-    @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public String login(@RequestBody User user, RedirectAttributes flash) throws UnauthorizedException {
-        if (auth.signIn(user.getUsername(), user.getPassword())) {
-            User currentUser = auth.getCurrentUser();
-            return tokenHandler.createToken(user.getUsername(), currentUser.getRole());
-        } else {
-            throw new UnauthorizedException();
-        }
-        
-    }
+	@RequestMapping(path = "/login", method = RequestMethod.POST)
+	public String login(@RequestBody User user, RedirectAttributes flash) throws UnauthorizedException {
+		if (auth.signIn(user.getUsername(), user.getPassword())) {
+			User currentUser = auth.getCurrentUser();
+			return tokenHandler.createToken(user.getUsername(), currentUser.getRole());
+		} else {
+			throw new UnauthorizedException();
+		}
 
-    @RequestMapping(path = "/register", method = RequestMethod.POST)
-    public String register(@Valid @RequestBody User user, BindingResult result) throws UserCreationException {
-    	this.userName = user.getUsername();
-        if (result.hasErrors()) {
-            String errorMessages = "";
-            for (ObjectError error : result.getAllErrors()) {
-                errorMessages += error.getDefaultMessage() + "\n";
-            }
-            throw new UserCreationException(errorMessages);
-        }
-        auth.register(user.getUsername(), user.getPassword(), user.getRole());
-        return "{\"success\":true}";
-    }
-    
-    @RequestMapping(path = "/logoff", method = RequestMethod.POST)
-    public String logoff() {
-    	if(auth.isLoggedIn()) {
-    		auth.logOff();
-    	}
-    	return "{\"success\":true}";
-    }
-    
-    @RequestMapping(path = "/userinfo", method = RequestMethod.POST)
-    public String userinfo(@RequestBody UserInfo info) {
-    	userInfo.getUserId(userName);
-    	userInfo.saveUserInfo(info.getFirstName(), info.getLastName(), info.getFamilyName(), userName);
-    	return "{\"success\":true}";
-    }
+	}
 
+	@RequestMapping(path = "/register", method = RequestMethod.POST)
+	public String register(@Valid @RequestBody User user, BindingResult result) throws UserCreationException {
+		this.userName = user.getUsername();
+		if (result.hasErrors()) {
+			String errorMessages = "";
+			for (ObjectError error : result.getAllErrors()) {
+				errorMessages += error.getDefaultMessage() + "\n";
+			}
+			System.out.println(errorMessages);
+			throw new UserCreationException(errorMessages);
+		}
+		auth.register(user.getUsername(), user.getPassword(), user.getRole());
+		return "{\"success\":true}";
+	}
+
+	@RequestMapping(path = "/logoff", method = RequestMethod.POST)
+	public String logoff() {
+		if (auth.isLoggedIn()) {
+			auth.logOff();
+		}
+		return "{\"success\":true}";
+	}
+
+	@RequestMapping(path = "/userinfo", method = RequestMethod.POST)
+	public String userinfo(@RequestBody UserInfo info, BindingResult result) throws UserCreationException {
+		Long userId = userInfo.getUserId(userName);
+		if (info.isNewFamily()) {
+			family.createFamily(info.getFamilyName());
+			long familyId = family.getFamilyIdByName(info.getFamilyName());
+			userInfo.saveUserInfo(info, familyId, userId);
+		} else {
+			if (family.doesFamilyExist(info.getFamilyName())) {
+				long familyId = family.getFamilyIdByName(info.getFamilyName());
+				userInfo.saveUserInfo(info, familyId, userId);
+			}
+			else {
+				throw new UserCreationException("Error");
+			}
+
+		}
+		return "{\"success\":true}";
+	}
 }
