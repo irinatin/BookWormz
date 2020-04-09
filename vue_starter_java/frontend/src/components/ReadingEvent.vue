@@ -15,7 +15,7 @@
     </div>
     <div>
       <p v-if="showBook">To add this book to your personal library, click below:</p>
-      <button v-if="showBook" v-on:click="addBookToLibrary">Add Book To Library</button>
+      <button v-if= "showBook" v-on:click= "addBookToLibrary">Add Book To Library</button>
     </div>    
   </div>
 </template>
@@ -73,18 +73,39 @@ export default {
         console.log(error + ' there was an error')
       })
     }
-    }
-  },
+    },
+  
     
-  // addBookToLibrary(){
-  //     axios.post(this.apiURL, this.book)
-  //     .then(response => {
-  //        if(response.status === 201) {
-  //         this.$emit('showReviews')
-  //     })
-  //     .catch(error => {
-  //       console.log(error + ' there was an error')
-  //     })
+  addBookToLibrary(){
+
+    // axios.get(`${process.env.VUE_APP_REMOTE_API}/api/family`, {
+    //   headers:{"Authorization" :  'Bearer ' + localStorage.getItem('Authorization')}})
+    // .then(response => {
+    //   console.log(response)
+    //   this.families = response.data;
+    // })
+    // .catch(error => {
+    //     console.log(error + ' there was an error')
+    //   })
+      axios.post(`${process.env.VUE_APP_REMOTE_API}/api/addBook`, {
+      data:{
+        "title": `${this.book.title}`,
+        "author":`${this.book.author}`,
+        "isbn": `${this.book.isbn}`
+      }, 
+      headers:{"Authorization" :  'Bearer ' + localStorage.getItem('Authorization')}
+      
+      })
+    
+    .then(response => {
+      console.log(response)
+      
+    })
+    .catch(error => {
+        console.log(error + ' there was an error')
+      })
+  }
+  }, 
 
   computed: {
     isValidForm() {
