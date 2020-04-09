@@ -74,7 +74,8 @@ data() {
       })
         .then((response) => {
           if (response.ok) {
-            this.$router.push('/');
+            this.$router.push({ path: '/login', query: { registration: 'success' } });
+
           } else {
             this.registrationErrors = true;
           }
