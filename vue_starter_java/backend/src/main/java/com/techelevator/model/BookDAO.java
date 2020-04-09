@@ -8,6 +8,8 @@ public interface BookDAO {
 	
 	public List<Book> getAllBooksPerUser(long userId);
 	
+	public List<Book> getAllBooks();
+	
 	public boolean deleteBook(Book bookie);
 	
 	public String findBookByTitle(String title);
