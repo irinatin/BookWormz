@@ -30,6 +30,7 @@
 						<value>/login</value>
 						<value>/register</value>
 						<value>/userinfo</value>
+						<value>/api/addReadingEvent</value>
 					</list>
 				</property>
 			</bean>

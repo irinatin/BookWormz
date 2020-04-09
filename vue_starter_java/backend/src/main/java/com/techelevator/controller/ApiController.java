@@ -11,6 +11,8 @@ import com.techelevator.authentication.AuthProvider;
 import com.techelevator.authentication.UnauthorizedException;
 import com.techelevator.model.Book;
 import com.techelevator.model.BookDAO;
+import com.techelevator.model.ReadingEvent;
+import com.techelevator.model.ReadingEventDAO;
 
 /**
  * ApiController
@@ -25,6 +27,8 @@ public class ApiController {
     
     @Autowired
     private BookDAO bookDAO;
+    
+    @Autowired ReadingEventDAO reDAO;
     
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String authorizedOnly() throws UnauthorizedException {
@@ -44,6 +48,11 @@ public class ApiController {
     @RequestMapping(path = "/addBook", method = RequestMethod.POST)
     public boolean addBook(@RequestBody Book newBook) {
     	return bookDAO.addNewBook(newBook);
+    }
+    
+    @RequestMapping(path = "/addReadingEvent", method = RequestMethod.POST)
+    public ReadingEvent addReadingEvent(@RequestBody ReadingEvent reads) {
+    	return reDAO.addReadingEvent(reads);
     }
     
 }
