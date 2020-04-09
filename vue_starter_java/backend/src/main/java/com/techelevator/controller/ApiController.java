@@ -18,6 +18,8 @@ import com.techelevator.model.ReadingEvent;
 import com.techelevator.model.ReadingEventDAO;
 import com.techelevator.model.UserInfo;
 import com.techelevator.model.UserInfoDao;
+import com.techelevator.model.User;
+import com.techelevator.model.UserDao;
 
 /**
  * ApiController
@@ -46,6 +48,8 @@ public class ApiController {
    	private FamilyDAO family;
     
     
+    @Autowired
+    private UserDao userDAO;
     
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String authorizedOnly() throws UnauthorizedException {
@@ -78,5 +82,15 @@ public class ApiController {
     	List<UserInfo> familyMembers = family.getAllFamilyMembers(familyId);
 		return familyMembers;
 	}
+    @RequestMapping(path = "/getAllBooks", method = RequestMethod.GET)
+    public List<Book> getAllBooks() {
+    	return bookDAO.getAllBooks();
+    }
+    
+    @RequestMapping(path = "/getUser", method = RequestMethod.GET)
+    public List<User> getAllUsers() {
+    	return userDAO.getAllUsers();
+    }
+    
     
 }
