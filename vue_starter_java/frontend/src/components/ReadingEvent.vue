@@ -12,9 +12,9 @@
     <div>
       <span><img v-bind:src="book.thumbnail"/> isbn: {{book.isbn}} title:{{book.title}} author:{{book.author}}</span>
     </div>
-    <div>
+    <!-- <div>
       <button v-on:click="addBookToLibrary">Add To Library</button>
-    </div>
+    </div> -->
   </div>
 </template>
 
