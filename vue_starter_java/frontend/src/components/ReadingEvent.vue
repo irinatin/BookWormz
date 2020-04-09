@@ -1,7 +1,6 @@
 <template>
-  
+  <h1>Reading Event</h1>
 </template>
-
 
 
 <script>

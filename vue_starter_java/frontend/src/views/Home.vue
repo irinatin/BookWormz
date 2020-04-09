@@ -3,9 +3,10 @@
     <h1>Home</h1>
     <p>You must be authenticated to see this</p>
     <books></books>
-    
+    <reading-event></reading-event>
 
-            
+   <label for="cars">Choose a car:</label>
+   
 
   </div>
 
