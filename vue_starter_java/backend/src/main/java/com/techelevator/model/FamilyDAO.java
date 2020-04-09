@@ -9,4 +9,5 @@ public interface FamilyDAO {
 	public String getFamilyNameById(long familyId);
 	public long getFamilyIdByName(String familyName);
 	public boolean doesFamilyExist(String familyName);
+	public List<UserInfo> getAllFamilyMembers (Long familyId);
 }
