@@ -7,14 +7,16 @@
       <div class="form-input">
         <span class="label">Enter Book ISBN:</span> <input type="text" v-model="book.isbn" placeholder="Enter ISBN Here">
       </div>
-      <button :disabled="!isValidForm" v-on:click="searchBooks">Search</button>
+      <button :disabled="!isValidForm" v-on:click="searchBooks(10, 13)">Search</button>
+    </div>
+    <br>
+    <div>
+      <span v-if="showBook"><img v-bind:src="book.thumbnail"/>   isbn:  {{book.isbn}}  title:  {{book.title}} author: {{book.author}}</span>
     </div>
     <div>
-      <span><img v-bind:src="book.thumbnail"/> isbn: {{book.isbn}} title:{{book.title}} author:{{book.author}}</span>
-    </div>
-    <!-- <div>
-      <button v-on:click="addBookToLibrary">Add To Library</button>
-    </div> -->
+      <p v-if="showBook">To add this book to your personal library, click below:</p>
+      <button v-if="showBook" v-on:click="addBookToLibrary">Add Book To Library</button>
+    </div>    
   </div>
 </template>
 
@@ -29,6 +31,7 @@ export default {
   },
   data() {
     return {
+      showBook: false,
       book: {
         isbn: '',
         title: '',
@@ -39,51 +42,57 @@ export default {
   },
   methods: {
     
-    searchBooks() {
-      //axios.get('https://api2.isbndb.com/book/' + this.book.isbn)
+    searchBooks(minlength, maxlength) {
+      
+      
+      let mnlen = minlength;
+      let mxlen = maxlength;
+
+      if(this.book.isbn.length<mnlen || this.book.isbn.length> mxlen)
+      { 
+      alert("Please input the ISBN with digits only between " +mnlen+ " and " +mxlen+ " characters (Ex: 0141439556)");
+      return false;
+      }
+      else
+      { 
       axios.get('https://openlibrary.org/api/books?format=json&jscmd=data&bibkeys=ISBN:' + this.book.isbn)
 
       .then(response => {
         
         console.log(response.data);
-        //this.book.title = response.data.ISBN.title;
+      
         //this.book.title = response.data['ISBN:1847246923'].title; THIS WORKS!!!
         let tempIsbn = this.book.isbn;
         
         this.book.title = response.data['ISBN:'+ tempIsbn].title;
         this.book.author = response.data['ISBN:' + tempIsbn].authors[0].name;
         this.book.thumbnail = response.data['ISBN:' + tempIsbn].cover.small;
-
-
-        //this.book.author = response.data.authors.name;
-        //this.book.thumbnail = response.data.cover.small;
-      
+        this.showBook = true;
       })
       .catch(error => {
         console.log(error + ' there was an error')
       })
     }
+    }
   },
-  //   updateReview() {
-  //     axios.put(`${this.apiURL}/${this.reviewID}`,this.review)
-  //     .then((response) => {
-  //       if( response.status === 204 ) {
-  //         this.$emit('showReviews');
-  //       }
+    
+  // addBookToLibrary(){
+  //     axios.post(this.apiURL, this.book)
+  //     .then(response => {
+  //        if(response.status === 201) {
+  //         this.$emit('showReviews')
   //     })
   //     .catch(error => {
   //       console.log(error + ' there was an error')
   //     })
-  //   }
-  // },
+
   computed: {
     isValidForm() {
       return this.book.isbn != '';
     },
-    
+  }
   
-}
-  
+
 };
 </script>
 
