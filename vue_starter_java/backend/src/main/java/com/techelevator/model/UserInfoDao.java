@@ -6,5 +6,7 @@ public interface UserInfoDao {
 	
 	public Long getUserId (String userName);
 	
+	public Long getFamilyId(Long userId);
+	
 
 }

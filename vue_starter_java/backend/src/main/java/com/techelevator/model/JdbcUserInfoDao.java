@@ -37,6 +37,18 @@ public class JdbcUserInfoDao implements UserInfoDao{
 		return true;
 		
 	}
+
+	@Override
+	public Long getFamilyId(Long userId) {
+		
+		String sqlGetFamilyId = "SELECT family_id FROM user_info WHERE user_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetFamilyId, userId);
+		
+		results.next();
+		Long familyId = results.getLong(1);
+		return familyId;
+	}
+	
 	
 	
 
