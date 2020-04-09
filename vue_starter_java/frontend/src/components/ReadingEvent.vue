@@ -77,29 +77,11 @@ export default {
   
     
   addBookToLibrary(){
-
-    // axios.get(`${process.env.VUE_APP_REMOTE_API}/api/family`, {
-    //   headers:{"Authorization" :  'Bearer ' + localStorage.getItem('Authorization')}})
-    // .then(response => {
-    //   console.log(response)
-    //   this.families = response.data;
-    // })
-    // .catch(error => {
-    //     console.log(error + ' there was an error')
-    //   })
-      axios.post(`${process.env.VUE_APP_REMOTE_API}/api/addBook`, {
-      data:{
-        "title": `${this.book.title}`,
-        "author":`${this.book.author}`,
-        "isbn": `${this.book.isbn}`
-      }, 
+      axios.post(`${process.env.VUE_APP_REMOTE_API}/api/addBook`, this.book, {
       headers:{"Authorization" :  'Bearer ' + localStorage.getItem('Authorization')}
-      
       })
-    
     .then(response => {
       console.log(response)
-      
     })
     .catch(error => {
         console.log(error + ' there was an error')
