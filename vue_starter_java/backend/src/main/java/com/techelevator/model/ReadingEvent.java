@@ -7,6 +7,8 @@ import javax.validation.constraints.Min;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ReadingEvent {
 	
 	private long readingEventId;
@@ -14,18 +16,19 @@ public class ReadingEvent {
 	@NotBlank(message = "User is required")
 	private long userId;
 	
-	@NotBlank(message = "ISBN is required")
-	private int isbn;
+	@NotBlank(message = "Book ID is required")
+	private int bookId;
 	
 	@NotBlank(message = "Reading time is required")
 	@Min(value = 1, message = "Please enter valid time in minutes")
 	private int readingTime;
 	
-	@NotBlank(message = "Date is required")
-	@DateTimeFormat(pattern = "MM-dd-yyyy")
-	private LocalDate readingDate;
+//	@NotBlank(message = "Date is required")
+//	//@DateTimeFormat(pattern = "MM-dd-yyyy")
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")  
+//	private LocalDate readingDate;
 	
-	@NotBlank(message = "Formate is required")
+	@NotBlank(message = "Format is required")
 	private String format;
 	
 	private String notes;
@@ -46,12 +49,12 @@ public class ReadingEvent {
 		this.userId = userId;
 	}
 
-	public int getIsbn() {
-		return isbn;
+	public int getBookId() {
+		return bookId;
 	}
 
-	public void setIsbn(int isbn) {
-		this.isbn = isbn;
+	public void setBookId(int bookId) {
+		this.bookId = bookId;
 	}
 
 	public int getReadingTime() {
@@ -62,13 +65,13 @@ public class ReadingEvent {
 		this.readingTime = readingTime;
 	}
 
-	public LocalDate getReadingDate() {
-		return readingDate;
-	}
-
-	public void setReadingDate(LocalDate readingDate) {
-		this.readingDate = readingDate;
-	}
+//	public LocalDate getReadingDate() {
+//		return readingDate;
+//	}
+//
+//	public void setReadingDate(LocalDate readingDate) {
+//		this.readingDate = readingDate;
+//	}
 
 	public String getFormat() {
 		return format;
