@@ -57,6 +57,9 @@ public class ApiController {
     private PrizeDAO prizeDAO;
     
     
+    
+//    @Autowired PrizeDAO prizeDAO;
+    
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String authorizedOnly() throws UnauthorizedException {
         /*

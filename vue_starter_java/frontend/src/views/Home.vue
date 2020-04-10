@@ -4,10 +4,8 @@
     <p>You must be authenticated to see this</p>
     <books></books>
     <reading-event></reading-event>
-    <family></family>
-    
-
-            
+   
+    <family></family>  
 
   </div>
 
@@ -18,12 +16,15 @@
 import Family from '../components/Family';
 import ReadingEvent from '../components/ReadingEvent';
 import Books from '../components/Books';
+
+
 export default {
   name: 'home',
   components: {
     Family,
     ReadingEvent,
-    Books
+    Books,
+
   }
 }
 </script>
