@@ -1,12 +1,39 @@
 <template>
-<body>
+<body class="has-background-light">
   <div id="app">
     
     <header>
-       
-    <div id="nav">
+    <navbar class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+        <a class="navbar-item brand-text">BookWormz</a>
+          <a role="button" class="navbar-burger" data-target="navbar-menu" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+           
+          
+        </a>
+        </div>
+      </div>
+
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item"><router-link to="/">
+          Home 
+          </router-link></a>
+          
+          <a class="navbar-item"><router-link to="/login">
+          Login 
+          </router-link></a>
+
+          <a class="navbar-item" ><router-link to="/register">Register</router-link></a>
+          <a class="navbar-item" > <router-link v-on:click.native= "quitter" to="/login" >Logout </router-link></a>
+        </div>
+      </div> 
+    </navbar>
       
-      <ul class="nav_links">
+      <!-- <ul class="nav_links">
       <router-link to="/">Home </router-link>
       <router-link to="/login">Login </router-link>
       <router-link to="/register">Register</router-link>
@@ -14,7 +41,7 @@
       
       </ul>
 
-    </div>
+    </div> -->
     <router-view/>
     
     </header>
@@ -23,6 +50,8 @@
 </template>
 
 <script>
+import 'bulma/css/bulma.css'
+import Login from "./views/Login";
 import auth from './auth';
 export default {
   methods: {
@@ -37,20 +66,12 @@ export default {
 
 
 </script>
-
 <style>
-.nav_links {
-  box-sizing: border-box;
-  margin:0px;
-  padding: 0;
-  background-color:#85848a;
+.brand-text{
+  padding-left:3co0%;
 }
-.router_links{
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  color: #edf0f1;
-  text-decoration: none;
+.navbar-start > .navbar-item {
+  font-weight: 700;
 }
-
 </style>
+
