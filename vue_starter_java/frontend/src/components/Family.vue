@@ -10,6 +10,8 @@
     <a v-if="addChildForm" href="#" 
     v-on:click="hideForm">Hide Form 
     </a>
+
+    
     <span v-if="addChildForm">
       <label for="username">Username</label>
     <input
