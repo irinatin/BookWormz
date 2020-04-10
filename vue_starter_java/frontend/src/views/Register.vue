@@ -1,5 +1,11 @@
 <template>
-<body>
+<body class="has-background-info">
+  <div class="columns">
+      <div class="column is-half">
+        <h1>Welcome to BookWormz: A Family Reading Tracker</h1>
+        <p>We help make reading fun for the whole family.</p>
+      </div>
+      <div class="column">
   <div id="register" class="text-center">
     <form class="form-register" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
@@ -43,6 +49,8 @@
         Have an account?
       </router-link>
     </form>
+  </div>
+  </div>
   </div>
   </body>
 </template>
@@ -90,10 +98,14 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  font-size: 200%;
+}
 body {
-  margin: -10px;
-  padding: 400px 100px;
-  background: linear-gradient(to bottom, rgba(102, 255, 102, 0.7), rgba(0, 128, 0, 0.25));
+  /* margin: 0px; */
+  padding: 100px 100px;
+  padding-bottom: 400px;
+  /* background: linear-gradient(to bottom, rgba(102, 255, 102, 0.7), rgba(0, 128, 0, 0.25)); */
   background-size: cover;
   background-position: center;
   font-family: sans-serif;
@@ -101,17 +113,20 @@ body {
 }
 
 .form-register{
-  width: 320px;
-  height: 420px;
+  width: 70%;
+  height: auto;
   background: rgba(0, 0, 0, 0.55);
   color: #fff;
-  top: 50%;
-  left: 50%;
-  position: absolute;
-  transform: translate(-50%, -50%);
+  /* top: 50%;
+  left: 50%; */
+  
+  /* transform: translate(-50%, -50%); */
   box-sizing: border-box;
   box-shadow: 0px 0px 8px rgba(0,0,0,0.9);
-  padding: 70px 30px;
+  padding-left: 20%;
+  padding-top: 20%;
+  padding-right: 15%;
+  padding-bottom: 20%;
 }
 .form-control{
   margin: 10px;

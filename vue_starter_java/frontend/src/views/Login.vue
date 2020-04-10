@@ -39,7 +39,8 @@
               />
               <br>
               <button type="submit" class="sign-in-button">Sign in</button>
-              <router-link :to="{ name: 'register' }" class="need-account">Need an account?</router-link>
+              <br>
+             <span><router-link :to="{ name: 'register' }" class="need-account">Need an account?</router-link></span>
           </form>
     
         </div>
@@ -130,14 +131,17 @@ body {
   /* transform: translate(-50%, -50%); */
   box-sizing: border-box;
   box-shadow: 0px 0px 8px rgba(0,0,0,0.9);
-  padding: 70px 30px;
+  padding-left: 20%;
+  padding-top: 20%;
+  padding-right: 15%;
+  padding-bottom: 20%;
 }
-.sign-in-message{
+/* .sign-in-message{
   top: 10%;
   left: 50%;
   text-align: start;
 
-}
+} */
 /* .form-control{
   margin: 10px;
 }

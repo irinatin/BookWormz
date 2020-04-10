@@ -1,17 +1,53 @@
 <template>
   <div class="home">
-    <h1>Home</h1>
-    <p>You must be authenticated to see this</p>
-    <books></books>
-    <reading-event></reading-event>
-    <family></family>
-    
+    <div class="container">
+        <div class="columns">
+          <div class="column">
+            <h1>Title</h1>
+          </div>
+        </div>
+    </div>
 
-            
+    <div class="container">
+        <div class="columns">
+          <div class="column">
+             <family></family>
+          </div>
+          
+          <div class="column">
+            <p>Leaderboard</p>
+          </div>
 
-  </div>
+          <div class="column">
+            <p>Friends</p>
+          </div>
+        </div>    
+     </div>
 
+    <div class="container">
+        <div class="columns">
+          <div class="column">
+            <books></books>
+          </div>
+        </div>
+    </div>
 
+    <div class="container">
+        <div class="columns">
+          <div class="column">
+            <reading-event></reading-event>
+          </div>
+        </div>
+    </div>           
+  
+    <div class="container">
+        <div class="columns">
+          <div class="column">
+            <p>Prize</p>
+          </div>
+        </div>
+     </div>
+</div>
 </template>
 
 <script>
