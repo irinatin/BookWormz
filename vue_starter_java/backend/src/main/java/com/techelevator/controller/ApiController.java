@@ -58,6 +58,8 @@ public class ApiController {
     
     
     
+    @Autowired PrizeDAO prizeDAO;
+    
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String authorizedOnly() throws UnauthorizedException {
         /*
@@ -92,7 +94,7 @@ public class ApiController {
     @RequestMapping(path = "/getAllBooks", method = RequestMethod.GET)
     public List<Book> getAllBooks() {
     	return bookDAO.getAllBooks();
-    }
+    }f
     
     @RequestMapping(path = "/getUser", method = RequestMethod.GET)
     public List<User> getAllUsers() {
