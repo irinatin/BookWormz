@@ -45,11 +45,9 @@
 
 <script>
 import axios from "axios"
-import Datepicker from 'vuejs-datepicker';
 
 export default {
   components: {
-    Datepicker
   },
 
   props: {
@@ -66,10 +64,6 @@ export default {
       },
       books: [],
       users: [],
-<<<<<<< HEAD
-      readingEvent: 0,
-      format: []
-=======
       formats: [
         {
           id: 1,
@@ -96,7 +90,6 @@ export default {
           format: "Other"
         }
       ]
->>>>>>> 75194899e0d148a1ec59fcc28ce1bdd4df2b7aa3
     };
   },
 
@@ -134,10 +127,7 @@ export default {
     },
 
     addReadingEvent() {
-<<<<<<< HEAD
-=======
       console.log(this.readingEvent);
->>>>>>> 75194899e0d148a1ec59fcc28ce1bdd4df2b7aa3
       axios
         .post(
           `${process.env.VUE_APP_REMOTE_API}/api/addReadingEvent`,
@@ -160,9 +150,6 @@ export default {
   computed: {
     isValidForm() {
       return this.readingEvent > 0;
-<<<<<<< HEAD
-    }
-=======
     },
 
     selectDate() {
@@ -171,7 +158,6 @@ export default {
 
 
 
->>>>>>> 75194899e0d148a1ec59fcc28ce1bdd4df2b7aa3
   }
 };
 </script>

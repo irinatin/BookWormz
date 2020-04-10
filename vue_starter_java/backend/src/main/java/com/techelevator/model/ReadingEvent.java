@@ -32,6 +32,16 @@ public class ReadingEvent {
 	private String format;
 	
 	private String notes;
+	
+	private boolean completed;
+
+	public boolean isCompleted() {
+		return completed;
+	}
+
+	public void setCompleted(boolean completed) {
+		this.completed = completed;
+	}
 
 	public long getReadingEventId() {
 		return readingEventId;
