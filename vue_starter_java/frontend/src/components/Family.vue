@@ -86,7 +86,7 @@ export default {
         username: "",
         password: "",
         firstName: "",
-        lastName: "",
+        lastName: ""
       },
       family: {},
 

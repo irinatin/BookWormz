@@ -1,9 +1,11 @@
 <template>
   <div class="create_new_prize">
-      <h1 class="h3 mb-3 font-weight-normal">Create New Prize</h1>
-      <div class="alert alert-danger" role="alert" v-if="formErrors">
-          There were problems creating this prize.
-      </div>
+    <h1 class="h3 mb-3 font-weight-normal">Create New Prize</h1>
+    <div
+      class="alert alert-danger"
+      role="alert"
+      v-if="formErrors"
+    >There were problems creating this prize.</div>
 
     <form class="new_prize_form" @submit.prevent="createprize">
       <label for="prize_name">Prize Name</label>
@@ -103,49 +105,46 @@
   </div>
 </template>
 
-
-
 <script>
+export default {
+  data() {
+    return {
+      prizeinfo: {
+        prizeName: "",
+        prizeDescription: "",
+        prizeMilestone: "",
+        prizeUserGroup: "",
+        maxPrizes: "",
+        prizeStartDate: "",
+        prizeEndDate: ""
+      },
+      formErrors: false
+    };
+  },
 
-
-
-export default{
-    name: 'createprize',
-    data() {
-        return{
-            prizeinfo:{
-                prizeName: '',
-                prizeDescription: '',
-                prizeMilestone: '',
-                prizeUserGroup: '',
-                maxPrizes: '',
-                prizeStartDate: '',
-                prizeEndDate: ''
-            },
-            formErrors: false,
-        };
-    },
-    methods: {
-        addNewPrize() {
-            fetch(`${process.env.VUE_APP_REMOTE_API}/Prizes`, {
-                method: 'POST',
-                headers:{
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(this.prizeinfo),
-            })
-            .then((response) => {
-                if (response.ok) {
-                    this.$router.push({ path: '/prizes', query: { createprize: 'success' } });
-                    
-                } else {
-                    this.formErrors = true;
-                }
-            })
-            .then((err) => console.error(err));
+  methods: {
+    addNewPrize() {
+      fetch(`${process.env.VUE_APP_REMOTE_API}/Prizes`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
         },
-    },
+        body: JSON.stringify(this.prizeinfo)
+      })
+        .then(response => {
+          if (response.ok) {
+            this.$router.push({
+              path: "/prizes",
+              query: { createprize: "success" }
+            });
+          } else {
+            this.formErrors = true;
+          }
+        })
+        .then(err => console.error(err));
+    }
+  }
 };
 </script>
 
