@@ -66,8 +66,9 @@ export default {
 
 </script>
 <style>
+
 .brand-text{
-  padding-left:3co0%;
+  padding-left:30%;
 }
 .navbar-start > .navbar-item {
   font-weight: 700;
