@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface BookDAO {
 	
-	public boolean addNewBook(Book bookie);
+	public boolean addNewBook(Book bookie, long familyId);
 	
 	public List<Book> getAllBooksPerUser(long userId);
 	

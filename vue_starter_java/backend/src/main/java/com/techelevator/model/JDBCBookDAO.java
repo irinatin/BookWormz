@@ -36,10 +36,10 @@ public class JDBCBookDAO implements BookDAO{
 	}
 
 	@Override
-	public boolean addNewBook(Book bookie) {
+	public boolean addNewBook(Book bookie, long familyId) {
 		long bookId = getNextBookId();
 		String insertIntoBook = "INSERT INTO book VALUES (?, ?, ?, ?)";
-		jdbcTemplate.update(insertIntoBook, bookId, bookie.getIsbn(), bookie.getTitle(), bookie.getAuthor()); 
+		jdbcTemplate.update(insertIntoBook, bookId, bookie.getTitle(), bookie.getAuthor(), familyId); 
 		
 		return true;
 	}
@@ -148,7 +148,6 @@ public class JDBCBookDAO implements BookDAO{
 	private Book mapRowToBook(SqlRowSet results) {
 		Book bookie = new Book();
 		bookie.setId(results.getLong("book_id"));
-		bookie.setIsbn(results.getLong("isbn"));
 		bookie.setTitle(results.getString("title"));
 		bookie.setAuthor(results.getString("author"));
 		

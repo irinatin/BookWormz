@@ -6,8 +6,8 @@ public interface ReadingEventDAO {
 	
 	public List<ReadingEvent> getAllReadingEvents();
 	
-	public ReadingEvent addReadingEvent(ReadingEvent reads);
-	public ReadingEvent addChildReadingEvent(ReadingEvent reads);
+	public ReadingEvent addReadingEvent(ReadingEvent reads, boolean completed);
+	public ReadingEvent addChildReadingEvent(ReadingEvent reads, boolean completed);
 	
 	public List<ReadingEvent> getReadingEventsByUser(long userId);
 	
