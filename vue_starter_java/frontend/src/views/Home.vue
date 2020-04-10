@@ -43,7 +43,6 @@
     <div class="container">
         <div class="columns">
           <div class="column">
-            <p>Prize</p>
           </div>
         </div>
      </div>
