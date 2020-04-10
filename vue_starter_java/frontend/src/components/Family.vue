@@ -2,8 +2,8 @@
   <div>
     <div></div>
     <form class="form-register" @submit.prevent="registerChild">
-      <div>
-        Family
+      <div>{{family[0].familyName}}
+        
         <a v-if="!addChildForm" href="#" v-on:click="showForm">Add Child</a>
         <a v-if="addChildForm" href="#" v-on:click="hideForm">Hide Form</a>
       </div>
@@ -65,7 +65,7 @@
       <br />
     </form>
     <div v-if="!addChildForm">
-      <div v-for="user in family" v-bind:key="user">{{user.firstName}} {{user.lastName}}</div>
+      <div v-for="user in family" v-bind:key="user.firstName">{{user.firstName}} {{user.lastName}}</div>
     </div>
   </div>
 </template>
@@ -81,15 +81,16 @@ export default {
   },
   data() {
     return {
+      
       child: {
         username: "",
         password: "",
         firstName: "",
-        lastName: ""
+        lastName: "",
       },
       family: {},
 
-      addChildForm: false
+      addChildForm: false,
     };
   },
 
