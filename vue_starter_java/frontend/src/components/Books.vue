@@ -3,29 +3,34 @@
     <div class="header">
       <h2>Book Search</h2>
     </div>
+
     <div class="form">
       <div class="form-input">
         <span class="label">Enter Book ISBN:</span> <input type="text" v-model="book.isbn" placeholder="Enter ISBN Here">
       </div>
-      <button :disabled= "!isValidForm" v-on:click="searchBooks(10, 13)">Search</button>
+        <button :disabled= "!isValidForm" v-on:click="searchBooks(10, 13)">Search</button>
     </div>
+
     <br>
+
     <div>
       <span v-if= "showBook"><img v-bind:src="book.thumbnail"/>   isbn:  {{book.isbn}}  title:  {{book.title}} author: {{book.author}}</span>
     </div>
+
     <div>
       <p v-if= "showBook">To add this book to your personal library, click below:</p>
       <button v-if= "showBook" v-on:click= "addBookToLibrary">Add Book To Library</button><button v-if= "showBook" v-on:click= "clearSearch">New Search</button>
       <p v-if= "success">Book Added Successfully!</p>
     </div>
+
     <div class="form" v-if= "manualBook">
       <div class="form-input">
         <p>Your book could not be found. Please add it below:</p>
         <span class="label">Title:</span> <input type="text" v-model="book.title" placeholder="Enter Title Here">
         <span class="label">Author:</span> <input type="text" v-model="book.author" placeholder="Enter Author Here">
       </div>
-      <button v-on:click= "addBookToLibraryManually">Add Book</button><button v-on:click= "clearSearch">Cancel</button>
-      <p v-if= "success2">Book Added Successfully!</p>
+        <button v-on:click= "addBookToLibraryManually">Add Book</button><button v-on:click= "clearSearch">Cancel</button>
+        <p v-if= "success2">Book Added Successfully!</p>
     </div>
 
   </div>
@@ -50,7 +55,7 @@ export default {
         isbn: '',
         title: '',
         author: '',
-        thumbnail: '',
+        thumbnail: ''
       }
     }
   },
@@ -120,7 +125,7 @@ export default {
       })
   },
 
-  clearSearch(){
+    clearSearch(){
         this.book.isbn = '';
         this.book.title= '';
         this.book.author= '';
