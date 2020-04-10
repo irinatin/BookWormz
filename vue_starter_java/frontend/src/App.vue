@@ -51,7 +51,6 @@
 
 <script>
 import 'bulma/css/bulma.css'
-import Login from "./views/Login";
 import auth from './auth';
 export default {
   methods: {
@@ -67,8 +66,9 @@ export default {
 
 </script>
 <style>
+
 .brand-text{
-  padding-left:3co0%;
+  padding-left:30%;
 }
 .navbar-start > .navbar-item {
   font-weight: 700;
