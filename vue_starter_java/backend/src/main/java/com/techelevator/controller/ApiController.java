@@ -87,6 +87,9 @@ public class ApiController {
 	public List<UserInfo> getFamilyList(){
     	Long familyId = userInfoDAO.getFamilyId(authDAO.getCurrentUser().getId());
     	List<UserInfo> familyMembers = familyDAO.getAllFamilyMembers(familyId);
+    	for(UserInfo i : familyMembers) {
+    		i.setFamilyName(familyDAO.getFamilyNameById(i.getFamilyId()));
+    	}
 		return familyMembers;
 	}
     @RequestMapping(path = "/getAllBooks", method = RequestMethod.GET)
