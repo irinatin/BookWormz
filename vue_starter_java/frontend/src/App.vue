@@ -51,7 +51,6 @@
 
 <script>
 import 'bulma/css/bulma.css'
-import Login from "./views/Login";
 import auth from './auth';
 export default {
   methods: {
