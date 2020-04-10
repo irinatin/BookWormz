@@ -3,6 +3,7 @@
     <h1>Home</h1>
     <p>You must be authenticated to see this</p>
     <books></books>
+    <family></family>
     
 
             
@@ -13,11 +14,13 @@
 </template>
 
 <script>
+import Family from '../components/Family';
 import ReadingEvent from '../components/ReadingEvent';
 import Books from '../components/Books';
 export default {
   name: 'home',
   components: {
+    Family,
     ReadingEvent,
     Books
   }

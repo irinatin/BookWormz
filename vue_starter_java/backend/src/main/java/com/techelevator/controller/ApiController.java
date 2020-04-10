@@ -1,5 +1,7 @@
 package com.techelevator.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,8 +13,15 @@ import com.techelevator.authentication.AuthProvider;
 import com.techelevator.authentication.UnauthorizedException;
 import com.techelevator.model.Book;
 import com.techelevator.model.BookDAO;
+import com.techelevator.model.FamilyDAO;
+import com.techelevator.model.Prize;
+import com.techelevator.model.PrizeDAO;
 import com.techelevator.model.ReadingEvent;
 import com.techelevator.model.ReadingEventDAO;
+import com.techelevator.model.User;
+import com.techelevator.model.UserDao;
+import com.techelevator.model.UserInfo;
+import com.techelevator.model.UserInfoDao;
 
 /**
  * ApiController
@@ -28,7 +37,23 @@ public class ApiController {
     @Autowired
     private BookDAO bookDAO;
     
-    @Autowired ReadingEventDAO reDAO;
+    @Autowired 
+    private ReadingEventDAO reDAO;
+    
+    @Autowired
+	private AuthProvider auth;
+    
+    @Autowired
+	private UserInfoDao user;
+    
+    @Autowired
+   	private FamilyDAO family;
+    
+    @Autowired
+    private UserDao userDAO;
+    
+    @Autowired 
+    private PrizeDAO prizeDAO;
     
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String authorizedOnly() throws UnauthorizedException {
@@ -53,6 +78,28 @@ public class ApiController {
     @RequestMapping(path = "/addReadingEvent", method = RequestMethod.POST)
     public ReadingEvent addReadingEvent(@RequestBody ReadingEvent reads) {
     	return reDAO.addReadingEvent(reads);
+    }
+    
+    @RequestMapping(path = "/getFamilyList", method = RequestMethod.GET)
+	public List<UserInfo> getFamilyList(){
+    	Long familyId = user.getFamilyId(auth.getCurrentUser().getId());
+    	List<UserInfo> familyMembers = family.getAllFamilyMembers(familyId);
+		return familyMembers;
+	}
+    @RequestMapping(path = "/getAllBooks", method = RequestMethod.GET)
+    public List<Book> getAllBooks() {
+    	return bookDAO.getAllBooks();
+    }
+    
+    @RequestMapping(path = "/getUser", method = RequestMethod.GET)
+    public List<User> getAllUsers() {
+    	return userDAO.getAllUsers();
+    }
+    
+    @RequestMapping(path = "/addPrize", method = RequestMethod.POST)
+    public boolean addPrize(@RequestBody Prize newPrize) {
+    	return prizeDAO.createNewPrize(newPrize);
+
     }
     
 }

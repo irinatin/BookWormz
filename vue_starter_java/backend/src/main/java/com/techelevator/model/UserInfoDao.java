@@ -2,8 +2,11 @@ package com.techelevator.model;
 
 public interface UserInfoDao {
 	
-	public UserInfo saveUserInfo(String firstName, String lastName, String familyName, String username);
+	public boolean saveUserInfo(UserInfo info, Long familyId, Long userId);
 	
 	public Long getUserId (String userName);
+	
+	public Long getFamilyId(Long userId);
+	
 
 }
