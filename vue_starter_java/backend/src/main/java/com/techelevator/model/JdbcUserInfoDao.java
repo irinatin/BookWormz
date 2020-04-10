@@ -29,14 +29,26 @@ public class JdbcUserInfoDao implements UserInfoDao{
 	}
 
 	@Override
-	public boolean saveUserInfo(UserInfo info, Long familyId, Long userId) {
+	public boolean saveUserInfo(String firstName, String lastName, Long familyId, Long userId) {
 		
 		String sqlSaveUserInfo = "INSERT INTO user_info VALUES (DEFAULT, ?, ?, ?, ?)";
-		jdbcTemplate.update(sqlSaveUserInfo, userId, info.getFirstName(), info.getLastName(), familyId);
+		jdbcTemplate.update(sqlSaveUserInfo, userId, firstName, lastName, familyId);
 		
 		return true;
 		
 	}
+
+	@Override
+	public Long getFamilyId(Long userId) {
+		
+		String sqlGetFamilyId = "SELECT family_id FROM user_info WHERE user_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetFamilyId, userId);
+		
+		results.next();
+		Long familyId = results.getLong(1);
+		return familyId;
+	}
+	
 	
 	
 

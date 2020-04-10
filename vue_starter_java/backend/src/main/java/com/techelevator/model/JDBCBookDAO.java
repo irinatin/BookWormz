@@ -20,6 +20,20 @@ public class JDBCBookDAO implements BookDAO{
 	public JDBCBookDAO(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
+	
+	@Override
+	public List<Book> getAllBooks() {
+		List<Book> getAllBooks = new ArrayList<Book>();
+		String getBooks = "SELECT * FROM book";
+		Book bookie = new Book();
+		SqlRowSet results = jdbcTemplate.queryForRowSet(getBooks);
+		while(results.next()) {
+			bookie = mapRowToBook(results);
+			getAllBooks.add(bookie);
+		}
+		
+		return getAllBooks;
+	}
 
 	@Override
 	public boolean addNewBook(Book bookie) {
@@ -141,6 +155,8 @@ public class JDBCBookDAO implements BookDAO{
 		
 		return bookie;
 	}
+
+	
 	
 	
 
