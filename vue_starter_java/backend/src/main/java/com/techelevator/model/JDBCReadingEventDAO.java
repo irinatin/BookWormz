@@ -27,15 +27,15 @@ public class JDBCReadingEventDAO implements ReadingEventDAO {
 	}
 
 	@Override
-	public ReadingEvent addReadingEvent(ReadingEvent reads) {
+	public ReadingEvent addReadingEvent(ReadingEvent reads, boolean completed) {
 		reads.setReadingEventId(getReadingEventId());
-		String sqlSaveReadingEvent = "INSERT INTO user_book VALUES (?, ?, ?, ?, ?, ?)";
-		jdbcTemplate.update(sqlSaveReadingEvent, reads.getReadingEventId(), reads.getUserId(), reads.getBookId(), reads.getReadingTime(), LocalDate.parse(reads.getReadingDate()), reads.getFormat());
+		String sqlSaveReadingEvent = "INSERT INTO user_book VALUES (?, ?, ?, ?, ?, ?, ?)";
+		jdbcTemplate.update(sqlSaveReadingEvent, reads.getReadingEventId(), reads.getUserId(), reads.getBookId(), reads.getReadingTime(), LocalDate.parse(reads.getReadingDate()), reads.getFormat(), completed);
 		return reads;
 	}
 
 	@Override
-	public ReadingEvent addChildReadingEvent(ReadingEvent reads) {
+	public ReadingEvent addChildReadingEvent(ReadingEvent reads, boolean completed) {
 		// TODO Auto-generated method stub
 		return null;
 	}
