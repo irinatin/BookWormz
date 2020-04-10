@@ -1,10 +1,76 @@
 <template>
-  <body>
-      <h1> Family </h1>
-        <div v-for="user in family" :key="user.firstName"></div>   
-        <div>{{family[0].firstName}}</div> 
+  <div>
+    <div>
+      <h2> Family </h2>   
+    </div>
+    <form class="form-register" @submit.prevent="registerChild">
+    <a v-if="!addChildForm" href="#" 
+    v-on:click="showForm"> Add Child to Family
+    </a>
+    <a v-if="addChildForm" href="#" 
+    v-on:click="hideForm">Hide Form 
+    </a>
+    <span v-if="addChildForm">
+      <label for="username">Username</label>
+    <input
+      type="text"
+      id="username"
+      class="form-control"
+      placeholder="Username"
+      v-model="child.username"
+      required
+      autofocus
+      />
+      </span>
 
-  </body>    
+      <span v-if="addChildForm">
+      <label for="password">Password</label>
+    <input
+      type="text"
+      id="password"
+      class="form-control"
+      placeholder="Password"
+      v-model="child.password"
+      required
+      autofocus
+      />
+      </span>
+
+      <span v-if="addChildForm">
+      <label for="firstName">First Name</label>
+    <input
+      type="text"
+      id="firstName"
+      class="form-control"
+      placeholder="First Name"
+      v-model="child.firstName"
+      required
+      autofocus
+      />
+      </span>
+
+      <span v-if="addChildForm">
+      <label for="lastName">Last Name</label>
+    <input
+      type="text"
+      id="lastName"
+      class="form-control"
+      placeholder="Last Name"
+      v-model="child.lastName"
+      required
+      autofocus
+      />
+      </span>
+
+      <br>
+      <button v-if="addChildForm" class="create-account-button" type="submit">
+        Submit Child Info
+      </button>
+      <br>
+      </form>
+         <div v-for="user in family" v-bind:key="user">{{user.firstName}} {{user.lastName}}</div>
+
+    </div>    
 </template>
 
 
@@ -19,11 +85,38 @@ export default {
   },
   data() {
     return {
-      family:[],
+      child: {
+        username: '',
+        password: '',
+        firstName: '',
+        lastName: ''
+      },
+      family:{
+      },
+
+      addChildForm : false
       }
   },
 
   methods: {
+    showForm(){
+      this.addChildForm = true;
+    },
+    hideForm(){
+      this.addChildForm = false;
+    },
+    registerChild(){
+      axios.post(`${process.env.VUE_APP_REMOTE_API}/api/addChild`, this.child, {
+      headers:{"Authorization" :  'Bearer ' + localStorage.getItem('Authorization')}})
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        this.registrationErrors = true;
+        console.log(err);
+      })
+    }
+
 
   },
   created(){
