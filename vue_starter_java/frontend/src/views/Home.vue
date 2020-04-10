@@ -54,12 +54,15 @@
 import Family from '../components/Family';
 import ReadingEvent from '../components/ReadingEvent';
 import Books from '../components/Books';
+
+
 export default {
   name: 'home',
   components: {
     Family,
     ReadingEvent,
-    Books
+    Books,
+
   }
 }
 </script>
