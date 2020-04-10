@@ -4,30 +4,39 @@
       <h2>Reading Event</h2>
     </div>
 
-    <select v-on:click="getBooks" id="books">
-      <option v-for="book in books" v-bind:key="book.id" value="book.id">{{book.title}}</option>
+    <select v-on:click="getBooks" id="books" v-model="readingEvent.bookId">
+      <option v-for="book in books" v-bind:key="book.id" :value="book.id">{{book.title}}</option>
     </select>
 
-    <select v-on:click="selectUser" id="users">
-      <option v-for="user in users" v-bind:key="user.id" value="user.id">{{user.username}}</option>
+    <select v-on:click="selectUser" id="users" v-model="readingEvent.userId">
+      <option v-for="user in users" v-bind:key="user.id" :value="user.id">{{user.username}}</option>
     </select>
 
      <div class="form">
       <div class="form-input">
         <span class="label">Enter Reading Time:</span>
-        <input type="text" placeholder="In Minutes" />
-        <div>
-          <button v-on:click="addReadingEvent">Submit</button>
-        </div>
+        <input type="number" placeholder="In Minutes" v-model="readingEvent.readingTime"/>
+        
       </div>
     </div>
 
-    <select id="format">
-      <option v-for="format in formats" v-bind:key="format.id" value="format.id">{{format.format}}</option>
+    <div class="form">
+      <div class="form-input">
+        <span class="label">Enter Reading Date:</span>
+        <input type="text" placeholder="YYYY/MM/dd" v-model="readingEvent.readingDate"/>
+      </div>
+    </div>
+
+    <select id="format" v-model="readingEvent.format">
+      <option v-for="format in formats" v-bind:key="format.id">{{format.format}}</option>
     </select> 
 
+    <div>
+          <button v-on:click="addReadingEvent">Submit</button>
+    </div>    
 
-    <datepicker></datepicker>
+
+    <!-- <datepicker v-model="readingEvent.readingDate"></datepicker> -->
 
 
   </div>
@@ -48,10 +57,15 @@ export default {
   },
   data() {
     return {
+      readingEvent: {
+          userId: '',
+          bookId: '',
+          readingTime: 0,
+          readingDate: '',
+          format: ''
+      },
       books: [],
       users: [],
-      readingEvent: 0,
-      date: new Date(2020, 4, 4),
       formats: [
         {
           id: 1,
@@ -115,6 +129,7 @@ export default {
     },
 
     addReadingEvent() {
+      console.log(this.readingEvent);
       axios
         .post(
           `${process.env.VUE_APP_REMOTE_API}/api/addReadingEvent`,
