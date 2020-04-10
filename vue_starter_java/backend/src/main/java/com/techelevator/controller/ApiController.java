@@ -94,7 +94,7 @@ public class ApiController {
     @RequestMapping(path = "/getAllBooks", method = RequestMethod.GET)
     public List<Book> getAllBooks() {
     	return bookDAO.getAllBooks();
-    }f
+    }
     
     @RequestMapping(path = "/getUser", method = RequestMethod.GET)
     public List<User> getAllUsers() {
