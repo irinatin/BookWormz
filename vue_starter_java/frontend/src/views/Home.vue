@@ -15,7 +15,7 @@
           </div>
           
           <div class="column">
-            <p>Leaderboard</p>
+            <leaderboard></leaderboard>
           </div>
 
           <div class="column">
@@ -56,6 +56,7 @@ import Family from '../components/Family';
 import ReadingEvent from '../components/ReadingEvent';
 import Books from '../components/Books';
 import Prizes from '../components/Prizes';
+import Leaderboard from '../components/Leaderboard';
 
 export default {
   name: 'home',
@@ -64,6 +65,7 @@ export default {
     ReadingEvent,
     Books,
     Prizes,
+    Leaderboard,
   }
 }
 </script>

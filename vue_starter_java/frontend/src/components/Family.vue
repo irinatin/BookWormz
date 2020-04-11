@@ -1,11 +1,14 @@
 <template>
   <div>
-    <div></div>
     <form class="form-register" @submit.prevent="registerChild">
-      <div>{{family[0].familyName}}
-        
-        <a v-if="!addChildForm" href="#" v-on:click="showForm">Add Child</a>
-        <a v-if="addChildForm" href="#" v-on:click="hideForm">Hide Form</a>
+      <div>
+        {{family[0].familyName}} Family Members
+        <a
+          v-if="!addChildForm && isParent"
+          href="#"
+          v-on:click="showForm"
+        >Add Child</a>
+        <a v-if="addChildForm && isParent" href="#" v-on:click="hideForm">Hide Form</a>
       </div>
 
       <span v-if="addChildForm">
@@ -64,7 +67,7 @@
       <button v-if="addChildForm" class="create-account-button" type="submit">Submit Child Info</button>
       <br />
     </form>
-    <div v-if="!addChildForm">
+    <div>
       <div v-for="user in family" v-bind:key="user.firstName">{{user.firstName}} {{user.lastName}}</div>
     </div>
   </div>
@@ -81,7 +84,6 @@ export default {
   },
   data() {
     return {
-      
       child: {
         username: "",
         password: "",
@@ -89,8 +91,17 @@ export default {
         lastName: ""
       },
       family: {},
+      currentUser: {
+        userId: "",
+        userName: "",
+        password: "",
+        confirmPassword: "",
+        passwordMatching: "",
+        role: ""
+      },
+      isParent: false,
 
-      addChildForm: false,
+      addChildForm: false
     };
   },
 
@@ -110,6 +121,19 @@ export default {
         })
         .then(response => {
           console.log(response);
+          this.addChildForm = false;
+          axios
+            .get(`${process.env.VUE_APP_REMOTE_API}/api/getFamilyList`, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("Authorization")
+              }
+            })
+            .then(response => {
+              this.family = response.data;
+            })
+            .catch(error => {
+              console.log(error + " there was an error");
+            });
         })
         .catch(err => {
           this.registrationErrors = true;
@@ -126,7 +150,22 @@ export default {
       })
       .then(response => {
         this.family = response.data;
-        console.log(this.family);
+      })
+      .catch(error => {
+        console.log(error + " there was an error");
+      });
+
+    axios
+      .get(`${process.env.VUE_APP_REMOTE_API}/api/getCurrentUser`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Authorization")
+        }
+      })
+      .then(response => {
+        this.currentUser = response.data;
+        if (this.currentUser.role === "user") {
+          this.isParent = true;
+        }
       })
       .catch(error => {
         console.log(error + " there was an error");
