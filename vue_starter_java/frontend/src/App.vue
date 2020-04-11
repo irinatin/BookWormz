@@ -67,6 +67,8 @@ export default {
 </script>
 <style>
 .product-img {
+  width: auto;
+  height: auto;
 
 }
 .brand-text{

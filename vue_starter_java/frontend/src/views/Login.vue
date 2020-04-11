@@ -1,7 +1,7 @@
 <template>
   <body class="has-background-primary">
     <div class="columns">
-      <div class="column is-half">
+      <div class="column is-half has-text-centered">
         <h1>Welcome to BookWormz:</h1>
         <h1>A Family Reading Tracker</h1>
         <p>We help make reading fun for the whole family.</p>
