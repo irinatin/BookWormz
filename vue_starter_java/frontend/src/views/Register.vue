@@ -2,8 +2,10 @@
 <body class="has-background-info">
   <div class="columns">
     <div class="column is-half">
-      <h1>Welcome to BookWormz: A Family Reading Tracker</h1>
+      <h1>Welcome to BookWormz:</h1>
+      <h1>A Family Reading Tracker</h1>
       <p>We help make reading fun for the whole family.</p>
+      <img src="./assets/BookWorm.jpg" alt="BookWormz Photo" class="product-image" />
     </div>
     <div class="column">
       <div id="register" class="text-center">
@@ -47,18 +49,6 @@
 
           <router-link :to="{ name: 'login' }" class="have-an-account">Have an account?</router-link>
         </form>
-      <div class="column is-half">
-        <h1>Welcome to BookWormz:</h1>
-        <h1>A Family Reading Tracker</h1>
-        <p>We help make reading fun for the whole family.</p>
-        <img src="./assets/BookWorm.jpg" alt="BookWormz Photo" class="product-image">
-      </div>
-      <div class="column">
-  <div id="register" class="text-center">
-    <form class="form-register" @submit.prevent="register">
-      <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
-      <div class="alert alert-danger" role="alert" v-if="registrationErrors">
-        There were problems registering this user.
       </div>
     </div>
   </div>
@@ -91,11 +81,15 @@ export default {
       })
         .then(response => {
           if (response.ok) {
+            console.log("OK");
             this.$router.push({ path: "/userinfo" });
           } else {
+            console.log("else fired");
+            console.log(response.text());
             this.registrationErrors = true;
           }
         })
+
         .then(err => console.error(err));
     }
   }
@@ -107,10 +101,10 @@ h1 {
   font-size: 200%;
 }
 body {
-  /* margin: 0px; */
-  padding: 100px 100px;
-  padding-bottom: 400px;
-  /* background: linear-gradient(to bottom, rgba(102, 255, 102, 0.7), rgba(0, 128, 0, 0.25)); */
+  /* margin: 0px; /
+padding: 100px 100px;
+padding-bottom: 400px;
+/ background: linear-gradient(to bottom, rgba(102, 255, 102, 0.7), rgba(0, 128, 0, 0.25)); */
   background-size: cover;
   background-position: center;
   font-family: sans-serif;
@@ -123,7 +117,7 @@ body {
   background: rgba(0, 0, 0, 0.55);
   color: #fff;
   /* top: 50%;
-  left: 50%; */
+left: 50%; */
 
   /* transform: translate(-50%, -50%); */
   box-sizing: border-box;

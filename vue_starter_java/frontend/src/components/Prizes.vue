@@ -107,7 +107,11 @@
   </div>
   
 
-  <div class="prizeList" v-for="prize in prizeList" v-bind:key="prize.prizeName">{{prize.prizeName}}</div>
+  <div class="prizeList" v-for="prize in prizeList" v-bind:key="prize.prizeName">
+    Name: {{prize.prizeName}}
+    Reading Time: {{prize.readingTime}}
+    Milestone: {{prize.milestone}}
+    </div>
 
 </div>
 </template>
@@ -168,8 +172,7 @@ created() {
     })
     .then(response => {
         this.prizeList = response.data;
-        console.log(this.prizeList)
-        console.log("this work?");
+        console.log(this.prizeList);
     })
     .catch(error => {
         console.log(error + " there was an error");

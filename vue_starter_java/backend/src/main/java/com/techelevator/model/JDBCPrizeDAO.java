@@ -89,7 +89,7 @@ public class JDBCPrizeDAO implements PrizeDAO {
 		List<PrizeListInfo> dummyPrizeInfo = new ArrayList<PrizeListInfo>();
 		String getAllPrizes = "SELECT prize.prize_name, prize.milestone, prize.user_group FROM prize WHERE prize.user_group = ?";
 		SqlRowSet nextPrizeResult = jdbcTemplate.queryForRowSet(getAllPrizes, role);
-		String readingTime = "SELECT SUM(user_book.reading_time) " + "FROM user_book " + "WHERE user_id = ?";
+		String readingTime = "SELECT SUM(user_book.reading_time) AS totaltime FROM user_book WHERE user_id = ?";
 		SqlRowSet readingTimeResult = jdbcTemplate.queryForRowSet(readingTime, userId);
 		while(nextPrizeResult.next()) {
 			PrizeListInfo prize = new PrizeListInfo();
@@ -98,8 +98,11 @@ public class JDBCPrizeDAO implements PrizeDAO {
 			prize.setUserGroup(nextPrizeResult.getString("user_group"));
 			dummyPrizeInfo.add(prize);
 		}
-		for(int i = 0; i < dummyPrizeInfo.size(); i++) {
-			dummyPrizeInfo.get(i).setReadingTime(readingTimeResult.getInt("sum"));
+		int i = 0;
+		while(readingTimeResult.next()) {
+			int totalReadingTime = readingTimeResult.getInt("totaltime");
+			dummyPrizeInfo.get(i).setReadingTime(totalReadingTime);
+			i++;
 		}
 		return dummyPrizeInfo;
 	}
