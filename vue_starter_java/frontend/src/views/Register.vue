@@ -2,8 +2,10 @@
 <body class="has-background-info">
   <div class="columns">
       <div class="column is-half">
-        <h1>Welcome to BookWormz: A Family Reading Tracker</h1>
+        <h1>Welcome to BookWormz:</h1>
+        <h1>A Family Reading Tracker</h1>
         <p>We help make reading fun for the whole family.</p>
+        <img src="./assets/BookWorm.jpg" alt="BookWormz Photo" class="product-image">
       </div>
       <div class="column">
   <div id="register" class="text-center">
@@ -140,5 +142,11 @@ body {
 }
 #confirm-password{
   left: 50%;
+}
+.product-image {
+  width: 50%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

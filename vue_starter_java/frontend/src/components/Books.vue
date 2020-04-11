@@ -6,7 +6,7 @@
 
     <div class="form">
       <div class="form-input">
-        <span class="label">Enter Book ISBN:</span> <input type="text" v-model="book.isbn" placeholder="Enter ISBN Here">
+        <span class="label">Enter Book ISBN:</span> <input type="text" v-model= "book.isbn" placeholder="Enter ISBN Here">
       </div>
         <button :disabled= "!isValidForm" v-on:click="searchBooks(10, 13)">Search</button>
     </div>
@@ -19,7 +19,7 @@
 
     <div>
       <p v-if= "showBook">To add this book to your personal library, click below:</p>
-      <button v-if= "showBook" v-on:click= "addBookToLibrary">Add Book To Library</button><button v-if= "showBook" v-on:click= "clearSearch">New Search</button>
+      <button v-if= "showBook" v-on:click= "addBookToLibrary">Add Book To Library</button>
       <p v-if= "success">Book Added Successfully!</p>
     </div>
 
@@ -63,7 +63,7 @@ export default {
     
     searchBooks(minlength, maxlength) {
       
-      
+      this.success = false;
       let mnlen = minlength;
       let mxlen = maxlength;
 
@@ -73,26 +73,28 @@ export default {
       return false;
       }
       else
-      { 
-      axios.get('https://openlibrary.org/api/books?format=json&jscmd=data&bibkeys=ISBN:' + this.book.isbn)
+      {  
+                axios.get('https://openlibrary.org/api/books?format=json&jscmd=data&bibkeys=ISBN:' + this.book.isbn)
 
-      .then(response => {
-        
-        console.log(response.data);
-      
-        //this.book.title = response.data['ISBN:1847246923'].title; THIS WORKS!!!
-        let tempIsbn = this.book.isbn;
-        
-        this.book.title = response.data['ISBN:'+ tempIsbn].title;
-        this.book.author = response.data['ISBN:' + tempIsbn].authors[0].name;
-        this.book.thumbnail = response.data['ISBN:' + tempIsbn].cover.small;
-        this.showBook = true;
-      
+                .then(response => {
+                  
+                  console.log(response.data);
+                
+                  //this.book.title = response.data['ISBN:1847246923'].title; THIS WORKS!!!
+                  let tempIsbn = this.book.isbn;
+                  
+                  this.book.title = response.data['ISBN:'+ tempIsbn].title;
+                  this.book.author = response.data['ISBN:' + tempIsbn].authors[0].name;
+                  this.book.thumbnail = response.data['ISBN:' + tempIsbn].cover.small;
+                  this.showBook = true;
+                  // this.book.isbn = ' ';
+                
         
       })
       .catch(error => {
         console.log(error + ' there was an error')
         this.manualBook = true;
+        this.showBook = false;
       })
     }
     },
@@ -104,7 +106,9 @@ export default {
       })
     .then(response => {
       console.log(response)
-      this.success2 = true;
+      this.success = true;
+      this.manualBook = false;
+      
 
     })
     .catch(error => {
@@ -119,6 +123,7 @@ export default {
     .then(response => {
       console.log(response)
       this.success = true;
+      this.showBook = false;
       
     })
     .catch(error => {
