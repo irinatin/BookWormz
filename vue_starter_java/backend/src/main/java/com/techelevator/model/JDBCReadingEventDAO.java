@@ -1,6 +1,7 @@
 package com.techelevator.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -42,10 +43,26 @@ public class JDBCReadingEventDAO implements ReadingEventDAO {
 
 	@Override
 	public List<ReadingEvent> getReadingEventsByUser(long userId) {
+		List<ReadingEvent> booksByUser = new ArrayList<ReadingEvent>();
+		String sqlGetBooksByUser = "SELECT title FROM book JOIN user_book ON user_book.book_id = 	book.book_id WHERE user_book.user_id = ? ";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetBooksByUser);
+		ReadingEvent bookie = new ReadingEvent();
+		while(results.next()) {
+			bookie = mapRowToBook(results);
+			booksByUser.add(bookie);
+		}
 		// TODO Auto-generated method stub
-		return null;
+		return booksByUser;
 	}
 	
+	
+	private ReadingEvent mapRowToBook(SqlRowSet results) {
+		ReadingEvent bookie = new ReadingEvent();
+		bookie.setBookTitle(results.getString("title"));
+		return bookie;
+	}
+
 	private long getReadingEventId() {
 		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('user_book_reading_event_id_seq')");
 		if (nextIdResult.next()) {

@@ -48,6 +48,14 @@
           </div>
         </div>
      </div>
+
+     <div class="container">
+        <div class="columns">
+          <div class="column">
+            <reading-activity></reading-activity>
+          </div>
+        </div>
+    </div> 
 </div>
 </template>
 
@@ -56,6 +64,7 @@ import Family from '../components/Family';
 import ReadingEvent from '../components/ReadingEvent';
 import Books from '../components/Books';
 import Prizes from '../components/Prizes';
+import ReadingActivity from '../components/ReadingActivity';
 
 export default {
   name: 'home',
@@ -64,6 +73,7 @@ export default {
     ReadingEvent,
     Books,
     Prizes,
+    ReadingActivity,
   }
 }
 </script>
