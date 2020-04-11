@@ -1,7 +1,7 @@
 <template>
 <body class="has-background-info">
   <div class="columns">
-    <div class="column is-half text-is-centered">
+    <div class="column is-half has-text-centered">
       <h1>Welcome to BookWormz:</h1>
       <h1>A Family Reading Tracker</h1>
       <p>We help make reading fun for the whole family.</p>
@@ -101,10 +101,8 @@ h1 {
   font-size: 200%;
 }
 body {
-  /* margin: 0px; /
 padding: 100px 100px;
 padding-bottom: 400px;
-/ background: linear-gradient(to bottom, rgba(102, 255, 102, 0.7), rgba(0, 128, 0, 0.25)); */
   background-size: cover;
   background-position: center;
   font-family: sans-serif;
