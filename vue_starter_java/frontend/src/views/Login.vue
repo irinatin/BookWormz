@@ -5,6 +5,7 @@
         <h1>Welcome to BookWormz:</h1>
         <h1>A Family Reading Tracker</h1>
         <p>We help make reading fun for the whole family.</p>
+        <img src="./assets/BookWorm.jpg" alt="BookWormz Photo" class="product-image">
       </div>
       <div class="column">
        <div id="login" class="text-center">
@@ -136,6 +137,13 @@ body {
   padding-top: 20%;
   padding-right: 15%;
   padding-bottom: 20%;
+}
+
+.product-image {
+  width: 50%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 /* .sign-in-message{
   top: 10%;
