@@ -56,7 +56,7 @@ CREATE TABLE friends (
 
 CREATE TABLE book (
   book_id serial NOT NULL,
-  title varchar(100) NOT NULL,
+  title varchar(100) NOT NULL UNIQUE,
   author varchar(100) NOT NULL,
   family_id int NOT NULL, 
 

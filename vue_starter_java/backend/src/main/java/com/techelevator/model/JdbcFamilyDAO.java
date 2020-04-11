@@ -109,4 +109,27 @@ public class JdbcFamilyDAO implements FamilyDAO {
 		
 		return family;
 	}
+
+	@Override
+	public List<Leaderboard> getFamilyLeaderboard(Long familyId) {
+		List<Leaderboard> familyLeaderboard = new ArrayList<Leaderboard>();
+		
+		String sqlGetLeaderboard = "SELECT users.username, SUM(user_book.reading_time) AS totalmins " + 
+				"FROM users " + 
+				"JOIN user_book ON user_book.user_id = users.id " + 
+				"JOIN user_info ON user_info.user_id = users.id " + 
+				"WHERE user_info.family_id = ? " + 
+				"GROUP BY username"; 
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetLeaderboard, familyId);
+		
+		while(results.next()) {
+			Leaderboard leaderboard = new Leaderboard();
+			leaderboard.setUserName(results.getString("username"));
+			leaderboard.setTotalReading(results.getInt("totalmins"));
+			familyLeaderboard.add(leaderboard);
+		}
+		return familyLeaderboard;
+	}
+	
+	
 }
