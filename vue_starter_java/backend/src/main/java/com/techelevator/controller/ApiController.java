@@ -34,9 +34,6 @@ import com.techelevator.model.UserInfoDao;
 public class ApiController {
 
     @Autowired
-    private AuthProvider authProviderDAO;
-    
-    @Autowired
     private BookDAO bookDAO;
     
     @Autowired 
@@ -71,7 +68,7 @@ public class ApiController {
         In this example, if the user does not have the admin role
         we send back an unauthorized error.
         */
-        if (!authProviderDAO.userHasRole(new String[] { "admin" })) {
+        if (!authDAO.userHasRole(new String[] { "admin" })) {
             throw new UnauthorizedException();
         }
         return "Success";
