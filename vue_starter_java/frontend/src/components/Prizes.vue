@@ -107,7 +107,11 @@
   </div>
   
 
-  <div class="prizeList" v-for="prize in prizeList" v-bind:key="prize.prizeName">{{prize.prizeName}}</div>
+  <div class="prizeList" v-for="prize in prizeList" v-bind:key="prize.prizeName">
+    Name: {{prize.prizeName}}
+    Reading Time: {{prize.readingTime}}
+    Milestone: {{prize.milestone}}
+    </div>
 
 </div>
 </template>
@@ -164,6 +168,7 @@ created() {
         headers: {
             Authorization: "Bearer " + localStorage.getItem("Authorization")
         }
+        
     })
     .then(response => {
         this.prizeList = response.data;

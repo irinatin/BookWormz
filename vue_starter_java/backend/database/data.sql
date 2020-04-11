@@ -3,75 +3,57 @@
 -- *****************************************************************************
 
 BEGIN;
-/*
--- INSERT statements go here
+
 INSERT INTO family
-VALUES (DEFAULT, 'Quigley'),
-(DEFAULT, 'Zilla'),
-(DEFAULT, 'Hartmann'),
-(DEFAULT, 'Tin'),
-(DEFAULT, 'Myers');
+VALUES (DEFAULT, 'Test Family 1'),
+(DEFAULT, 'Test Family 2');
 
 
-INSERT INTO app_user
-VALUES (DEFAULT, 'Quigleyr', 'password1', 'Parent', 'salt', 'Ryan', 'Quigley', (SELECT family_id FROM family WHERE family_name = 'Quigley')),
-(DEFAULT, 'Quigleyc', 'password1', 'Child', 'salt', 'Charlotte', 'Quigley', (SELECT family_id FROM family WHERE family_name = 'Quigley')),
-(DEFAULT, 'Zillaj', 'password1', 'Parent', 'salt', 'Joe', 'Zilla', (SELECT family_id FROM family WHERE family_name = 'Zilla')),
-(DEFAULT, 'Zillae', 'password1', 'Child', 'salt', 'Elodie', 'Zilla', (SELECT family_id FROM family WHERE family_name = 'Zilla')),
-(DEFAULT, 'Hartmannl', 'password1', 'Parent', 'salt', 'Leigh', 'Hartman', (SELECT family_id FROM family WHERE family_name = 'Hartmann')),
-(DEFAULT, 'Tinl', 'password1', 'Parent', 'salt', 'Irina', 'Tin', (SELECT family_id FROM family WHERE family_name = 'Tin')),
-(DEFAULT, 'Myersa', 'password1', 'Parent', 'salt', 'Adam', 'Myers', (SELECT family_id FROM family WHERE family_name = 'Myers'));
+INSERT INTO users
+VALUES (DEFAULT, 'TestAdult1', 'z1HHvE71QP5LOfdDT1TjTg==', 'T876nbvOrAo4NgFJBi2wtrnlXmik4WshKHzeey0DEAA/dvG2hqGXYg9DPHBgohYfZob3O0+d47A6vKM86eHGi6irgF3AQzGgLbbkVdBTWbiLon6ZONBqb5RE5CKvUeMdlyNfY1FR6Nfl4E3hEgv0MZ7UqWOMOn8qqD2072LqlkE=', 'user'),
+(DEFAULT, 'TestChild1', 'z1HHvE71QP5LOfdDT1TjTg==', 'T876nbvOrAo4NgFJBi2wtrnlXmik4WshKHzeey0DEAA/dvG2hqGXYg9DPHBgohYfZob3O0+d47A6vKM86eHGi6irgF3AQzGgLbbkVdBTWbiLon6ZONBqb5RE5CKvUeMdlyNfY1FR6Nfl4E3hEgv0MZ7UqWOMOn8qqD2072LqlkE=', 'child'),
+(DEFAULT, 'TestAdult2', 'z1HHvE71QP5LOfdDT1TjTg==', 'T876nbvOrAo4NgFJBi2wtrnlXmik4WshKHzeey0DEAA/dvG2hqGXYg9DPHBgohYfZob3O0+d47A6vKM86eHGi6irgF3AQzGgLbbkVdBTWbiLon6ZONBqb5RE5CKvUeMdlyNfY1FR6Nfl4E3hEgv0MZ7UqWOMOn8qqD2072LqlkE=', 'user');
 
 
-INSERT INTO friends 
-VALUES ((SELECT id FROM app_user WHERE first_name = 'Ryan'), (SELECT id FROM app_user WHERE first_name = 'Joe')),
-((SELECT id FROM app_user WHERE first_name = 'Joe'), (SELECT id FROM app_user WHERE first_name = 'Ryan')),
-((SELECT id FROM app_user WHERE first_name = 'Joe'), (SELECT id FROM app_user WHERE first_name = 'Leigh')),
-((SELECT id FROM app_user WHERE first_name = 'Joe'), (SELECT id FROM app_user WHERE first_name = 'Adam')),
-((SELECT id FROM app_user WHERE first_name = 'Irina'), (SELECT id FROM app_user WHERE first_name = 'Leigh')),
-((SELECT id FROM app_user WHERE first_name = 'Irina'), (SELECT id FROM app_user WHERE first_name = 'Joe')),
-((SELECT id FROM app_user WHERE first_name = 'Adam'), (SELECT id FROM app_user WHERE first_name = 'Irina')),
-((SELECT id FROM app_user WHERE first_name = 'Adam'), (SELECT id FROM app_user WHERE first_name = 'Leigh'));
+INSERT INTO user_info 
+VALUES (DEFAULT, (SELECT id FROM users WHERE username = 'TestAdult1'), 'Test1', 'Adult1', (SELECT family_id FROM family WHERE family_name = 'Test Family 1')),
+(DEFAULT, (SELECT id FROM users WHERE username = 'TestChild1'), 'Test1', 'Child1', (SELECT family_id FROM family WHERE family_name = 'Test Family 1')),
+(DEFAULT, (SELECT id FROM users WHERE username = 'TestAdult2'), 'Test1', 'Adult2', (SELECT family_id FROM family WHERE family_name = 'Test Family 2'));
 
 INSERT INTO book
-VALUES (DEFAULT, '12345', 'Book1', 'Author1'),
-(DEFAULT, '23456', 'Book2', 'Author2'),
-(DEFAULT, '34567', 'Book3', 'Author3'),
-(DEFAULT, '45678', 'Book4', 'Author4'),
-(DEFAULT, '56789', 'Book5', 'Author5');
+VALUES (DEFAULT, 'Test Book 1', 'Author 1', (SELECT family_id FROM family WHERE family_name = 'Test Family 1')),
+(DEFAULT, 'Test Book 2', 'Author 2', (SELECT family_id FROM family WHERE family_name = 'Test Family 1')),
+(DEFAULT, 'Test Book 3', 'Author 3', (SELECT family_id FROM family WHERE family_name = 'Test Family 1')),
+(DEFAULT, 'Test Book 4', 'Author 4', (SELECT family_id FROM family WHERE family_name = 'Test Family 2')),
+(DEFAULT, 'Test Book 5', 'Author 5', (SELECT family_id FROM family WHERE family_name = 'Test Family 2')),
+(DEFAULT, 'Test Book 6', 'Author 6', (SELECT family_id FROM family WHERE family_name = 'Test Family 2'));
+
 
 INSERT INTO user_book
-VALUES (DEFAULT, (SELECT id FROM app_user WHERE first_name = 'Ryan'), (SELECT book_id FROM book WHERE isbn = '12345'), '30', '04-06-2020', 'Paperback'),
-(DEFAULT, (SELECT id FROM app_user WHERE first_name = 'Ryan'), (SELECT book_id FROM book WHERE isbn = '56789'), '1', '04-04-2020', 'Hardback'),
-(DEFAULT, (SELECT id FROM app_user WHERE first_name = 'Joe'), (SELECT book_id FROM book WHERE isbn = '12345'), '99', '04-01-2020', 'Paperback'),
-(DEFAULT, (SELECT id FROM app_user WHERE first_name = 'Joe'), (SELECT book_id FROM book WHERE isbn = '34567'), '300', '04-04-2020', 'Digital'),
-(DEFAULT, (SELECT id FROM app_user WHERE first_name = 'Leigh'), (SELECT book_id FROM book WHERE isbn = '12345'), '2', '03-30-2020', 'Paperback'),
-(DEFAULT, (SELECT id FROM app_user WHERE first_name = 'Irina'), (SELECT book_id FROM book WHERE isbn = '45678'), '400', '03-27-2020', 'Reader'),
-(DEFAULT, (SELECT id FROM app_user WHERE first_name = 'Irina'), (SELECT book_id FROM book WHERE isbn = '12345'), '286', '04-05-2020', 'Digital'),
-(DEFAULT, (SELECT id FROM app_user WHERE first_name = 'Irina'), (SELECT book_id FROM book WHERE isbn = '23456'), '487', '03-15-2020', 'Paperback'),
-(DEFAULT, (SELECT id FROM app_user WHERE first_name = 'Adam'), (SELECT book_id FROM book WHERE isbn = '56789'), '59', '04-02-2020', 'Paperback'),
-(DEFAULT, (SELECT id FROM app_user WHERE first_name = 'Ryan'), (SELECT book_id FROM book WHERE isbn = '23456'), '140', '04-03-2020', 'Reader'),
-(DEFAULT, (SELECT id FROM app_user WHERE first_name = 'Charlotte'), (SELECT book_id FROM book WHERE isbn = '23456'), '140', '04-03-2020', 'Listener'),
-(DEFAULT, (SELECT id FROM app_user WHERE first_name = 'Joe'), (SELECT book_id FROM book WHERE isbn = '56789'), '59', '04-02-2020', 'Reader'),
-(DEFAULT, (SELECT id FROM app_user WHERE first_name = 'Elodie'), (SELECT book_id FROM book WHERE isbn = '56789'), '59', '04-02-2020', 'Listener');
+VALUES (DEFAULT, (SELECT id FROM users WHERE username = 'TestAdult1'), (SELECT book_id FROM book WHERE title = 'Test Book 1'), '100', '2020-04-10', 'Digital/Kindle', false),
+(DEFAULT, (SELECT id FROM users WHERE username = 'TestAdult1'), (SELECT book_id FROM book WHERE title = 'Test Book 2'), '60', '2020-04-09', 'Paperback', false),
+(DEFAULT, (SELECT id FROM users WHERE username = 'TestChild1'), (SELECT book_id FROM book WHERE title = 'Test Book 3'), '200', '2020-04-11', 'Read-Aloud (Reader)', true),
+(DEFAULT, (SELECT id FROM users WHERE username = 'TestChild1'), (SELECT book_id FROM book WHERE title = 'Test Book 4'), '30', '2020-04-07', 'Read-Aloud (Listener)', false),
+(DEFAULT, (SELECT id FROM users WHERE username = 'TestAdult2'), (SELECT book_id FROM book WHERE title = 'Test Book 5'), '120', '2020-04-08', 'Digital/Kindle', true),
+(DEFAULT, (SELECT id FROM users WHERE username = 'TestAdult2'), (SELECT book_id FROM book WHERE title = 'Test Book 6'), '150', '2020-04-10', 'Paperback', false);
 
 INSERT INTO prize
-VALUES (DEFAULT, 'Liquor', 'Gonna get you drunk', '120', 'Parent', '10', '03-01-2020', '06-30-2020'),
-(DEFAULT, 'Snacks', 'Yum yum', '30', 'All', '10', '02-01-2020', '05-31-2020'),
-(DEFAULT, 'Video Game', 'Play some FF7', '60', 'Child', '10', NULL, NULL),
-(DEFAULT, 'Nap', 'Zzzzzzz', '240', 'All', '10', NULL, NULL),
-(DEFAULT, 'Walk', 'Its getting nice out', '300', 'All', '10', '04-01-2020', '09-30-2020');
+VALUES (DEFAULT, 'Adult Prize 1', 'Test Prize 1', '120', 'user', '10', '2020-01-01', '2020-12-31'),
+(DEFAULT, 'Child Prize 1', 'Test Prize 2', '60', 'child', '10', '2020-06-30', '12-31-2020'),
+(DEFAULT, 'Combo Prize 1', 'Test Prize 3', '30', 'all', '10', '2020-01-01', '2020-05-01'),
+(DEFAULT, 'Adult Prize 2', 'Test Prize 4', '150', 'user', '10', '2020-04-01', '2020-04-30'),
+(DEFAULT, 'Child Prize 2', 'Test Prize 5', '200', 'child', '10', '2020-03-01', '2020-08-30');
 
 INSERT INTO user_prize
-VALUES((SELECT prize_id FROM prize WHERE prize_name = 'Liquor'), (SELECT id FROM app_user WHERE first_name = 'Ryan')),
-((SELECT prize_id FROM prize WHERE prize_name = 'Liquor'), (SELECT id FROM app_user WHERE first_name = 'Joe')),
-((SELECT prize_id FROM prize WHERE prize_name = 'Liquor'), (SELECT id FROM app_user WHERE first_name = 'Leigh')),
-((SELECT prize_id FROM prize WHERE prize_name = 'Liquor'), (SELECT id FROM app_user WHERE first_name = 'Irina')),
-((SELECT prize_id FROM prize WHERE prize_name = 'Liquor'), (SELECT id FROM app_user WHERE first_name = 'Adam')),
-((SELECT prize_id FROM prize WHERE prize_name = 'Snacks'), (SELECT id FROM app_user WHERE first_name = 'Leigh')),
-((SELECT prize_id FROM prize WHERE prize_name = 'Snacks'), (SELECT id FROM app_user WHERE first_name = 'Ryan')),
-((SELECT prize_id FROM prize WHERE prize_name = 'Video Game'), (SELECT id FROM app_user WHERE first_name = 'Joe')),
-((SELECT prize_id FROM prize WHERE prize_name = 'Walk'), (SELECT id FROM app_user WHERE first_name = 'Irina')),
-((SELECT prize_id FROM prize WHERE prize_name = 'Nap'), (SELECT id FROM app_user WHERE first_name = 'Adam'));
-*/
+VALUES((SELECT prize_id FROM prize WHERE prize_name = 'Adult Prize 1'), (SELECT id FROM users WHERE username = 'TestAdult1')), 
+((SELECT prize_id FROM prize WHERE prize_name = 'Adult Prize 2'), (SELECT id FROM users WHERE username = 'TestAdult1')), 
+((SELECT prize_id FROM prize WHERE prize_name = 'Combo Prize 1'), (SELECT id FROM users WHERE username = 'TestAdult1')),
+((SELECT prize_id FROM prize WHERE prize_name = 'Child Prize 1'), (SELECT id FROM users WHERE username = 'TestChild1')), 
+((SELECT prize_id FROM prize WHERE prize_name = 'Child Prize 2'), (SELECT id FROM users WHERE username = 'TestChild1')), 
+((SELECT prize_id FROM prize WHERE prize_name = 'Combo Prize 1'), (SELECT id FROM users WHERE username = 'TestChild1')),
+((SELECT prize_id FROM prize WHERE prize_name = 'Adult Prize 1'), (SELECT id FROM users WHERE username = 'TestAdult2')), 
+((SELECT prize_id FROM prize WHERE prize_name = 'Adult Prize 2'), (SELECT id FROM users WHERE username = 'TestAdult2')), 
+((SELECT prize_id FROM prize WHERE prize_name = 'Combo Prize 1'), (SELECT id FROM users WHERE username = 'TestAdult2'));
+
+
 COMMIT;
