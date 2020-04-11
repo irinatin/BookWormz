@@ -7,7 +7,7 @@
       v-if="formErrors"
     >There were problems creating this prize.</div>
 
-    <form class="new_prize_form" @submit.prevent="createprize">
+    <form class="new_prize_form" @submit.prevent="addNewPrize">
       <label for="prize_name">Prize Name</label>
       <br />
       <input
