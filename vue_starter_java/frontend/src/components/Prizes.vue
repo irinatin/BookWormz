@@ -7,7 +7,7 @@
       v-if="formErrors"
     >There were problems creating this prize.</div>
 
-    <form class="new_prize_form" @submit.prevent="createprize">
+    <form class="new_prize_form" @submit.prevent="addNewPrize">
       <label for="prize_name">Prize Name</label>
       <br />
       <input
@@ -15,7 +15,7 @@
         id="prize_name"
         name="prize_name"
         placeholder="Enter Prize Name"
-        v-model="prizeinfo.prizeName"
+        v-model= "prizeinfo.prizeName"
         required
         autofocus
       />
@@ -28,7 +28,7 @@
         id="description"
         name="description"
         placeholder="Enter Prize Description"
-        v-model="prizeinfo.prizeDescription"
+        v-model= "prizeinfo.prizeDescription"
         required
         autofocus
       />
@@ -41,7 +41,7 @@
         id="milestone"
         name="milestone"
         placeholder="Enter Milestone"
-        v-model="prizeinfo.prizeMilestone"
+        v-model= "prizeinfo.prizeMilestone"
         required
         autofocus
       />
@@ -54,7 +54,7 @@
         id="user_group"
         name="user_group"
         placeholder="Enter User Group"
-        v-model="prizeinfo.prizeUserGroup"
+        v-model= "prizeinfo.userGroup"
         required
         autofocus
       />
@@ -67,7 +67,7 @@
         id="max_prizes"
         name="max_prizes"
         placeholder="Enter Prize Cap"
-        v-model="prizeinfo.maxPrizes"
+        v-model= "prizeinfo.maxPrizes"
         required
         autofocus
       />
@@ -79,8 +79,8 @@
         type="text"
         id="start_date"
         name="start_date"
-        placeholder="Enter Prize Start Date"
-        v-model="prizeinfo.prizeStartDate"
+        placeholder="yyyy-mm-dd"
+        v-model= "prizeinfo.startDate"
         required
         autofocus
       />
@@ -92,8 +92,8 @@
         type="text"
         id="end_date"
         name="end_date"
-        placeholder="Enter Prize End Date"
-        v-model="prizeinfo.prizeEndDate"
+        placeholder="yyyy-mm-dd"
+        v-model= "prizeinfo.endDate"
         required
         autofocus
       />
@@ -106,6 +106,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -113,37 +114,27 @@ export default {
         prizeName: "",
         prizeDescription: "",
         prizeMilestone: "",
-        prizeUserGroup: "",
+        userGroup: "",
         maxPrizes: "",
-        prizeStartDate: "",
-        prizeEndDate: ""
+        startDate: "",
+        endDate: ""
       },
       formErrors: false
     };
   },
 
   methods: {
-    addNewPrize() {
-      fetch(`${process.env.VUE_APP_REMOTE_API}/Prizes`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(this.prizeinfo)
+    addNewPrize(){
+      axios.post(`${process.env.VUE_APP_REMOTE_API}/api/addPrize`, this.prizeinfo, {
+      headers:{"Authorization" :  'Bearer ' + localStorage.getItem('Authorization')}
       })
-        .then(response => {
-          if (response.ok) {
-            this.$router.push({
-              path: "/prizes",
-              query: { createprize: "success" }
-            });
-          } else {
-            this.formErrors = true;
-          }
-        })
-        .then(err => console.error(err));
-    }
+    .then(response => {
+      console.log(response)
+    })
+    .catch(error => {
+        console.log(error + ' there was an error')
+      })
+  }
   }
 };
 </script>
