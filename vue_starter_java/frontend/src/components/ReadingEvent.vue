@@ -1,14 +1,16 @@
 <template>
   <div>
-    <div class="header">
+    <!-- <div class="header">
       <h2>Reading Event</h2>
-    </div>
+    </div> -->
+    <button v-on:click="getCurrentUser(); getBooks(); selectUser(); showFormButton(); showFamUsers();">Create Reading Event</button>
 
-    <select v-on:click="getBooks" id="books" v-model="readingEvent.bookId">
+    <div v-if= "showForm"> 
+    <select id="books" v-on:click="showFamUsersBtn()" v-model="readingEvent.bookId">
       <option v-for="book in books" v-bind:key="book.id" :value="book.id">{{book.title}}</option>
     </select>
-
-    <select v-on:click="selectUser" id="users" v-model="readingEvent.userId">
+    <button v-if= "showUsersButton" v-on:click="showFamUsers()">Enter Event for Different Family Members</button>
+    <select  v-if= "showUsers" id="users" v-model="readingEvent.userId">
       <option v-for="user in users" v-bind:key="user.id" :value="user.id">{{user.username}}</option>
     </select>
 
@@ -23,7 +25,7 @@
     <div class="form">
       <div class="form-input">
         <span class="label">Enter Reading Date:</span>
-        <input type="text" placeholder="YYYY/MM/dd" v-model="readingEvent.readingDate"/>
+        <input type="text" placeholder="YYYY-MM-dd" v-model="readingEvent.readingDate"/>
       </div>
     </div>
 
@@ -31,12 +33,13 @@
       <option v-for="format in formats" v-bind:key="format.id">{{format.format}}</option>
     </select> 
 
+    <input type="checkbox" id="checkbox" v-model="readingEvent.completed">
+    <label for="checkbox">Completed</label>
+
     <div>
           <button v-on:click="addReadingEvent">Submit</button>
     </div>    
-
-
-    <!-- <datepicker v-model="readingEvent.readingDate"></datepicker> -->
+    </div>
 
 
   </div>
@@ -55,12 +58,24 @@ export default {
   },
   data() {
     return {
+      showUsersButton: false,
+      showUsers: false,
+      showForm: false,
       readingEvent: {
           userId: '',
           bookId: '',
           readingTime: 0,
           readingDate: '',
-          format: ''
+          format: '',
+          completed: false
+      },
+      currentUser: {
+        userId: '',
+        userName: '',
+        password: '',
+        confirmPassword: '',
+        passwordMatching: '',
+        role: ''
       },
       books: [],
       users: [],
@@ -94,6 +109,21 @@ export default {
   },
 
   methods: {
+    showFamUsersBtn(){
+      if (this.currentUser.role === "user"){
+      this.showUsersButton = true;
+      }
+    },
+
+    showFamUsers(){
+      console.log(this.currentUser);
+      if (this.currentUser.role === "user"){
+        this.showUsers = true;
+      }
+    },
+    showFormButton(){
+      this.showForm = true;
+    },
     getBooks() {
       axios
         .get(`${process.env.VUE_APP_REMOTE_API}/api/getAllBooks`, {
@@ -120,6 +150,7 @@ export default {
         .then(response => {
           console.log(response);
           this.users = response.data;
+          
         })
         .catch(error => {
           console.log(error + " there was an error");
@@ -127,6 +158,13 @@ export default {
     },
 
     addReadingEvent() {
+      if (this.readingEvent.userId === ''){
+        this.readingEvent.userId = this.currentUser.id;
+      }
+
+      if (document.querySelector("#checkbox").checked){
+        this.readingEvent.completed = true;
+      }
       console.log(this.readingEvent);
       axios
         .post(
@@ -140,11 +178,35 @@ export default {
         )
         .then(response => {
           console.log(response);
+          this.showForm = false;
+          alert("Your reading event has been saved, BookWorm!");
+          this.readingEvent.userId = '';
+          this.readingEvent.bookId = '';
+          this.readingEvent.readingTime = 0;
+          this.readingEvent.readingDate = '';
+          this.readingEvent.format = '';
+          this.readingEvent.completed = false;
         })
         .catch(error => {
           console.log(error + " there was an error");
         });
-    }
+    },
+     getCurrentUser() {
+      axios
+        .get(`${process.env.VUE_APP_REMOTE_API}/api/getCurrentUser`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("Authorization")
+          }
+        })
+        .then(response => {
+          console.log(response.data);
+          this.currentUser = response.data;
+        })
+        .catch(error => {
+          console.log(error + " there was an error");
+        });
+    },
+
   },
 
   computed: {

@@ -27,10 +27,10 @@ public class JDBCReadingEventDAO implements ReadingEventDAO {
 	}
 
 	@Override
-	public ReadingEvent addReadingEvent(ReadingEvent reads, boolean completed) {
+	public ReadingEvent addReadingEvent(ReadingEvent reads) {
 		reads.setReadingEventId(getReadingEventId());
 		String sqlSaveReadingEvent = "INSERT INTO user_book VALUES (?, ?, ?, ?, ?, ?, ?)";
-		jdbcTemplate.update(sqlSaveReadingEvent, reads.getReadingEventId(), reads.getUserId(), reads.getBookId(), reads.getReadingTime(), LocalDate.parse(reads.getReadingDate()), reads.getFormat(), completed);
+		jdbcTemplate.update(sqlSaveReadingEvent, reads.getReadingEventId(), reads.getUserId(), reads.getBookId(), reads.getReadingTime(), LocalDate.parse(reads.getReadingDate()), reads.getFormat(), reads.isCompleted());
 		return reads;
 	}
 

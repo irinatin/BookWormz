@@ -148,5 +148,25 @@ public class JdbcUserDao implements UserDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public List<User> getAllUsersByFamily(Long userId){
+		List<User> allFamUsers = new ArrayList<>();
+		
+		String getUserFamilyId = "SELECT family_id FROM user_info WHERE user_id = ?";
+		SqlRowSet famResults = jdbcTemplate.queryForRowSet(getUserFamilyId, userId);
+		famResults.next();
+		long familyId = famResults.getLong(1);
+		
+		String getUsersByFamilyId = "SELECT users.id, users.username, users.role FROM users JOIN user_info ON user_info.user_id = users.id WHERE family_id = ?";
+		SqlRowSet famUsers = jdbcTemplate.queryForRowSet(getUsersByFamilyId, familyId);
+		while (famUsers.next()) {
+            User user = mapResultToUser(famUsers);
+            allFamUsers.add(user);
+        }
+		
+		
+		return allFamUsers;
+	}
 
 }
