@@ -47,6 +47,18 @@
 
           <router-link :to="{ name: 'login' }" class="have-an-account">Have an account?</router-link>
         </form>
+      <div class="column is-half">
+        <h1>Welcome to BookWormz:</h1>
+        <h1>A Family Reading Tracker</h1>
+        <p>We help make reading fun for the whole family.</p>
+        <img src="./assets/BookWorm.jpg" alt="BookWormz Photo" class="product-image">
+      </div>
+      <div class="column">
+  <div id="register" class="text-center">
+    <form class="form-register" @submit.prevent="register">
+      <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
+      <div class="alert alert-danger" role="alert" v-if="registrationErrors">
+        There were problems registering this user.
       </div>
     </div>
   </div>
@@ -132,5 +144,11 @@ body {
 }
 #confirm-password {
   left: 50%;
+}
+.product-image {
+  width: 50%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
