@@ -164,10 +164,12 @@ created() {
         headers: {
             Authorization: "Bearer " + localStorage.getItem("Authorization")
         }
+        
     })
     .then(response => {
         this.prizeList = response.data;
-        console.log(this.prizeList);
+        console.log(this.prizeList)
+        console.log("this work?");
     })
     .catch(error => {
         console.log(error + " there was an error");
