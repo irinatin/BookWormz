@@ -14,7 +14,7 @@
     <br>
 
     <div>
-      <span v-if= "showBook"><img v-bind:src="book.thumbnail"/>   isbn:  {{book.isbn}}  title:  {{book.title}} author: {{book.author}}</span>
+      <span v-if= "showBook"><img v-bind:src="book.thumbnail"/>   title:  {{book.title}} author: {{book.author}}</span>
     </div>
 
     <div>
@@ -87,6 +87,7 @@ export default {
         this.book.author = response.data['ISBN:' + tempIsbn].authors[0].name;
         this.book.thumbnail = response.data['ISBN:' + tempIsbn].cover.small;
         this.showBook = true;
+      
         
       })
       .catch(error => {
