@@ -83,7 +83,7 @@ public class ApiController {
     
     @RequestMapping(path = "/addReadingEvent", method = RequestMethod.POST)
     public ReadingEvent addReadingEvent(@RequestBody ReadingEvent reads) {
-    	return reDAO.addReadingEvent(reads, false);
+    	return reDAO.addReadingEvent(reads);
     }
     
     @RequestMapping(path = "/getFamilyList", method = RequestMethod.GET)
