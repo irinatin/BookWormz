@@ -1,48 +1,56 @@
 <template>
   <div class="home">
+    <section class="hero is-primary">
     <div class="container">
         <div class="columns">
-          <div class="column">
-            <h1>Title</h1>
+          <div class="column hero-body" >
+            <h1 class= "title">{{family[0].familyName}}</h1>
           </div>
         </div>
     </div>
+    </section>
 
+    <section>
     <div class="container">
-        <div class="columns">
-          <div class="column">
-             <family></family>
+        <div class="columns tile is-ancestor has-text-centered">
+          
+          <div class="column is-parent box-margin">
+            <div class="tile is-child box">
+               <family></family>
+            </div>
           </div>
           
-          <div class="column">
-            <leaderboard></leaderboard>
+          <div class="column is-parent box-margin">
+            <div class="tile is-child box">
+                <leaderboard></leaderboard>
+             </div>
           </div>
 
-          <div class="column">
-            <p>Friends</p>
+          <div class="column is-parent box-margin">
+            <div class="tile is-child box">
+              <friends>friends</friends>
+             </div>
           </div>
+
         </div>    
      </div>
-
-    <div class="container">
-        <div class="columns">
-          <div class="column">
+</section>
+ 
+    <div class="container box has-text-centered">
+        <div class="columns card-content">
+          <div class="column tile is-child box">
             <books></books>
           </div>
-        </div>
-    </div>
 
-    <div class="container">
-        <div class="columns">
-          <div class="column">
+          <div class="column is-child box tile ">
             <reading-event></reading-event>
           </div>
         </div>
     </div>           
   
-    <div class="container">
-        <div class="columns">
-          <div class="column">
+    <div class="container box">
+        <div class="columns card-content">
+          <div class="column content">
             <p>Prizes</p>
             <prizes></prizes>
           </div>
@@ -52,11 +60,13 @@
 </template>
 
 <script>
+import axios from "axios";
 import Family from '../components/Family';
 import ReadingEvent from '../components/ReadingEvent';
 import Books from '../components/Books';
 import Prizes from '../components/Prizes';
 import Leaderboard from '../components/Leaderboard';
+
 
 export default {
   name: 'home',
@@ -66,11 +76,34 @@ export default {
     Books,
     Prizes,
     Leaderboard,
+  },
+  data() {
+    return {    
+      family: {},
+    }
+  },
+   created() {
+    axios
+      .get(`${process.env.VUE_APP_REMOTE_API}/api/getFamilyList`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Authorization")
+        }
+      })
+      .then(response => {
+        this.family = response.data;
+      })
+      .catch(error => {
+        console.log(error + " there was an error");
+      });
   }
 }
 </script>
 
 <style scoped>
+  .box-margin {
+    margin-top: 3%;
+    margin-bottom: 2%;
+  }
 /* body {
   margin: 0px;
   padding: 400px 100px;
