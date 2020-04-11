@@ -45,11 +45,9 @@
 
 <script>
 import axios from "axios"
-import Datepicker from 'vuejs-datepicker';
 
 export default {
   components: {
-    Datepicker
   },
 
   props: {
