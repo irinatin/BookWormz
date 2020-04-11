@@ -40,5 +40,7 @@ public interface UserDao {
     public List<User> getAllFriends(String username);
     
     public void deleteUser (Long userId);
+    
+    public List<User> getAllUsersByFamily(Long userId);
 
 }

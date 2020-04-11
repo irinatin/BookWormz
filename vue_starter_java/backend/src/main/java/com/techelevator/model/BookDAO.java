@@ -6,7 +6,7 @@ public interface BookDAO {
 	
 	public boolean addNewBook(Book bookie, long familyId);
 	
-	public List<Book> getAllBooksPerUser(long userId);
+	public List<Book> getAllBooksPerFamily(long userId);
 	
 	public List<Book> getAllBooks();
 	

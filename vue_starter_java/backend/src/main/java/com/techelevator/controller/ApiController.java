@@ -56,6 +56,9 @@ public class ApiController {
     @Autowired 
     private PrizeDAO prizeDAO;
     
+    @Autowired
+	private AuthProvider auth;
+    
     
     
     @RequestMapping(path = "/", method = RequestMethod.GET)
@@ -94,12 +97,16 @@ public class ApiController {
 	}
     @RequestMapping(path = "/getAllBooks", method = RequestMethod.GET)
     public List<Book> getAllBooks() {
-    	return bookDAO.getAllBooks();
+    	User currentUser = auth.getCurrentUser();
+    	long currentUserId = currentUser.getId(); 
+    	return bookDAO.getAllBooksPerFamily(currentUserId);
     }
     
     @RequestMapping(path = "/getUser", method = RequestMethod.GET)
     public List<User> getAllUsers() {
-    	return userDAO.getAllUsers();
+    	User currentUser = auth.getCurrentUser();
+    	long currentUserId = currentUser.getId(); 
+    	return userDAO.getAllUsersByFamily(currentUserId);
     }
     
     @RequestMapping(path = "/addPrize", method = RequestMethod.POST)
@@ -115,6 +122,16 @@ public class ApiController {
     	userInfoDAO.saveUserInfo(child.getFirstName(), child.getLastName(), familyId, childId);
     	
     	return true;
+    }
+    
+    @RequestMapping(path = "/getCurrentUser", method = RequestMethod.GET)
+    public User getCurrentUser() {
+    	User middleUser = auth.getCurrentUser();
+    	User endUser = new User();
+    	endUser.setId(middleUser.getId());
+    	endUser.setRole(middleUser.getRole());
+    	endUser.setUsername(middleUser.getUsername());
+    	return endUser;
     }
     
 }
