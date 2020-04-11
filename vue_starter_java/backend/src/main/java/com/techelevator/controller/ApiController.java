@@ -15,9 +15,9 @@ import com.techelevator.model.Book;
 import com.techelevator.model.BookDAO;
 import com.techelevator.model.ChildInfo;
 import com.techelevator.model.FamilyDAO;
-import com.techelevator.model.Leaderboard;
 import com.techelevator.model.Prize;
 import com.techelevator.model.PrizeDAO;
+import com.techelevator.model.PrizeListInfo;
 import com.techelevator.model.ReadingEvent;
 import com.techelevator.model.ReadingEventDAO;
 import com.techelevator.model.User;
@@ -118,6 +118,12 @@ public class ApiController {
     	return true;
     }
     
+    @RequestMapping(path = "/getPrizeList", method = RequestMethod.GET)
+	public List<PrizeListInfo> getPrizeList(){
+    	
+    	return prizeDAO.getPrizeListInfo(authDAO.getCurrentUser().getRole(), authDAO.getCurrentUser().getId());
+    }
+    
     @RequestMapping(path = "/addChild", method = RequestMethod.POST)
     public boolean addChild(@RequestBody ChildInfo child) {
     	userDAO.saveUser(child.getUsername(), child.getPassword(), "child");
@@ -136,12 +142,6 @@ public class ApiController {
     	endUser.setRole(middleUser.getRole());
     	endUser.setUsername(middleUser.getUsername());
     	return endUser;
-    }
-    
-    @RequestMapping(path = "/getLeaderboard", method = RequestMethod.GET)
-    public List<Leaderboard> getLeaderboard() {
-    	return familyDAO.getFamilyLeaderboard(userInfoDAO.getFamilyId(authDAO.getCurrentUser().getId()));
-    	
     }
     
 }
