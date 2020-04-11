@@ -1,12 +1,14 @@
 <template>
   <div class="create_new_prize">
-    <h1 class="h3 mb-3 font-weight-normal">Create New Prize</h1>
     <div
       class="alert alert-danger"
       role="alert"
       v-if="formErrors"
-    >There were problems creating this prize.</div>
-
+    >There were problems creating this prize.
+    </div>
+    <button v-if="!showForm" v-on:click="showFormButton();">Create New Prize</button>
+    <button v-if="showForm" v-on:click="hideFormButton();">Hide Form</button>
+    <div v-if= "showForm">
     <form class="new_prize_form" @submit.prevent="addNewPrize">
       <label for="prize_name">Prize Name</label>
       <br />
@@ -19,7 +21,7 @@
         required
         autofocus
       />
-      <br />
+      <br>
 
       <label for="description">Description</label>
       <br />
@@ -32,7 +34,7 @@
         required
         autofocus
       />
-      <br />
+      <br>
 
       <label for="milestone">Milestone (minutes reading)</label>
       <br />
@@ -45,7 +47,7 @@
         required
         autofocus
       />
-      <br />
+      <br>
 
       <label for="user_group">User Group (Parent/Child)</label>
       <br />
@@ -58,7 +60,7 @@
         required
         autofocus
       />
-      <br />
+      <br>
 
       <label for="max_prizes">Prize Cap</label>
       <br />
@@ -71,7 +73,7 @@
         required
         autofocus
       />
-      <br />
+      <br>
 
       <label for="start_date">Start Date</label>
       <br />
@@ -84,7 +86,7 @@
         required
         autofocus
       />
-      <br />
+      <br>
 
       <label for="end_date">End Date</label>
       <br />
@@ -97,19 +99,29 @@
         required
         autofocus
       />
-      <br />
+      <br>
 
       <button class="add_prize_button" type="submit">Add Prize</button>
-      <br />
+      <br>
     </form>
   </div>
+  
+
+  <div class="prizeList" v-for="prize in prizeList" v-bind:key="prize.prizeName">{{prize.prizeName}}</div>
+
+</div>
 </template>
 
 <script>
 import axios from 'axios'
 export default {
+    props: {
+        apiURL: String
+    },
+
   data() {
     return {
+      showForm: false,
       prizeinfo: {
         prizeName: "",
         prizeDescription: "",
@@ -119,7 +131,9 @@ export default {
         startDate: "",
         endDate: ""
       },
-      formErrors: false
+      formErrors: false,
+      
+      prizeList: {}
     };
   },
 
@@ -134,8 +148,31 @@ export default {
     .catch(error => {
         console.log(error + ' there was an error')
       })
+  },
+  showFormButton(){
+      this.showForm = true;
+  },
+  hideFormButton(){
+      this.showForm = false;
   }
-  }
+  },
+
+
+created() {
+    axios
+    .get(`${process.env.VUE_APP_REMOTE_API}/api/getPrizeList`, {
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("Authorization")
+        }
+    })
+    .then(response => {
+        this.prizeList = response.data;
+        console.log(this.prizeList);
+    })
+    .catch(error => {
+        console.log(error + " there was an error");
+    });
+}
 };
 </script>
 
