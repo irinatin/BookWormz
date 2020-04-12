@@ -130,6 +130,7 @@ export default {
           console.log(response);
           this.success = true;
           this.manualBook = false;
+          this.book.isbn = "";
         })
         .catch(error => {
           console.log(error + " there was an error");
@@ -147,6 +148,7 @@ export default {
           console.log(response);
           this.success = true;
           this.showBook = false;
+          this.book.isbn = "";
         })
         .catch(error => {
           console.log(error + " there was an error");

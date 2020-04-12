@@ -13,7 +13,7 @@
     </div>
     <span
       v-if="showFriend && !friendError"
-    >First Name: {{friend.firstName}} Last Name: {{friend.lastName}}</span>
+    >Name: {{friend.firstName}} {{friend.lastName}}</span>
     <span v-if="friendError">There was a problem locating that user</span>
     <br />
     <span v-if="friendError">Please try again</span>
