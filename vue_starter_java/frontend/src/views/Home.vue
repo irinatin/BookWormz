@@ -4,7 +4,7 @@
     <div class="container">
         <div class="columns">
           <div class="column hero-body" >
-            <h1 class= "title">{{family[0].familyName}}</h1>
+            <h1 class= "title">{{family[0].familyName}} Family Dashboard</h1>
           </div>
         </div>
     </div>
@@ -57,7 +57,6 @@
     <div class="container box">
         <div class="columns card-content">
           <div class="column content">
-            <p>Prizes</p>
             <prizes></prizes>
           </div>
         </div>
@@ -75,6 +74,7 @@ import Books from '../components/Books';
 import Prizes from '../components/Prizes';
 import Leaderboard from '../components/Leaderboard';
 import ReadingActivity from '../components/ReadingActivity';
+import Friends from '../components/Friends';
 
 
 export default {
@@ -85,7 +85,8 @@ export default {
     Books,
     Prizes,
     Leaderboard,
-    ReadingActivity
+    ReadingActivity,
+    Friends,
   },
   data() {
     return {    

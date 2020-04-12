@@ -22,6 +22,9 @@ public class JDBCPrizeDAO implements PrizeDAO {
 
 	@Override
 	public boolean createNewPrize(Prize blingBling) {
+		if(blingBling.getUserGroup().toLowerCase().equals("parent")) {
+			blingBling.setUserGroup("user");
+		}
 		long prizeId = getNextPrizeId();
 		String insertIntoPrize = "INSERT INTO prize VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		jdbcTemplate.update(insertIntoPrize, prizeId, blingBling.getPrizeName(), blingBling.getPrizeDescription(),

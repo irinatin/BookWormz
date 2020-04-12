@@ -119,7 +119,8 @@ public class JdbcFamilyDAO implements FamilyDAO {
 				"JOIN user_book ON user_book.user_id = users.id " + 
 				"JOIN user_info ON user_info.user_id = users.id " + 
 				"WHERE user_info.family_id = ? " + 
-				"GROUP BY username"; 
+				"GROUP BY username " +
+				"ORDER BY totalmins DESC "; 
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetLeaderboard, familyId);
 		
 		while(results.next()) {
