@@ -1,17 +1,15 @@
 <template>
   <div>
-    <div>
-      {{family[0].familyName}} Family Members
-      <div v-for="user in family" v-bind:key="user.firstName">{{user.firstName}} {{user.lastName}}</div>
-    </div>
+    <div class="label">Family Members</div>
+    <div v-for="user in family" v-bind:key="user.firstName">{{user.firstName}} {{user.lastName}}</div>
     <form class="form-register" @submit.prevent="registerChild">
+        <br>
+        <button v-if="!addChildForm && isParent" v-on:click="showForm" type="submit">Add Child</button>
+        <br />
+        <br>
+        <button v-if="addChildForm && isParent" v-on:click="hideForm" type="submit">Hide Form</button>
+        <br />
       <div>
-        <a
-          v-if="!addChildForm && isParent"
-          href="#"
-          v-on:click="showForm"
-        >Add Child</a>
-        <a v-if="addChildForm && isParent" href="#" v-on:click="hideForm">Hide Form</a>
       </div>
 
       <span v-if="addChildForm">
@@ -80,7 +78,6 @@ import axios from "axios";
 
 export default {
   props: {
-    apiURL: String
   },
   data() {
     return {

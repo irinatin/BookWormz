@@ -1,4 +1,6 @@
 <template>
+<div>
+  <div class="label"> Prizes </div>
   <div class="create_new_prize">
     <div
       class="alert alert-danger"
@@ -43,7 +45,7 @@
           id="milestone"
           name="milestone"
           placeholder="Enter Milestone"
-          v-model="prizeinfo.prizeMilestone"
+          v-model="prizeinfo.milestone"
           required
           autofocus
         />
@@ -66,10 +68,10 @@
         <br />
         <input
           type="text"
-          id="max_prizes"
-          name="max_prizes"
+          id="numOfPrizes"
+          name="numOfPrizes"
           placeholder="Enter Prize Cap"
-          v-model="prizeinfo.maxPrizes"
+          v-model="prizeinfo.numOfPrizes"
           required
           autofocus
         />
@@ -112,6 +114,7 @@
       Milestone: {{prize.milestone}}
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -127,9 +130,9 @@ export default {
       prizeinfo: {
         prizeName: "",
         prizeDescription: "",
-        prizeMilestone: "",
+        milestone: "",
         userGroup: "",
-        maxPrizes: "",
+        numOfPrizes: "",
         startDate: "",
         endDate: ""
       },

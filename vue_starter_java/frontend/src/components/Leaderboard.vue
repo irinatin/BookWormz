@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Leaderboard</h2>
+    <h2 class="label">Leaderboard</h2>
     <div>
       <div v-for="user in leaderboard" v-bind:key="user.userName">Username: {{user.userName}}     Total: {{user.totalReading}} min</div>
     </div>
