@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="label">Family Members</div>
+    <h2 class="label has-background-primary">Family Members</h2>
     <div v-for="user in family" v-bind:key="user.firstName">{{user.firstName}} {{user.lastName}}</div>
     <form class="form-register" @submit.prevent="registerChild">
         <br>
@@ -8,10 +8,10 @@
         <br />
         <br>
         <button v-if="addChildForm && isParent" v-on:click="hideForm" type="submit">Hide Form</button>
-        <br />
+        
       <div>
       </div>
-
+<br />
       <span v-if="addChildForm">
         <label for="username">Username</label>
         <input
@@ -24,7 +24,7 @@
           autofocus
         />
       </span>
-
+      <br>
       <span v-if="addChildForm">
         <label for="password">Password</label>
         <input
@@ -37,7 +37,7 @@
           autofocus
         />
       </span>
-
+      <br>
       <span v-if="addChildForm">
         <label for="firstName">First Name</label>
         <input
@@ -50,7 +50,7 @@
           autofocus
         />
       </span>
-
+      <br>
       <span v-if="addChildForm">
         <label for="lastName">Last Name</label>
         <input
@@ -66,7 +66,7 @@
 
       <br />
       <button v-if="addChildForm" class="create-account-button" type="submit">Submit Child Info</button>
-      <br />
+     
     </form>
   </div>
 </template>
@@ -75,7 +75,7 @@
 
 <script>
 import axios from "axios";
-
+import 'bulma/css/bulma.css'
 export default {
   props: {
   },
@@ -177,4 +177,7 @@ export default {
 
 
 <style>
+.purple {
+    background-color: #b366ff;
+  }
 </style>
