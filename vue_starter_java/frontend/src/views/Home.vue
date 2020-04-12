@@ -62,7 +62,13 @@
         </div>
      </div>
 
-    
+     <div class="container box">
+       <div class="columns card-content">
+         <div class="column content">
+           <prize-list></prize-list>
+         </div>
+       </div>
+     </div>
 </div>
 </template>
 
@@ -72,6 +78,7 @@ import Family from '../components/Family';
 import ReadingEvent from '../components/ReadingEvent';
 import Books from '../components/Books';
 import Prizes from '../components/Prizes';
+import PrizeList from '../components/PrizeList';
 import Leaderboard from '../components/Leaderboard';
 import ReadingActivity from '../components/ReadingActivity';
 import Friends from '../components/Friends';
@@ -84,6 +91,7 @@ export default {
     ReadingEvent,
     Books,
     Prizes,
+    PrizeList,
     Leaderboard,
     ReadingActivity,
     Friends,
