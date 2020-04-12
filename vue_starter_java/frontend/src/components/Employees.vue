@@ -3,7 +3,9 @@
         <h2>{{title}}</h2>
         <ul>
             <li>
-                 <img v-bind:src="data.photo" alt="employee photo"/>
+                <img v-bind:src="data.photo" />
+            </li>
+            <li v-for="isbn in data.adult" v-bind:isbn="book.isbn" >
                 
                 
             </li>
@@ -19,6 +21,7 @@
 import image from '../views/assets/BookWorm.jpg'
 
 export default {
+    
     name: 'employees',
     props: {
         title: String,
@@ -26,6 +29,13 @@ export default {
     },
     data() {
         return {
+    photo : this.data.photo,
+    book: {
+        isbn: "",
+        title: "",
+        author: "",
+        thumbnail: ""
+      }  
             photo: "../views/assets/BookWorm.jpg",
             book: {
                 isbn: "",
