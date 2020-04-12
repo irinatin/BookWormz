@@ -6,7 +6,7 @@
     <navbar class="navbar">
       <div class="container">
         <div class="navbar-brand">
-        <a class="navbar-item brand-text"><router-link to="/"><img src="./views/assets/BWLogo.jpg" alt="BookWormz Photo" class="product-img">BookWormz</router-link></a>
+        <a class="navbar-item brand-text"><router-link to="/about"><img src="./views/assets/BWLogo.jpg" alt="BookWormz Photo" class="product-img">BookWormz</router-link></a>
           <a role="button" class="navbar-burger" data-target="navbar-menu" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');" aria-label="menu" aria-expanded="false">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -32,16 +32,7 @@
         </div>
       </div> 
     </navbar>
-      
-      <!-- <ul class="nav_links">
-      <router-link to="/">Home </router-link>
-      <router-link to="/login">Login </router-link>
-      <router-link to="/register">Register</router-link>
-      <router-link v-on:click.native= "quitter" to="/login" >Logout </router-link>
-      
-      </ul>
-
-    </div> -->
+    
     <router-view/>
     
     </header>

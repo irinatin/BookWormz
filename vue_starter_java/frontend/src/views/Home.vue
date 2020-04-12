@@ -4,7 +4,7 @@
     <div class="container">
         <div class="columns">
           <div class="column hero-body" >
-            <h1 class= "title">{{family[0].familyName}}</h1>
+            <h1 class= "title">{{family[0].familyName}} Family Dashboard</h1>
           </div>
         </div>
     </div>

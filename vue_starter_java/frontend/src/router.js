@@ -5,6 +5,7 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import UserInfo from './views/UserInfo.vue'
+import About from './views/About.vue'
 
 Vue.use(Router)
 
@@ -43,6 +44,14 @@ const router = new Router({
       component: Register,
       meta: {
         requiresAuth: false
+      }
+    },
+    {
+      path: "/about",
+      name: "about",
+      component: About,
+      meta: {
+        requireAuth: true
       }
     },
     {
