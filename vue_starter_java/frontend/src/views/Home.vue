@@ -14,8 +14,8 @@
     <div class="container">
         <div class="columns tile is-ancestor has-text-centered">
           
-          <div class="column is-parent box-margin">
-            <div class="tile is-child box">
+          <div class="column is-parent box-margin purple ">
+            <div class="tile is-child box has-background-primary">
                <family></family>
             </div>
           </div>
@@ -24,6 +24,12 @@
             <div class="tile is-child box">
                 <leaderboard></leaderboard>
              </div>
+          </div>
+
+           <div class="column is-parent box-margin">
+            <div class="tile is-child box">
+                <reading-activity></reading-activity>
+            </div>
           </div>
 
           <div class="column is-parent box-margin">
@@ -55,6 +61,14 @@
           </div>
         </div>
      </div>
+
+     <div class="container box">
+       <div class="columns card-content">
+         <div class="column content">
+           <prize-list></prize-list>
+         </div>
+       </div>
+     </div>
 </div>
 </template>
 
@@ -64,7 +78,9 @@ import Family from '../components/Family';
 import ReadingEvent from '../components/ReadingEvent';
 import Books from '../components/Books';
 import Prizes from '../components/Prizes';
+import PrizeList from '../components/PrizeList';
 import Leaderboard from '../components/Leaderboard';
+import ReadingActivity from '../components/ReadingActivity';
 import Friends from '../components/Friends';
 
 
@@ -75,7 +91,9 @@ export default {
     ReadingEvent,
     Books,
     Prizes,
+    PrizeList,
     Leaderboard,
+    ReadingActivity,
     Friends,
   },
   data() {
@@ -96,7 +114,21 @@ export default {
       .catch(error => {
         console.log(error + " there was an error");
       });
-  }
+      axios
+      .get(`${process.env.VUE_APP_REMOTE_API}/api/getReadingActivity`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Authorization")
+        }
+      })
+      .then(response => {
+      
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error + " there was an error");
+      });
+  },
+  
 }
 </script>
 
@@ -104,6 +136,9 @@ export default {
   .box-margin {
     margin-top: 3%;
     margin-bottom: 2%;
+  }
+  .purple {
+    background-color: #b366ff;
   }
 /* body {
   margin: 0px;

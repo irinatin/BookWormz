@@ -21,7 +21,11 @@ import com.techelevator.model.FriendDAO;
 import com.techelevator.model.Leaderboard;
 import com.techelevator.model.Prize;
 import com.techelevator.model.PrizeDAO;
+
+import com.techelevator.model.ReadingActivity;
+
 import com.techelevator.model.PrizeListInfo;
+
 import com.techelevator.model.ReadingEvent;
 import com.techelevator.model.ReadingEventDAO;
 import com.techelevator.model.User;
@@ -59,7 +63,12 @@ public class ApiController {
 	private PrizeDAO prizeDAO;
 	
 	@Autowired
+<<<<<<< HEAD
 	private FriendDAO friendDAO;
+=======
+	private AuthProvider auth;
+	
+>>>>>>> 5d1bc86e46f040c68d7aa39916489a7d907f0236
 
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public String authorizedOnly() throws UnauthorizedException {
@@ -95,6 +104,7 @@ public class ApiController {
 		}
 		return familyMembers;
 	}
+<<<<<<< HEAD
 
 	@RequestMapping(path = "/getAllBooks", method = RequestMethod.GET)
 	public List<Book> getAllBooks() {
@@ -115,6 +125,66 @@ public class ApiController {
 		prizeDAO.createNewPrize(newPrize);
 		return true;
 	}
+=======
+	
+    @RequestMapping(path = "/getAllBooks", method = RequestMethod.GET)
+    public List<Book> getAllBooks() {
+    	User currentUser = auth.getCurrentUser();
+    	long currentUserId = currentUser.getId(); 
+    	return bookDAO.getAllBooksPerFamily(currentUserId);
+    }
+    
+    @RequestMapping(path = "/getUser", method = RequestMethod.GET)
+    public List<User> getAllUsers() {
+    	User currentUser = auth.getCurrentUser();
+    	long currentUserId = currentUser.getId(); 
+    	return userDAO.getAllUsersByFamily(currentUserId);
+    }
+    
+    @RequestMapping(path = "/addPrize", method = RequestMethod.POST)
+    public boolean addPrize(@RequestBody Prize newPrize) {
+    	
+    	System.out.println(newPrize.getUserGroup());
+    	prizeDAO.createNewPrize(newPrize);
+    	return true;
+    }
+    
+    @RequestMapping(path = "/addChild", method = RequestMethod.POST)
+    public boolean addChild(@RequestBody ChildInfo child) {
+    	userDAO.saveUser(child.getUsername(), child.getPassword(), "child");
+    	long childId = userDAO.getUserByUsername(child.getUsername()).getId();
+    	Long familyId = userInfoDAO.getFamilyId(authDAO.getCurrentUser().getId());
+    	userInfoDAO.saveUserInfo(child.getFirstName(), child.getLastName(), familyId, childId);
+    	
+    	return true;
+    }
+    
+    @RequestMapping(path = "/getCurrentUser", method = RequestMethod.GET)
+    public User getCurrentUser() {
+    	User middleUser = auth.getCurrentUser();
+    	User endUser = new User();
+    	endUser.setId(middleUser.getId());
+    	endUser.setRole(middleUser.getRole());
+    	endUser.setUsername(middleUser.getUsername());
+    	return endUser;
+    }
+    
+    @RequestMapping(path = "/getLeaderboard", method = RequestMethod.GET)
+    public List<Leaderboard> getLeaderboard() {
+    	return familyDAO.getFamilyLeaderboard(userInfoDAO.getFamilyId(authDAO.getCurrentUser().getId()));
+    	
+    }
+    
+    @RequestMapping( path = "/getReadingActivity", method = RequestMethod.GET)
+    public ReadingActivity getReadingActivityObject() {
+    	User currentUser = auth.getCurrentUser();
+    	long currentUserId = currentUser.getId();
+    	String currentUserRole = currentUser.getRole();
+    	
+    	return reDAO.getReadingActivity(currentUserId, currentUserRole);
+    }
+    
+>>>>>>> 5d1bc86e46f040c68d7aa39916489a7d907f0236
 
 	@RequestMapping(path = "/getPrizeList", method = RequestMethod.GET)
 	public List<PrizeListInfo> getPrizeList() {
@@ -122,6 +192,7 @@ public class ApiController {
 		return prizeDAO.getPrizeListInfo(authDAO.getCurrentUser().getRole(), authDAO.getCurrentUser().getId());
 	}
 
+<<<<<<< HEAD
 	@RequestMapping(path = "/addChild", method = RequestMethod.POST)
 	public boolean addChild(@RequestBody ChildInfo child) {
 		userDAO.saveUser(child.getUsername(), child.getPassword(), "child");
@@ -164,5 +235,7 @@ public class ApiController {
 		return friendDAO.searchForFriend(username);
 	}
 	
+=======
+>>>>>>> 5d1bc86e46f040c68d7aa39916489a7d907f0236
 
 }

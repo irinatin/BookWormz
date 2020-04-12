@@ -13,7 +13,7 @@
     <div v-if="showForm">
       <form class="new_prize_form" @submit.prevent="addNewPrize">
         <label for="prize_name">Prize Name</label>
-        <br />
+        <br>
         <input
           type="text"
           id="prize_name"
@@ -23,10 +23,10 @@
           required
           autofocus
         />
-        <br />
+        <br>
 
         <label for="description">Description</label>
-        <br />
+        <br>
         <input
           type="text"
           id="description"
@@ -36,10 +36,10 @@
           required
           autofocus
         />
-        <br />
+        <br>
 
         <label for="milestone">Milestone (minutes reading)</label>
-        <br />
+        <br>
         <input
           type="text"
           id="milestone"
@@ -49,10 +49,10 @@
           required
           autofocus
         />
-        <br />
+        <br>
 
         <label for="user_group">User Group (Parent/Child)</label>
-        <br />
+        <br>
         <input
           type="text"
           id="user_group"
@@ -62,10 +62,10 @@
           required
           autofocus
         />
-        <br />
+        <br>
 
         <label for="max_prizes">Prize Cap</label>
-        <br />
+        <br>
         <input
           type="text"
           id="numOfPrizes"
@@ -75,10 +75,10 @@
           required
           autofocus
         />
-        <br />
+        <br>
 
         <label for="start_date">Start Date</label>
-        <br />
+        <br>
         <input
           type="text"
           id="start_date"
@@ -88,10 +88,10 @@
           required
           autofocus
         />
-        <br />
+        <br>
 
         <label for="end_date">End Date</label>
-        <br />
+        <br>
         <input
           type="text"
           id="end_date"
@@ -101,18 +101,13 @@
           required
           autofocus
         />
-        <br />
+        <br>
 
         <button class="add_prize_button" type="submit">Add Prize</button>
-        <br />
+        <br>
       </form>
     </div>
 
-    <div class="prizeList" v-for="prize in prizeList" v-bind:key="prize.prizeName">
-      Name: {{prize.prizeName}}
-      Reading Time: {{prize.readingTime}}
-      Milestone: {{prize.milestone}}
-    </div>
   </div>
 </div>
 </template>
@@ -137,9 +132,7 @@ export default {
         endDate: ""
       },
       formErrors: false,
-      noPrizes: false,
-
-      prizeList: {}
+      noPrizes: false
     };
   },
 
@@ -184,22 +177,7 @@ export default {
     }
   },
 
-  created() {
-    axios
-      .get(`${process.env.VUE_APP_REMOTE_API}/api/getPrizeList`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("Authorization")
-        }
-      })
-      .then(response => {
-        this.prizeList = response.data;
-        console.log(this.prizeList);
-      })
-      .catch(error => {
-        this.noPrizes = true;
-        console.log(error + " there was an error");
-      });
-  }
+
 };
 </script>
 
