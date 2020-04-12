@@ -109,8 +109,6 @@ public class ApiController {
 
 	@RequestMapping(path = "/addPrize", method = RequestMethod.POST)
 	public boolean addPrize(@RequestBody Prize newPrize) {
-
-		System.out.println(newPrize.getUserGroup());
 		prizeDAO.createNewPrize(newPrize);
 		return true;
 	}
