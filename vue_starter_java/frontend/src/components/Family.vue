@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="label">Family Members</div>
+    <div class = "header">
+    <h2 class="label">Family Members</h2>
+    </div>
     <div v-for="user in family" v-bind:key="user.firstName">{{user.firstName}} {{user.lastName}}</div>
     <form class="form-register" @submit.prevent="registerChild">
         <br>
@@ -134,6 +136,11 @@ export default {
         .then(response => {
           this.addChildForm = false;
           this.getFamilyList();
+          this.child.username = "";
+          this.child.password = "";
+          this.child.firstName = "";
+          this.child.lastName = "";
+
         })
         .catch(err => {
           this.registrationErrors = true;

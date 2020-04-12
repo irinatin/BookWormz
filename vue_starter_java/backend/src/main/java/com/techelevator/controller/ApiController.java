@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +16,8 @@ import com.techelevator.model.Book;
 import com.techelevator.model.BookDAO;
 import com.techelevator.model.ChildInfo;
 import com.techelevator.model.FamilyDAO;
+import com.techelevator.model.Friend;
+import com.techelevator.model.FriendDAO;
 import com.techelevator.model.Leaderboard;
 import com.techelevator.model.Prize;
 import com.techelevator.model.PrizeDAO;
@@ -54,9 +57,9 @@ public class ApiController {
 
 	@Autowired
 	private PrizeDAO prizeDAO;
-
+	
 	@Autowired
-	private AuthProvider auth;
+	private FriendDAO friendDAO;
 
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public String authorizedOnly() throws UnauthorizedException {
@@ -95,14 +98,14 @@ public class ApiController {
 
 	@RequestMapping(path = "/getAllBooks", method = RequestMethod.GET)
 	public List<Book> getAllBooks() {
-		User currentUser = auth.getCurrentUser();
+		User currentUser = authDAO.getCurrentUser();
 		long currentUserId = currentUser.getId();
 		return bookDAO.getAllBooksPerFamily(currentUserId);
 	}
 
 	@RequestMapping(path = "/getUser", method = RequestMethod.GET)
 	public List<User> getAllUsers() {
-		User currentUser = auth.getCurrentUser();
+		User currentUser = authDAO.getCurrentUser();
 		long currentUserId = currentUser.getId();
 		return userDAO.getAllUsersByFamily(currentUserId);
 	}
@@ -131,7 +134,7 @@ public class ApiController {
 
 	@RequestMapping(path = "/getCurrentUser", method = RequestMethod.GET)
 	public User getCurrentUser() {
-		User middleUser = auth.getCurrentUser();
+		User middleUser = authDAO.getCurrentUser();
 		User endUser = new User();
 		endUser.setId(middleUser.getId());
 		endUser.setRole(middleUser.getRole());
@@ -142,7 +145,24 @@ public class ApiController {
 	@RequestMapping(path = "/getLeaderboard", method = RequestMethod.GET)
 	public List<Leaderboard> getLeaderboard() {
 		return familyDAO.getFamilyLeaderboard(userInfoDAO.getFamilyId(authDAO.getCurrentUser().getId()));
-
 	}
+	
+	@RequestMapping(path = "/getAllFriends", method = RequestMethod.GET)
+	public List<Friend> getAllFriends(){
+		return friendDAO.getAllFriends(authDAO.getCurrentUser().getId());
+	}
+	
+	@RequestMapping(path = "/addFriend", method = RequestMethod.POST)
+	public boolean addFriend(@RequestBody Friend friend) {
+		long userId = authDAO.getCurrentUser().getId();
+		friendDAO.addNewFriend(userId, friend.getUsername());
+		return true;
+	}
+	
+	@RequestMapping(path = "searchForFriend/{username}", method = RequestMethod.GET)
+	public Friend searchForFriend(@PathVariable String username) {
+		return friendDAO.searchForFriend(username);
+	}
+	
 
 }
