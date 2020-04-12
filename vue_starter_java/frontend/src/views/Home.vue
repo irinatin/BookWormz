@@ -26,6 +26,12 @@
              </div>
           </div>
 
+           <div class="column is-parent box-margin">
+            <div class="tile is-child box">
+                <reading-activity></reading-activity>
+            </div>
+          </div>
+
           <div class="column is-parent box-margin">
             <div class="tile is-child box">
               <friends>friends</friends>
@@ -55,6 +61,8 @@
           </div>
         </div>
      </div>
+
+    
 </div>
 </template>
 
@@ -65,6 +73,7 @@ import ReadingEvent from '../components/ReadingEvent';
 import Books from '../components/Books';
 import Prizes from '../components/Prizes';
 import Leaderboard from '../components/Leaderboard';
+import ReadingActivity from '../components/ReadingActivity';
 import Friends from '../components/Friends';
 
 
@@ -76,6 +85,7 @@ export default {
     Books,
     Prizes,
     Leaderboard,
+    ReadingActivity,
     Friends,
   },
   data() {
@@ -96,7 +106,21 @@ export default {
       .catch(error => {
         console.log(error + " there was an error");
       });
-  }
+      axios
+      .get(`${process.env.VUE_APP_REMOTE_API}/api/getReadingActivity`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Authorization")
+        }
+      })
+      .then(response => {
+      
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error + " there was an error");
+      });
+  },
+  
 }
 </script>
 

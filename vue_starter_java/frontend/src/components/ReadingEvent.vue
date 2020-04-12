@@ -98,7 +98,7 @@ export default {
         },
         {
           id: 5,
-          format: "Read-Aloud (Listener"
+          format: "Read-Aloud (Listener)"
         },
         {
           id: 6,
