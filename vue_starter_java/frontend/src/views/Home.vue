@@ -21,6 +21,10 @@
           <div class="column">
             <p>Friends</p>
           </div>
+
+          <div class="column">
+            <reading-activity></reading-activity>
+          </div>
         </div>    
      </div>
 
@@ -49,13 +53,7 @@
         </div>
      </div>
 
-     <div class="container">
-        <div class="columns">
-          <div class="column">
-            <reading-activity></reading-activity>
-          </div>
-        </div>
-    </div> 
+    
 </div>
 </template>
 
@@ -65,6 +63,7 @@ import ReadingEvent from '../components/ReadingEvent';
 import Books from '../components/Books';
 import Prizes from '../components/Prizes';
 import Leaderboard from '../components/Leaderboard';
+import ReadingActivity from '../components/ReadingActivity';
 
 export default {
   name: 'home',
@@ -74,6 +73,7 @@ export default {
     Books,
     Prizes,
     Leaderboard,
+    ReadingActivity
   }
 }
 </script>

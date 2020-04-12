@@ -1,33 +1,46 @@
 <template>
-<div>
+  <div>
+      <h2>Reading Activity</h2>
     <div>
-        <button>Show Reading Activity</button>
+      <div v-for="user in readingActivity" v-bind:key="user.userName">{{user.userName}}</div>
     </div>
-  
-    
-</div>
+  </div>
 </template>
 
 <script>
-
-import axios from "axios"
+import axios from "axios";
 
 export default {
-    props: {
-        apiURL: String
+  data() {
+    return {
+
+    readingActivity: {
+        userName: '',
+        readingTime: 0
     },
-    
-    data() {
-        return {
-            
-        }
-    },
+    users: []
+      
+    };
+  },
 
-    methods: {
+  methods: {
+  },
 
-    
-
-
-}
-}
+    created() {
+      axios
+        .get(`${process.env.VUE_APP_REMOTE_API}/api/getReadingActivity`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("Authorization")
+          }
+        })
+        .then(response => {
+          this.readingActivity = response.data;
+          console.log("What's happening?");
+        })
+        .catch(error => {
+          console.log(error + " there was an error");
+        });
+    }
+  
+};
 </script>

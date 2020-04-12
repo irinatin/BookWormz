@@ -6,10 +6,10 @@ public class ReadingActivity {
 	
 	private int readingTime;
 	
-	public ReadingActivity(String title, int readingTime) {
-		this.title = title;
-		this.readingTime = readingTime;
-	}
+//	public ReadingActivity(String title, int readingTime) {
+//		this.title = title;
+//		this.readingTime = readingTime;
+//	}
 
 	public String getTitle() {
 		return title;

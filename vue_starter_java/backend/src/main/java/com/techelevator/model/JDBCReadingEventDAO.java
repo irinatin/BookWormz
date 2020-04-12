@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JDBCReadingEventDAO implements ReadingEventDAO {
-	
+
 	private JdbcTemplate jdbcTemplate;
-	
+
 	@Autowired
 	public JDBCReadingEventDAO(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -31,7 +31,9 @@ public class JDBCReadingEventDAO implements ReadingEventDAO {
 	public ReadingEvent addReadingEvent(ReadingEvent reads) {
 		reads.setReadingEventId(getReadingEventId());
 		String sqlSaveReadingEvent = "INSERT INTO user_book VALUES (?, ?, ?, ?, ?, ?, ?)";
-		jdbcTemplate.update(sqlSaveReadingEvent, reads.getReadingEventId(), reads.getUserId(), reads.getBookId(), reads.getReadingTime(), LocalDate.parse(reads.getReadingDate()), reads.getFormat(), reads.isCompleted());
+		jdbcTemplate.update(sqlSaveReadingEvent, reads.getReadingEventId(), reads.getUserId(), reads.getBookId(),
+				reads.getReadingTime(), LocalDate.parse(reads.getReadingDate()), reads.getFormat(),
+				reads.isCompleted());
 		return reads;
 	}
 
@@ -42,33 +44,29 @@ public class JDBCReadingEventDAO implements ReadingEventDAO {
 	}
 
 	@Override
-	public List<ReadingEvent> getReadingEventsByUser(long userId) {
-		List<ReadingEvent> booksByUser = new ArrayList<ReadingEvent>();
-		String sqlGetBooksByUser = "SELECT title FROM book JOIN user_book ON user_book.book_id = 	book.book_id WHERE user_book.user_id = ? ";
-		
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetBooksByUser);
-		ReadingEvent bookie = new ReadingEvent();
-		while(results.next()) {
-			bookie = mapRowToBook(results);
-			booksByUser.add(bookie);
+	public List<ReadingActivity> getReadingActivity(Long userId) {
+		List<ReadingActivity> familyReadingActivity = new ArrayList<ReadingActivity>();
+
+		String sqlGetBooksAndTimePeruser = "SELECT book.title, user_book.reading_time " + "FROM book "
+				+ "JOIN user_book ON user_book.book_id = book.book_id " + "WHERE user_book.user_id = ?";
+
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetBooksAndTimePeruser, userId);
+
+		while (results.next()) {
+			ReadingActivity newReadingActivity = new ReadingActivity();
+			newReadingActivity.setTitle(results.getString("title"));
+			newReadingActivity.setReadingTime(results.getInt("reading_time"));
+			familyReadingActivity.add(newReadingActivity);
 		}
-		// TODO Auto-generated method stub
-		return booksByUser;
-	}
-	
-	
-	private ReadingEvent mapRowToBook(SqlRowSet results) {
-		ReadingEvent bookie = new ReadingEvent();
-		bookie.setBookTitle(results.getString("title"));
-		return bookie;
+
+		return familyReadingActivity;
 	}
 
 	private long getReadingEventId() {
 		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('user_book_reading_event_id_seq')");
 		if (nextIdResult.next()) {
-			return nextIdResult.getLong(1); //changed from int to long
-		}
-		else {
+			return nextIdResult.getLong(1); // changed from int to long
+		} else {
 			throw new RuntimeException("Something went wrong with book sequence");
 		}
 	}

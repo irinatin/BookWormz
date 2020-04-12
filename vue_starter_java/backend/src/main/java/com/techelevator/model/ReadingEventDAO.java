@@ -8,8 +8,9 @@ public interface ReadingEventDAO {
 	
 	public ReadingEvent addReadingEvent(ReadingEvent reads);
 	public ReadingEvent addChildReadingEvent(ReadingEvent reads, boolean completed);
-	
-	public List<ReadingEvent> getReadingEventsByUser(long userId);
+
+
+	List<ReadingActivity> getReadingActivity(Long userId);
 	
 
 }

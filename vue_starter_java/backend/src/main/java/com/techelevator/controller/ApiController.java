@@ -18,6 +18,7 @@ import com.techelevator.model.FamilyDAO;
 import com.techelevator.model.Leaderboard;
 import com.techelevator.model.Prize;
 import com.techelevator.model.PrizeDAO;
+import com.techelevator.model.ReadingActivity;
 import com.techelevator.model.ReadingEvent;
 import com.techelevator.model.ReadingEventDAO;
 import com.techelevator.model.User;
@@ -142,6 +143,13 @@ public class ApiController {
     public List<Leaderboard> getLeaderboard() {
     	return familyDAO.getFamilyLeaderboard(userInfoDAO.getFamilyId(authDAO.getCurrentUser().getId()));
     	
+    }
+    
+    @RequestMapping( path = "/getReadingActivity", method = RequestMethod.GET)
+    public List<ReadingActivity> getReadingActivity() {
+//    	User currentUser = auth.getCurrentUser();
+//    	long currentUserId = currentUser.getId();
+    	return reDAO.getReadingActivity(userInfoDAO.getFamilyId(authDAO.getCurrentUser().getId()));
     }
     
 }
