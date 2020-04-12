@@ -29,20 +29,13 @@ export default {
     },
     data() {
         return {
-    photo : this.data.photo,
+    photo : "../views/assets/BookWorm.jpg",
     book: {
         isbn: "",
         title: "",
         author: "",
         thumbnail: ""
-      }  
-            photo: "../views/assets/BookWorm.jpg",
-            book: {
-                isbn: "",
-                title: "",
-                author: "",
-                thumbnail: ""
-            }  
+      }
         }
     },
     methods: {
