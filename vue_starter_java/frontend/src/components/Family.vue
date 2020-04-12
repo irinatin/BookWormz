@@ -1,12 +1,6 @@
 <template>
   <div>
-<<<<<<< HEAD
-    <div class = "header">
-    <h2 class="label">Family Members</h2>
-    </div>
-=======
     <h2 class="label has-background-primary">Family Members</h2>
->>>>>>> 5d1bc86e46f040c68d7aa39916489a7d907f0236
     <div v-for="user in family" v-bind:key="user.firstName">{{user.firstName}} {{user.lastName}}</div>
     <form class="form-register" @submit.prevent="registerChild">
         <br>

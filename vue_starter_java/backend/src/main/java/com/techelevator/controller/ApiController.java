@@ -63,12 +63,7 @@ public class ApiController {
 	private PrizeDAO prizeDAO;
 	
 	@Autowired
-<<<<<<< HEAD
 	private FriendDAO friendDAO;
-=======
-	private AuthProvider auth;
-	
->>>>>>> 5d1bc86e46f040c68d7aa39916489a7d907f0236
 
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public String authorizedOnly() throws UnauthorizedException {
@@ -84,11 +79,45 @@ public class ApiController {
 		}
 		return "Success";
 	}
+	
+	@RequestMapping(path = "/getUser", method = RequestMethod.GET)
+    public List<User> getAllUsers() {
+    	User currentUser = authDAO.getCurrentUser();
+    	long currentUserId = currentUser.getId(); 
+    	return userDAO.getAllUsersByFamily(currentUserId);
+    }
+	
+	@RequestMapping(path = "/getCurrentUser", method = RequestMethod.GET)
+    public User getCurrentUser() {
+    	User middleUser = authDAO.getCurrentUser();
+    	User endUser = new User();
+    	endUser.setId(middleUser.getId());
+    	endUser.setRole(middleUser.getRole());
+    	endUser.setUsername(middleUser.getUsername());
+    	return endUser;
+    }
+	
+	@RequestMapping(path = "/addChild", method = RequestMethod.POST)
+    public boolean addChild(@RequestBody ChildInfo child) {
+    	userDAO.saveUser(child.getUsername(), child.getPassword(), "child");
+    	long childId = userDAO.getUserByUsername(child.getUsername()).getId();
+    	Long familyId = userInfoDAO.getFamilyId(authDAO.getCurrentUser().getId());
+    	userInfoDAO.saveUserInfo(child.getFirstName(), child.getLastName(), familyId, childId);
+    	
+    	return true;
+    }
 
 	@RequestMapping(path = "/addBook", method = RequestMethod.POST)
 	public boolean addBook(@RequestBody Book newBook) {
 		return bookDAO.addNewBook(newBook, userInfoDAO.getFamilyId(authDAO.getCurrentUser().getId()));
 	}
+	
+	@RequestMapping(path = "/getAllBooks", method = RequestMethod.GET)
+    public List<Book> getAllBooks() {
+    	User currentUser = authDAO.getCurrentUser();
+    	long currentUserId = currentUser.getId(); 
+    	return bookDAO.getAllBooksPerFamily(currentUserId);
+    }
 
 	@RequestMapping(path = "/addReadingEvent", method = RequestMethod.POST)
 	public ReadingEvent addReadingEvent(@RequestBody ReadingEvent reads) {
@@ -104,42 +133,6 @@ public class ApiController {
 		}
 		return familyMembers;
 	}
-<<<<<<< HEAD
-
-	@RequestMapping(path = "/getAllBooks", method = RequestMethod.GET)
-	public List<Book> getAllBooks() {
-		User currentUser = authDAO.getCurrentUser();
-		long currentUserId = currentUser.getId();
-		return bookDAO.getAllBooksPerFamily(currentUserId);
-	}
-
-	@RequestMapping(path = "/getUser", method = RequestMethod.GET)
-	public List<User> getAllUsers() {
-		User currentUser = authDAO.getCurrentUser();
-		long currentUserId = currentUser.getId();
-		return userDAO.getAllUsersByFamily(currentUserId);
-	}
-
-	@RequestMapping(path = "/addPrize", method = RequestMethod.POST)
-	public boolean addPrize(@RequestBody Prize newPrize) {
-		prizeDAO.createNewPrize(newPrize);
-		return true;
-	}
-=======
-	
-    @RequestMapping(path = "/getAllBooks", method = RequestMethod.GET)
-    public List<Book> getAllBooks() {
-    	User currentUser = auth.getCurrentUser();
-    	long currentUserId = currentUser.getId(); 
-    	return bookDAO.getAllBooksPerFamily(currentUserId);
-    }
-    
-    @RequestMapping(path = "/getUser", method = RequestMethod.GET)
-    public List<User> getAllUsers() {
-    	User currentUser = auth.getCurrentUser();
-    	long currentUserId = currentUser.getId(); 
-    	return userDAO.getAllUsersByFamily(currentUserId);
-    }
     
     @RequestMapping(path = "/addPrize", method = RequestMethod.POST)
     public boolean addPrize(@RequestBody Prize newPrize) {
@@ -149,42 +142,15 @@ public class ApiController {
     	return true;
     }
     
-    @RequestMapping(path = "/addChild", method = RequestMethod.POST)
-    public boolean addChild(@RequestBody ChildInfo child) {
-    	userDAO.saveUser(child.getUsername(), child.getPassword(), "child");
-    	long childId = userDAO.getUserByUsername(child.getUsername()).getId();
-    	Long familyId = userInfoDAO.getFamilyId(authDAO.getCurrentUser().getId());
-    	userInfoDAO.saveUserInfo(child.getFirstName(), child.getLastName(), familyId, childId);
-    	
-    	return true;
-    }
-    
-    @RequestMapping(path = "/getCurrentUser", method = RequestMethod.GET)
-    public User getCurrentUser() {
-    	User middleUser = auth.getCurrentUser();
-    	User endUser = new User();
-    	endUser.setId(middleUser.getId());
-    	endUser.setRole(middleUser.getRole());
-    	endUser.setUsername(middleUser.getUsername());
-    	return endUser;
-    }
-    
-    @RequestMapping(path = "/getLeaderboard", method = RequestMethod.GET)
-    public List<Leaderboard> getLeaderboard() {
-    	return familyDAO.getFamilyLeaderboard(userInfoDAO.getFamilyId(authDAO.getCurrentUser().getId()));
-    	
-    }
-    
     @RequestMapping( path = "/getReadingActivity", method = RequestMethod.GET)
     public ReadingActivity getReadingActivityObject() {
-    	User currentUser = auth.getCurrentUser();
+    	User currentUser = authDAO.getCurrentUser();
     	long currentUserId = currentUser.getId();
     	String currentUserRole = currentUser.getRole();
     	
     	return reDAO.getReadingActivity(currentUserId, currentUserRole);
     }
     
->>>>>>> 5d1bc86e46f040c68d7aa39916489a7d907f0236
 
 	@RequestMapping(path = "/getPrizeList", method = RequestMethod.GET)
 	public List<PrizeListInfo> getPrizeList() {
@@ -192,26 +158,6 @@ public class ApiController {
 		return prizeDAO.getPrizeListInfo(authDAO.getCurrentUser().getRole(), authDAO.getCurrentUser().getId());
 	}
 
-<<<<<<< HEAD
-	@RequestMapping(path = "/addChild", method = RequestMethod.POST)
-	public boolean addChild(@RequestBody ChildInfo child) {
-		userDAO.saveUser(child.getUsername(), child.getPassword(), "child");
-		long childId = userDAO.getUserByUsername(child.getUsername()).getId();
-		Long familyId = userInfoDAO.getFamilyId(authDAO.getCurrentUser().getId());
-		userInfoDAO.saveUserInfo(child.getFirstName(), child.getLastName(), familyId, childId);
-
-		return true;
-	}
-
-	@RequestMapping(path = "/getCurrentUser", method = RequestMethod.GET)
-	public User getCurrentUser() {
-		User middleUser = authDAO.getCurrentUser();
-		User endUser = new User();
-		endUser.setId(middleUser.getId());
-		endUser.setRole(middleUser.getRole());
-		endUser.setUsername(middleUser.getUsername());
-		return endUser;
-	}
 
 	@RequestMapping(path = "/getLeaderboard", method = RequestMethod.GET)
 	public List<Leaderboard> getLeaderboard() {
@@ -235,7 +181,5 @@ public class ApiController {
 		return friendDAO.searchForFriend(username);
 	}
 	
-=======
->>>>>>> 5d1bc86e46f040c68d7aa39916489a7d907f0236
 
 }

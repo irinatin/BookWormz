@@ -3,13 +3,9 @@
         <h2>{{title}}</h2>
         <ul>
             <li>
-<<<<<<< HEAD
                 <img v-bind:src="data.photo" />
             </li>
             <li v-for="isbn in data.adult" v-bind:isbn="book.isbn" >
-=======
-                 <img v-bind:src="data.photo" alt="employee photo"/>
->>>>>>> 5d1bc86e46f040c68d7aa39916489a7d907f0236
                 
                 
             </li>
@@ -33,7 +29,6 @@ export default {
     },
     data() {
         return {
-<<<<<<< HEAD
     photo : this.data.photo,
     book: {
         isbn: "",
@@ -41,7 +36,6 @@ export default {
         author: "",
         thumbnail: ""
       }  
-=======
             photo: "../views/assets/BookWorm.jpg",
             book: {
                 isbn: "",
@@ -49,7 +43,6 @@ export default {
                 author: "",
                 thumbnail: ""
             }  
->>>>>>> 5d1bc86e46f040c68d7aa39916489a7d907f0236
         }
     },
     methods: {
