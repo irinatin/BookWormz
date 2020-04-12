@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="header">
-      <h2 class="label">Book Search</h2>
+      <h2 class="label has-background-primary">Book Search</h2>
     </div>
-
+    <img class="book" src="../views/assets/Book.gif"/>
     <div class="form">
       <div class="form-input">
         <span>Enter Book ISBN:</span><br>
@@ -18,11 +18,10 @@
 
     <div>
       <span v-if="showBook"
-        ><img v-bind:src="book.thumbnail" /> title: {{ book.title }} author:
-        {{ book.author }}</span
-      >
+        ><img v-bind:src="book.thumbnail"/> Title: {{ book.title }} 
+        <p>Author: {{ book.author }}</p> </span>
     </div>
-
+  <br>
     <div>
       <p v-if="showBook">
         To add this book to your personal library, click below:
@@ -173,4 +172,16 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.book {
+  width: 25%;
+  height: auto;
+  display: inline;
+  float: left;
+  padding-top: 3%;
+  padding-left: 10%;
+}
+.form-input {
+  padding-top: 3%;
+}
+</style>

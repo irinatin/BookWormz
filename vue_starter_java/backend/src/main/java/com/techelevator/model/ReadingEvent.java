@@ -34,6 +34,16 @@ public class ReadingEvent {
 	private String notes;
 	
 	private boolean completed;
+	
+	private String bookTitle;
+
+	public String getBookTitle() {
+		return bookTitle;
+	}
+
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
+	}
 
 	public boolean isCompleted() {
 		return completed;
