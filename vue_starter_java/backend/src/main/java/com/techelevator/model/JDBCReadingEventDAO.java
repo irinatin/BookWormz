@@ -2,7 +2,10 @@ package com.techelevator.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.sql.DataSource;
 
@@ -44,20 +47,58 @@ public class JDBCReadingEventDAO implements ReadingEventDAO {
 	}
 
 	@Override
-	public List<ReadingActivity> getReadingActivity(Long userId) {
-		List<ReadingActivity> familyReadingActivity = new ArrayList<ReadingActivity>();
+	public ReadingActivity getReadingActivity(Long userId, String userRole) {
+		
+		ReadingActivity familyReadingActivity = new ReadingActivity();
 
-		String sqlGetBooksAndTimePeruser = "SELECT book.title, user_book.reading_time " + "FROM book "
-				+ "JOIN user_book ON user_book.book_id = book.book_id " + "WHERE user_book.user_id = ?";
+		String sqlTotalBooksCompleted = "SELECT COUNT(*) FROM user_book WHERE completed = true AND user_id = ?";
 
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetBooksAndTimePeruser, userId);
-
-		while (results.next()) {
-			ReadingActivity newReadingActivity = new ReadingActivity();
-			newReadingActivity.setTitle(results.getString("title"));
-			newReadingActivity.setReadingTime(results.getInt("reading_time"));
-			familyReadingActivity.add(newReadingActivity);
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlTotalBooksCompleted, userId);
+		
+		results.next();
+		familyReadingActivity.setCompletedBooks(results.getInt(1));
+		
+		String sqlSumTotalMinutes = "SELECT SUM(reading_time) FROM user_book WHERE user_id = ?";
+		
+		SqlRowSet resultsMins = jdbcTemplate.queryForRowSet(sqlSumTotalMinutes, userId);
+		resultsMins.next();
+		familyReadingActivity.setTotalReadingTime(resultsMins.getInt(1));
+		
+		
+		String sqlCurrentBooks = "SELECT book.title, user_book.completed FROM user_book JOIN book ON book.book_id = user_book.book_id WHERE user_book.user_id = ?";
+		
+		SqlRowSet resultsCurrentBooks = jdbcTemplate.queryForRowSet(sqlCurrentBooks, userId);
+		Map<String, Boolean> currentBooks = new HashMap<String, Boolean>();
+		List<String> currentBooksTitles = new ArrayList<String>();
+		
+		while(resultsCurrentBooks.next()) {
+			currentBooks.put(resultsCurrentBooks.getString(1), resultsCurrentBooks.getBoolean(2));
 		}
+		
+		Set<String> keys = currentBooks.keySet();
+		for(String key : keys) {
+			if(currentBooks.get(key) == false) {
+				currentBooksTitles.add(key);
+			}
+		}
+		
+		familyReadingActivity.setCurrentBooks(currentBooksTitles);
+		
+		String sqlProgressTowardsPrize = "SELECT prize_name, milestone FROM prize WHERE user_group = ? AND start_date < ? AND end_date > ?";
+		
+		SqlRowSet resultsPrizes = jdbcTemplate.queryForRowSet(sqlProgressTowardsPrize, userRole, LocalDate.now(), LocalDate.now());
+		
+		Map<String, Integer> progress = new HashMap<String, Integer>();
+		
+		
+		
+		while(resultsPrizes.next()) {
+			double resultsMinutes = (Double.valueOf(resultsMins.getInt(1)) / resultsPrizes.getInt(2)) * 100;
+			Integer resultsPercentage = (int)(resultsMinutes);
+			progress.put(resultsPrizes.getString(1), resultsPercentage);
+		}
+		
+		familyReadingActivity.setProgressTowardsPrize(progress);
 
 		return familyReadingActivity;
 	}

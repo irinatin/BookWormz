@@ -10,7 +10,7 @@ public interface ReadingEventDAO {
 	public ReadingEvent addChildReadingEvent(ReadingEvent reads, boolean completed);
 
 
-	List<ReadingActivity> getReadingActivity(Long userId);
+	ReadingActivity getReadingActivity(Long userId, String userRole);
 	
 
 }

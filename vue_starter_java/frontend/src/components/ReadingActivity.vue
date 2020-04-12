@@ -1,8 +1,12 @@
 <template>
   <div>
-      <h2>Reading Activity</h2>
+      <h2>
+          <button v-on:click="selectUser()">Reading Activity</button>
+        </h2>
     <div>
-      <div v-for="user in readingActivity" v-bind:key="user.userName">{{user.userName}}</div>
+      <select  v-if= "showUsers" id="users" v-model="readingActivity.userId">
+      <option v-for="user in users" v-bind:key="user.id" :value="user.id">{{user.username}}</option>
+    </select>
     </div>
   </div>
 </template>
@@ -13,6 +17,8 @@ import axios from "axios";
 export default {
   data() {
     return {
+
+    showUsers: false,
 
     readingActivity: {
         userName: '',
@@ -26,7 +32,7 @@ export default {
   methods: {
   },
 
-    created() {
+    getReadingActivity() {
       axios
         .get(`${process.env.VUE_APP_REMOTE_API}/api/getReadingActivity`, {
           headers: {
@@ -40,7 +46,23 @@ export default {
         .catch(error => {
           console.log(error + " there was an error");
         });
-    }
+    },
+    selectUser() {
+      axios
+        .get(`${process.env.VUE_APP_REMOTE_API}/api/getUser`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("Authorization")
+          }
+        })
+        .then(response => {
+          console.log(response);
+          this.users = response.data;
+          
+        })
+        .catch(error => {
+          console.log(error + " there was an error");
+        });
+    },
   
 };
 </script>

@@ -112,6 +112,20 @@ export default {
     hideForm() {
       this.addChildForm = false;
     },
+    getFamilyList() {
+      axios
+        .get(`${process.env.VUE_APP_REMOTE_API}/api/getFamilyList`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("Authorization")
+          }
+        })
+        .then(response => {
+          this.family = response.data;
+        })
+        .catch(error => {
+          console.log(error + " there was an error");
+        });
+    },
     registerChild() {
       axios
         .post(`${process.env.VUE_APP_REMOTE_API}/api/addChild`, this.child, {
@@ -119,21 +133,10 @@ export default {
             Authorization: "Bearer " + localStorage.getItem("Authorization")
           }
         })
+        // eslint-disable-next-line no-unused-vars
         .then(response => {
-          console.log(response);
           this.addChildForm = false;
-          axios
-            .get(`${process.env.VUE_APP_REMOTE_API}/api/getFamilyList`, {
-              headers: {
-                Authorization: "Bearer " + localStorage.getItem("Authorization")
-              }
-            })
-            .then(response => {
-              this.family = response.data;
-            })
-            .catch(error => {
-              console.log(error + " there was an error");
-            });
+          this.getFamilyList();
         })
         .catch(err => {
           this.registrationErrors = true;

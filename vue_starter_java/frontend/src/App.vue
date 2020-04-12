@@ -6,7 +6,7 @@
     <navbar class="navbar">
       <div class="container">
         <div class="navbar-brand">
-        <a class="navbar-item brand-text">BookWormz</a>
+        <a class="navbar-item brand-text"><router-link to="/"><img src="./views/assets/BWLogo.jpg" alt="BookWormz Photo" class="product-img">BookWormz</router-link></a>
           <a role="button" class="navbar-burger" data-target="navbar-menu" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');" aria-label="menu" aria-expanded="false">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -66,7 +66,11 @@ export default {
 
 </script>
 <style>
+.product-img {
+  width: auto;
+  height: auto;
 
+}
 .brand-text{
   padding-left:30%;
 }
