@@ -51,7 +51,6 @@
     <div class="container box">
         <div class="columns card-content">
           <div class="column content">
-            <p>Prizes</p>
             <prizes></prizes>
           </div>
         </div>
@@ -66,6 +65,7 @@ import ReadingEvent from '../components/ReadingEvent';
 import Books from '../components/Books';
 import Prizes from '../components/Prizes';
 import Leaderboard from '../components/Leaderboard';
+import Friends from '../components/Friends';
 
 
 export default {
@@ -76,6 +76,7 @@ export default {
     Books,
     Prizes,
     Leaderboard,
+    Friends,
   },
   data() {
     return {    
