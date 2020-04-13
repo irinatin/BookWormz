@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="has-background-white">
     <section class="hero is-primary">
       <div class="container">
         <div class="columns">
@@ -10,19 +10,113 @@
       </div>
     </section>
     <section>
-      <employees title="Adam" v-bind:data="employee1"></employees>
+      <div class="container">
+      <h2 class="has-background-info has-text-black-bis">Adam</h2>
+        <div class="columns">
+        <div class="column has-text-centered">
+                <img class="photo" src="./assets/BookWorm.jpg" alt="employee photo"/>
+        </div>
+        <div class="column">
+            Favorite Book: 
+            <br>
+            <br>
+            Favorite Kids Book: 
+            <br>
+            <img src="https://covers.openlibrary.org/b/id/24239-S.jpg"/>
+            Trollhunters By: Guillermo Del Toro, Daniel Kraus, Sean Murray
+        </div>
+      
+        </div>
+      </div>
     </section>
     <section>
-      <employees title="Irina" v-bind:data="employee2"></employees>
+      <div class="container">
+      <h2 class="has-background-info has-text-black-bis">Irina</h2>
+        <div class="columns">
+        <div class="column has-text-centered">
+                <img class="photo" src="./assets/ki8oxyX7T.jpg" alt="employee photo"/>
+        </div>
+        <div class="column">
+            Favorite Book: 
+            <br>
+            <img src="https://covers.openlibrary.org/b/id/8869747-S.jpg"/>
+            Goodbye, Things: The New Japanese Minimilism By: Fumio Sasaki
+            <br>
+            <br>
+            Favorite Kids Book: 
+            <br>
+            <img src="https://covers.openlibrary.org/b/id/8507700-S.jpg"/>
+            Pippi Longstocking By: Astrid Lindgren
+        </div>
+      
+        </div>
+      </div>
     </section>
     <section>
-      <employees title="Joe" v-bind:data="employee3"></employees>
+      <<div class="container">
+      <h2 class="has-background-info has-text-black-bis">Joe</h2>
+        <div class="columns">
+        <div class="column has-text-centered">
+                <img class="photo" src="./assets/Joe.jpeg" alt="employee photo"/>
+        </div>
+        <div class="column">
+            Favorite Book: 
+            <br>
+            <img class="thumbnail" src="https://images2.penguinrandomhouse.com/cover/9780767930611"/>
+            Breathers: A Zombie's Lament By: SG Browne
+            <br>
+            <br>
+            Favorite Kids Book: 
+            <br>
+            <img class="thumbnail" src="https://images.randomhouse.com/cover/9780525428893"/>
+            High Five by Adam Rubin
+        </div>
+      
+        </div>
+      </div>
     </section>
     <section>
-      <employees title="Leigh" v-bind:data="employee4"></employees>
+      <div class="container">
+      <h2 class="has-background-info has-text-black-bis">Leigh</h2>
+        <div class="columns">
+        <div class="column has-text-centered">
+                <img class="photo" src="./assets/Leigh.jpeg" alt="employee photo"/>
+        </div>
+        <div class="column">
+            Favorite Book: 
+            <br>
+            <img src="https://covers.openlibrary.org/b/id/27764-S.jpg"/>
+            One Hundred Years of Solitude By: Gabriel García Márquez
+            <br>
+            <br>
+            Favorite Kids Book: 
+            <br>
+            <img class="thumbnail" src="https://www.akpress.org/pub/media/catalog/product/cache/1ec012b46cbfe4262fc94f3e95ab2d9c/r/u/ruleistobreak_72.jpg"/>
+            <br>
+            A Rule is to Break: A Child's Guide to Anarchy By: John Seven & Jana Christy
+        </div>
+      
+        </div>
+      </div>
     </section>
     <section>
-      <employees title="Ryan" v-bind:data="employee5"></employees>
+      <div class="container">
+      <h2 class="has-background-info has-text-black-bis">Ryan</h2>
+        <div class="columns">
+        <div class="column has-text-centered">
+                <img class="photo" src="./assets/Ryan.jpg" alt="employee photo"/>
+        </div>
+        <div class="column">
+            Favorite Book: 
+            <br>
+            Favorite Kids Book: 
+            <br>
+            <img src="https://covers.openlibrary.org/b/id/24239-S.jpg"/>
+            Trollhunters By: by Guillermo Del Toro, Daniel Kraus, Sean Murray
+        </div>
+      
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -38,44 +132,19 @@ export default {
   },
   data() {
     return {
-   
-  employee1: {
-    photo: "/img/BookWorm.3cf01571.jpg",
-    name: 'Adam',
-    adult: ['0000000000', '0000000000'],
-    kids: ['0000000000', '0000000000']
-  },
-  employee2: {
-    photo: './assets/Irina.jpg',
-    name: 'Irina',
-    // { id: 3, adult: [isbn:'0000000000', isbn: '0000000000']},
-    // { id: 4, kids: [isbn:'0000000000', isbn: '0000000000']}
-  },
-  employee3: {
-    photo: './assets/Joe.jpg',
-    name: 'Joe',
-    // { id: 3, adult: [isbn:'0000000000', isbn: '0000000000']},
-    // { id: 4, kids: [isbn:'0000000000', isbn: '0000000000']}
-  },
-  employee4: {
-    photo: './assets/Leigh.jpg',
-    name: 'Leigh',
-    // { id: 3, adult: [isbn:'0000000000', isbn: '0000000000']},
-    // { id: 4, kids: [isbn:'0000000000', isbn: '0000000000']}
-  },
-  employee5: {
-    photo: './assets/Ryan.jpg',
-    name: 'Ryan',
-    // { id: 3, adult: [isbn:'0000000000', isbn: '0000000000']},
-    // { id: 4, kids: [isbn:'0000000000', isbn: '0000000000']}
-  
-  },
-  
+ 
 };
   }
 }
 </script>
 
 <style scoped>
-
+.photo {
+    width: 30%;
+    height: auto;
+}
+.thumbnail{
+  width: 10%;
+  height: auto;
+}
 </style>

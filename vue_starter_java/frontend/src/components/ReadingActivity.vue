@@ -1,14 +1,31 @@
 <template>
   <div>
-      <h2>
-          <button v-on:click="selectUser()">Reading Activity</button>
-        </h2>
     <div>
-      <select  v-if= "showUsers" id="users" v-model="readingActivity.userId">
-      <option v-for="user in users" v-bind:key="user.id" :value="user.id">{{user.username}}</option>
+      <h2 class="label">Reading Activity</h2>
+      
+      <button v-if= "showUsersButton">Show Members</button>
+
+    <select id="users" v-model= "requestUsername">
+      <option v-for="user in users" v-bind:key="user.id" :value="user.username">{{user.username}}</option>
     </select>
+
+    <button v-on:click="showResults()" >Update</button>
+
+
+    <div>
+      <h4>Completed Books: {{readingActivity.completedBooks}}</h4>
+      <h4>Total Reading Time (mins): {{readingActivity.totalReadingTime}}</h4>
+      <h4>Progress Towards Prize:</h4> 
+      <p v-bind:key="name" v-for="(value, name) in readingActivity.progressTowardsPrize">{{name}}:{{value}}</p>
+      <h4>Current Books:</h4>
+      <p v-bind:key="book" v-for="book in readingActivity.currentBooks">"{{book}}"</p>
+
+    
     </div>
-  </div>
+
+      </div>
+    </div>
+  
 </template>
 
 <script>
@@ -18,51 +35,99 @@ export default {
   data() {
     return {
 
-    showUsers: false,
-
-    readingActivity: {
+      requestUsername: '',
+      showResultsBtn: false,
+      showUsersButton: false,
+      readingActivity: {
+        userName: "",
+        completedBooks: 0,
+        totalReadingTime: 0,
+        progressTowardsPrize: 0,
+        currentBooks: "",
+      },
+      currentUser: {
+        userId: '',
         userName: '',
-        readingTime: 0
-    },
-    users: []
-      
+        password: '',
+        confirmPassword: '',
+        passwordMatching: '',
+        role: ''
+      },
+      users: []
     };
   },
 
-  methods: {
-  },
-
-    getReadingActivity() {
-      axios
-        .get(`${process.env.VUE_APP_REMOTE_API}/api/getReadingActivity`, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("Authorization")
-          }
-        })
-        .then(response => {
-          this.readingActivity = response.data;
-          console.log("What's happening?");
-        })
-        .catch(error => {
-          console.log(error + " there was an error");
-        });
-    },
-    selectUser() {
-      axios
+  created() {
+    axios
         .get(`${process.env.VUE_APP_REMOTE_API}/api/getUser`, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("Authorization")
           }
         })
         .then(response => {
-          console.log(response);
           this.users = response.data;
           
         })
         .catch(error => {
           console.log(error + " there was an error");
         });
-    },
-  
+    axios
+        .get(`${process.env.VUE_APP_REMOTE_API}/api/getCurrentUser`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("Authorization")
+          }
+        })
+        .then(response => {
+          console.log(response.data);
+          this.requestUsername = response.data.username;
+          axios
+        .get(`${process.env.VUE_APP_REMOTE_API}/api/getReadingActivity/${this.requestUsername}`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("Authorization")
+          }
+        })
+        .then(response => {
+
+          this.showResultsBtn = true;
+          this.readingActivity = response.data;
+          console.log(this.readingActivity);
+        })
+        .catch(error => {
+          console.log(error + " there was an error");
+        });
+        })
+        .catch(error => {
+          console.log(error + " there was an error");
+        });
+
+        
+  },
+
+  methods: {
+
+    showResults() {
+      axios
+        .get(`${process.env.VUE_APP_REMOTE_API}/api/getReadingActivity/${this.requestUsername}`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("Authorization")
+          }
+        })
+        .then(response => {
+
+          this.showResultsBtn = true;
+          this.readingActivity = response.data;
+          console.log(this.readingActivity);
+        })
+        .catch(error => {
+          console.log(error + " there was an error");
+        });
+
+  }
+  }, 
+  computed: {
+    isValidForm() {
+      return this.requestUsername != "";
+    }
+  }
 };
 </script>

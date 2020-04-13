@@ -1,16 +1,14 @@
 <template>
   <div>
-    <!-- <div class="header">
+    
       <h2>Reading Event</h2>
-    </div> -->
-    <button v-on:click="getCurrentUser(); getBooks(); selectUser(); showFormButton(); showFamUsers();">Create Reading Event</button>
 
-    <div v-if= "showForm"> 
+  <span class="label">Select Book:</span>
     <select id="books" v-on:click="showFamUsersBtn()" v-model="readingEvent.bookId">
       <option v-for="book in books" v-bind:key="book.id" :value="book.id">{{book.title}}</option>
     </select>
-    <button v-if= "showUsersButton" v-on:click="showFamUsers()">Enter Event for Different Family Members</button>
-    <select  v-if= "showUsers" id="users" v-model="readingEvent.userId">
+    <span v-if= "showUsersButton" class="label">Select Family Member:</span>
+    <select  v-if= "showUsersButton" id="users" v-model="readingEvent.userId">
       <option v-for="user in users" v-bind:key="user.id" :value="user.id">{{user.username}}</option>
     </select>
 
@@ -29,12 +27,15 @@
       </div>
     </div>
 
+    <span class="label">Select Reading Format:</span>
     <select id="format" v-model="readingEvent.format">
       <option v-for="format in formats" v-bind:key="format.id">{{format.format}}</option>
     </select> 
-
+    <br>
+    <label class ="label" for="checkbox"> Book Completed</label>
     <input type="checkbox" id="checkbox" v-model="readingEvent.completed">
-    <label for="checkbox">Completed</label>
+    <br>
+    
 
     <div>
           <button v-on:click="addReadingEvent">Submit</button>
@@ -42,7 +43,7 @@
     </div>
 
 
-  </div>
+  
 </template>
 
 
@@ -106,6 +107,57 @@ export default {
         }
       ]
     };
+  },
+
+  created(){
+    axios
+        .get(`${process.env.VUE_APP_REMOTE_API}/api/getCurrentUser`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("Authorization")
+          }
+        })
+        .then(response => {
+          console.log(response.data);
+          this.currentUser = response.data;
+          if (this.currentUser.role === "user"){
+          this.showUsersButton = true;
+      };
+        })
+        .catch(error => {
+          console.log(error + " there was an error");
+        });
+
+    axios
+        .get(`${process.env.VUE_APP_REMOTE_API}/api/getAllBooks`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("Authorization")
+          }
+        })
+        .then(response => {
+          console.log(response);
+          this.books = response.data;
+        })
+        .catch(error => {
+          console.log(error + " there was an error");
+        });  
+    axios
+        .get(`${process.env.VUE_APP_REMOTE_API}/api/getUser`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("Authorization")
+          }
+        })
+        .then(response => {
+          console.log(response);
+          this.users = response.data;
+          
+        })
+        .catch(error => {
+          console.log(error + " there was an error");
+        });
+
+        
+
+
   },
 
   methods: {

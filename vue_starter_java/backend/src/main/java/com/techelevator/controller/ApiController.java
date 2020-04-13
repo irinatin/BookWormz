@@ -132,6 +132,7 @@ public class ApiController {
     	return true;
     }
     
+<<<<<<< HEAD
 
     @RequestMapping(path = "/getPrizeList", method = RequestMethod.GET)
 	public List<PrizeListInfo> getPrizeList() {
@@ -168,6 +169,13 @@ public class ApiController {
     	User currentUser = authDAO.getCurrentUser();
     	long currentUserId = currentUser.getId();
     	String currentUserRole = currentUser.getRole();
+=======
+    @RequestMapping( path = "/getReadingActivity/{username}", method = RequestMethod.GET)
+    public ReadingActivity getReadingActivityObject(@PathVariable String username) {
+    	User requestedUser =userDAO.getUserByUsername(username); 
+    	long currentUserId = requestedUser.getId();
+    	String currentUserRole = requestedUser.getRole();
+>>>>>>> e0751327fc9077a2318e9034ebb6feedefdd1828
     	
     	return reDAO.getReadingActivity(currentUserId, currentUserRole);
     }
@@ -187,6 +195,13 @@ public class ApiController {
 	@RequestMapping(path = "searchForFriend/{username}", method = RequestMethod.GET)
 	public Friend searchForFriend(@PathVariable String username) {
 		return friendDAO.searchForFriend(username);
+	}
+	
+	@RequestMapping( path = "/getPrizesPerUser", method = RequestMethod.GET)
+	public List<String> getPrizesPerUser() {
+		User currentUser = authDAO.getCurrentUser();
+		Long currentUserId = currentUser.getId();
+		return prizeDAO.getPrizesPerUser(currentUserId);
 	}
 	
 
