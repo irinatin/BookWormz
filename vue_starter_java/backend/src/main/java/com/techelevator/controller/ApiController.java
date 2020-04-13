@@ -181,5 +181,12 @@ public class ApiController {
 		return friendDAO.searchForFriend(username);
 	}
 	
+	@RequestMapping( path = "/getPrizesPerUser", method = RequestMethod.GET)
+	public List<String> getPrizesPerUser() {
+		User currentUser = authDAO.getCurrentUser();
+		Long currentUserId = currentUser.getId();
+		return prizeDAO.getPrizesPerUser(currentUserId);
+	}
+	
 
 }

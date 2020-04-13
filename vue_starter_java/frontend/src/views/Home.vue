@@ -29,6 +29,7 @@
            <div class="column is-parent box-margin">
             <div class="tile is-child box">
                 <reading-activity></reading-activity>
+                <prizes-per-user></prizes-per-user>
             </div>
           </div>
 
@@ -82,6 +83,7 @@ import PrizeList from '../components/PrizeList';
 import Leaderboard from '../components/Leaderboard';
 import ReadingActivity from '../components/ReadingActivity';
 import Friends from '../components/Friends';
+import PrizesPerUser from '../components/PrizesPerUser';
 
 
 export default {
@@ -95,6 +97,7 @@ export default {
     Leaderboard,
     ReadingActivity,
     Friends,
+    PrizesPerUser
   },
   data() {
     return {    
