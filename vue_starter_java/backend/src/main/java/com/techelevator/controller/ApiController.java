@@ -120,6 +120,12 @@ public class ApiController {
     	return true;
     }
     
+    @RequestMapping(path = "/getPrizeList", method = RequestMethod.GET)
+	public List<PrizeListInfo> getPrizeList() {
+
+		return prizeDAO.getPrizeListInfo(authDAO.getCurrentUser().getRole(), authDAO.getCurrentUser().getId());
+	}
+    
     @RequestMapping(path = "/addChild", method = RequestMethod.POST)
     public boolean addChild(@RequestBody ChildInfo child) {
     	userDAO.saveUser(child.getUsername(), child.getPassword(), "child");
@@ -155,12 +161,6 @@ public class ApiController {
     	return reDAO.getReadingActivity(currentUserId, currentUserRole);
     }
     
-
-	@RequestMapping(path = "/getPrizeList", method = RequestMethod.GET)
-	public List<PrizeListInfo> getPrizeList() {
-
-		return prizeDAO.getPrizeListInfo(authDAO.getCurrentUser().getRole(), authDAO.getCurrentUser().getId());
-	}
 
 
 }
