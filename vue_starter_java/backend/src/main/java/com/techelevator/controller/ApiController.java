@@ -132,50 +132,17 @@ public class ApiController {
     	return true;
     }
     
-<<<<<<< HEAD
-
-    @RequestMapping(path = "/getPrizeList", method = RequestMethod.GET)
-	public List<PrizeListInfo> getPrizeList() {
-
-		return prizeDAO.getPrizeListInfo(authDAO.getCurrentUser().getRole(), authDAO.getCurrentUser().getId());
-	}
-    
     @RequestMapping(path= "/deletePrize/{id}", method = RequestMethod.DELETE)
     public boolean deletePrize(@PathVariable long id) {
     	prizeDAO.deletePrize(id);
-    	
     	return true;
     }
     
-    @RequestMapping(path = "/addChild", method = RequestMethod.POST)
-    public boolean addChild(@RequestBody ChildInfo child) {
-    	userDAO.saveUser(child.getUsername(), child.getPassword(), "child");
-    	long childId = userDAO.getUserByUsername(child.getUsername()).getId();
-    	Long familyId = userInfoDAO.getFamilyId(authDAO.getCurrentUser().getId());
-    	userInfoDAO.saveUserInfo(child.getFirstName(), child.getLastName(), familyId, childId);
-    	
-    	return true;
-    }
-    
-    @RequestMapping(path = "/getLeaderboard", method = RequestMethod.GET)
-    public List<Leaderboard> getLeaderboard() {
-    	return familyDAO.getFamilyLeaderboard(userInfoDAO.getFamilyId(authDAO.getCurrentUser().getId()));
-    	
-    }
-    
-
-    @RequestMapping( path = "/getReadingActivity", method = RequestMethod.GET)
-    public ReadingActivity getReadingActivityObject() {
-    	User currentUser = authDAO.getCurrentUser();
-    	long currentUserId = currentUser.getId();
-    	String currentUserRole = currentUser.getRole();
-=======
     @RequestMapping( path = "/getReadingActivity/{username}", method = RequestMethod.GET)
     public ReadingActivity getReadingActivityObject(@PathVariable String username) {
     	User requestedUser =userDAO.getUserByUsername(username); 
     	long currentUserId = requestedUser.getId();
     	String currentUserRole = requestedUser.getRole();
->>>>>>> e0751327fc9077a2318e9034ebb6feedefdd1828
     	
     	return reDAO.getReadingActivity(currentUserId, currentUserRole);
     }
