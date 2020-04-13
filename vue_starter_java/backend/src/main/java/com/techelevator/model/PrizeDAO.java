@@ -8,5 +8,5 @@ public interface PrizeDAO {
 	public Prize editExistingPrize(Prize blingBlung);
 	public boolean deletePrize(Prize blingBling);
 	public List<Prize> getAllPrizes();
-	
+	public List<PrizeListInfo> getPrizeListInfo(String role, Long userId);
 }

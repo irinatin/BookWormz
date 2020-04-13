@@ -1,5 +1,6 @@
 package com.techelevator.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,4 +87,52 @@ public class JdbcFamilyDAO implements FamilyDAO {
 
 		return newFamily;
 	}
+
+	@Override
+	public List<UserInfo> getAllFamilyMembers(Long familyId) {
+		
+		String sqlGetFamily = "SELECT * FROM user_info WHERE family_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetFamily, familyId);
+		
+		List<UserInfo> family = new ArrayList<UserInfo>();
+		
+		while(results.next()) {
+			UserInfo user = new UserInfo();
+			user.setUserInfoId(results.getLong("user_info_id"));
+			user.setUserId(results.getLong("user_id"));
+			user.setFirstName(results.getString("first_name"));
+			user.setLastName(results.getString("last_name"));
+			user.setFamilyId(results.getLong("family_id"));
+			
+			family.add(user);
+		}
+		
+		
+		return family;
+	}
+
+	@Override
+	public List<Leaderboard> getFamilyLeaderboard(Long familyId) {
+		List<Leaderboard> familyLeaderboard = new ArrayList<Leaderboard>();
+		LocalDate now = LocalDate.now().withDayOfMonth(1);
+		
+		String sqlGetLeaderboard = "SELECT users.username, SUM(user_book.reading_time) AS totalmins " + 
+				"FROM users " + 
+				"JOIN user_book ON user_book.user_id = users.id " + 
+				"JOIN user_info ON user_info.user_id = users.id " + 
+				"WHERE user_info.family_id = ? AND user_book.reading_date >= ?" + 
+				"GROUP BY username " +
+				"ORDER BY totalmins DESC "; 
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetLeaderboard, familyId, now);
+		
+		while(results.next()) {
+			Leaderboard leaderboard = new Leaderboard();
+			leaderboard.setUserName(results.getString("username"));
+			leaderboard.setTotalReading(results.getInt("totalmins"));
+			familyLeaderboard.add(leaderboard);
+		}
+		return familyLeaderboard;
+	}
+	
+	
 }

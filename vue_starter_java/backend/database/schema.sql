@@ -56,11 +56,12 @@ CREATE TABLE friends (
 
 CREATE TABLE book (
   book_id serial NOT NULL,
-  isbn int NOT NULL,
-  title varchar(100) NOT NULL,
+  title varchar(100) NOT NULL UNIQUE,
   author varchar(100) NOT NULL,
+  family_id int NOT NULL, 
 
-  CONSTRAINT pk_book_id PRIMARY KEY(book_id)  
+  CONSTRAINT pk_book_id PRIMARY KEY(book_id),
+  CONSTRAINT fk_family_id FOREIGN KEY (family_id) REFERENCES family (family_id)
 );
 
 CREATE TABLE user_book (
@@ -70,6 +71,7 @@ CREATE TABLE user_book (
   reading_time int NOT NULL,
   reading_date date NOT NULL,
   reading_format varchar(100) NOT NULL,
+  completed boolean NOT NULL,
 
   CONSTRAINT pk_reading_event_id PRIMARY KEY(reading_event_id),
   CONSTRAINT fk_id FOREIGN KEY (user_id) REFERENCES users (id),

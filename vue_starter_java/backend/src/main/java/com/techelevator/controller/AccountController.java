@@ -87,11 +87,11 @@ public class AccountController {
 		if (info.isNewFamily()) {
 			family.createFamily(info.getFamilyName());
 			long familyId = family.getFamilyIdByName(info.getFamilyName());
-			userInfo.saveUserInfo(info, familyId, userId);
+			userInfo.saveUserInfo(info.getFirstName(), info.getLastName(), familyId, userId);
 		} else {
 			if (family.doesFamilyExist(info.getFamilyName())) {
 				long familyId = family.getFamilyIdByName(info.getFamilyName());
-				userInfo.saveUserInfo(info, familyId, userId);
+				userInfo.saveUserInfo(info.getFirstName(), info.getLastName(), familyId, userId);
 			}
 			else {
 				throw new UserCreationException("Error");

@@ -20,35 +20,52 @@ public class JDBCBookDAO implements BookDAO{
 	public JDBCBookDAO(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
+	
+	@Override
+	public List<Book> getAllBooks() {
+		List<Book> getAllBooks = new ArrayList<Book>();
+		String getBooks = "SELECT * FROM book";
+		Book bookie = new Book();
+		SqlRowSet results = jdbcTemplate.queryForRowSet(getBooks);
+		while(results.next()) {
+			bookie = mapRowToBook(results);
+			getAllBooks.add(bookie);
+		}
+		
+		return getAllBooks;
+	}
 
 	@Override
-	public boolean addNewBook(Book bookie) {
+	public boolean addNewBook(Book bookie, long familyId) {
 		long bookId = getNextBookId();
 		String insertIntoBook = "INSERT INTO book VALUES (?, ?, ?, ?)";
-		jdbcTemplate.update(insertIntoBook, bookId, bookie.getIsbn(), bookie.getTitle(), bookie.getAuthor()); 
+		jdbcTemplate.update(insertIntoBook, bookId, bookie.getTitle(), bookie.getAuthor(), familyId); 
 		
 		return true;
 	}
 
 	@Override
-	public List<Book> getAllBooksPerUser(long userId) { //per user
+	public List<Book> getAllBooksPerFamily(long userId) { //per family
 		
-		List<Book> allBooksPerUser = new ArrayList<Book>();
+		List<Book> allBooksPerFamily = new ArrayList<Book>();
 		
-		String getAllBooks = "SELECT * "
-				+ 			" FROM book "
-				+			" JOIN user_book ON user_book.book_id = book.book.id "
-				+			" WHERE user_book.user_id = ?";
+		String getUserFamilyId = "SELECT family_id FROM user_info WHERE user_id = ?";
+		SqlRowSet famResults = jdbcTemplate.queryForRowSet(getUserFamilyId, userId);
+		famResults.next();
+		long familyId = famResults.getLong(1);
+		
+		
+		String getAllFamBooks = "SELECT * FROM book WHERE family_id = ?";
 		
 		Book bookie = new Book();
-		SqlRowSet results = jdbcTemplate.queryForRowSet(getAllBooks);
+		SqlRowSet results = jdbcTemplate.queryForRowSet(getAllFamBooks, familyId);
 		
 		while(results.next()) {
 			bookie = mapRowToBook(results);
-			allBooksPerUser.add(bookie);
+			allBooksPerFamily.add(bookie);
 		}
 				
-		return allBooksPerUser;
+		return allBooksPerFamily;
 	}
 	
 
@@ -134,13 +151,15 @@ public class JDBCBookDAO implements BookDAO{
 	private Book mapRowToBook(SqlRowSet results) {
 		Book bookie = new Book();
 		bookie.setId(results.getLong("book_id"));
-		bookie.setIsbn(results.getLong("isbn"));
 		bookie.setTitle(results.getString("title"));
 		bookie.setAuthor(results.getString("author"));
+		bookie.setFamily_id(results.getLong("family_id"));
 		
 		
 		return bookie;
 	}
+
+	
 	
 	
 
