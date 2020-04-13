@@ -6,6 +6,8 @@
     <div v-for="user in allFriends" v-bind:key="user.username">{{user.firstName}} {{user.lastName}}</div>
     <div>
       <br />
+      <span> Search for friends!!! </span>
+     <br />
       <input type="text" v-model="friend.username" placeholder="Username" />
     </div>
     <div>
@@ -57,6 +59,7 @@ export default {
         .then(response => {
           if (response.data.username == null) {
             this.friendError = true;
+            this.friend.username = "";
           }
           this.friend.username = response.data.username;
           this.friend.firstName = response.data.firstName;
