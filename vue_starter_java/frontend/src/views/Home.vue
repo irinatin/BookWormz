@@ -55,18 +55,18 @@
         </div>
     </div>           
   
-    <div class="container box">
+    <!-- <div class="container box">
         <div class="columns card-content">
           <div class="column content">
             <prizes></prizes>
           </div>
         </div>
-     </div>
+     </div> -->
 
      <div class="container box">
        <div class="columns card-content">
          <div class="column content">
-           <prize-list></prize-list>
+           <new-prize-list></new-prize-list>
          </div>
        </div>
      </div>
@@ -78,11 +78,10 @@ import axios from "axios";
 import Family from '../components/Family';
 import ReadingEvent from '../components/ReadingEvent';
 import Books from '../components/Books';
-import Prizes from '../components/Prizes';
-import PrizeList from '../components/PrizeList';
 import Leaderboard from '../components/Leaderboard';
 import ReadingActivity from '../components/ReadingActivity';
 import Friends from '../components/Friends';
+import NewPrizeList from '../components/NewPrizeList';
 import PrizesPerUser from '../components/PrizesPerUser';
 
 
@@ -92,11 +91,10 @@ export default {
     Family,
     ReadingEvent,
     Books,
-    Prizes,
-    PrizeList,
     Leaderboard,
     ReadingActivity,
     Friends,
+    NewPrizeList,
     PrizesPerUser
   },
   data() {
