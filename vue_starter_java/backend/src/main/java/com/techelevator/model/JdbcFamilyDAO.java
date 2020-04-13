@@ -1,5 +1,6 @@
 package com.techelevator.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,15 +114,16 @@ public class JdbcFamilyDAO implements FamilyDAO {
 	@Override
 	public List<Leaderboard> getFamilyLeaderboard(Long familyId) {
 		List<Leaderboard> familyLeaderboard = new ArrayList<Leaderboard>();
+		LocalDate now = LocalDate.now().withDayOfMonth(1);
 		
 		String sqlGetLeaderboard = "SELECT users.username, SUM(user_book.reading_time) AS totalmins " + 
 				"FROM users " + 
 				"JOIN user_book ON user_book.user_id = users.id " + 
 				"JOIN user_info ON user_info.user_id = users.id " + 
-				"WHERE user_info.family_id = ? " + 
+				"WHERE user_info.family_id = ? AND user_book.reading_date >= ?" + 
 				"GROUP BY username " +
 				"ORDER BY totalmins DESC "; 
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetLeaderboard, familyId);
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetLeaderboard, familyId, now);
 		
 		while(results.next()) {
 			Leaderboard leaderboard = new Leaderboard();

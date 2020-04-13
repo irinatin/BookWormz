@@ -88,6 +88,7 @@ data() {
   methods: {
     userregister(){
       axios.post(`${process.env.VUE_APP_REMOTE_API}/userinfo`, this.userinfo)
+      
       .then(response => {
         if(response.status === 200){
           this.$router.push({ path: '/login', query: { registration: 'success' } });

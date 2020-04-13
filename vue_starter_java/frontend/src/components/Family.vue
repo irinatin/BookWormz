@@ -134,6 +134,11 @@ export default {
         .then(response => {
           this.addChildForm = false;
           this.getFamilyList();
+          this.child.username = "";
+          this.child.password = "";
+          this.child.firstName = "";
+          this.child.lastName = "";
+
         })
         .catch(err => {
           this.registrationErrors = true;
