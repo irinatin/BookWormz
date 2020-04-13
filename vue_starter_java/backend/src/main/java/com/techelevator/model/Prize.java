@@ -35,6 +35,8 @@ public class Prize {
 	@NotBlank(message = "End date is required")
 	@DateTimeFormat(pattern = "MM-dd-yyyy")
 	private Date endDate;
+	
+	
 
 	public long getPrizeId() {
 		return prizeId;
