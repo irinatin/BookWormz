@@ -142,11 +142,11 @@ public class ApiController {
     	return true;
     }
     
-    @RequestMapping( path = "/getReadingActivity", method = RequestMethod.GET)
-    public ReadingActivity getReadingActivityObject() {
-    	User currentUser = authDAO.getCurrentUser();
-    	long currentUserId = currentUser.getId();
-    	String currentUserRole = currentUser.getRole();
+    @RequestMapping( path = "/getReadingActivity/{username}", method = RequestMethod.GET)
+    public ReadingActivity getReadingActivityObject(@PathVariable String username) {
+    	User requestedUser =userDAO.getUserByUsername(username); 
+    	long currentUserId = requestedUser.getId();
+    	String currentUserRole = requestedUser.getRole();
     	
     	return reDAO.getReadingActivity(currentUserId, currentUserRole);
     }

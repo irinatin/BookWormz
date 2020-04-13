@@ -114,19 +114,8 @@ export default {
       .catch(error => {
         console.log(error + " there was an error");
       });
-      axios
-      .get(`${process.env.VUE_APP_REMOTE_API}/api/getReadingActivity`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("Authorization")
-        }
-      })
-      .then(response => {
+     
       
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.log(error + " there was an error");
-      });
   },
   
 }
