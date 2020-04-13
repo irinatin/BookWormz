@@ -6,7 +6,14 @@ public class PrizeListInfo {
 	private String userGroup;
 	private int milestone;
 	private int readingTime;
+	private long Id;
 	
+	public long getId() {
+		return Id;
+	}
+	public void setId(long id) {
+		Id = id;
+	}
 	public String getPrizeName() {
 		return prizeName;
 	}

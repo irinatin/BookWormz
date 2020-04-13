@@ -40,7 +40,7 @@ export default {
     return {
    
   employee1: {
-    photo: "./assets/BookWorm.jpg",
+    photo: "/img/BookWorm.3cf01571.jpg",
     name: 'Adam',
     adult: ['0000000000', '0000000000'],
     kids: ['0000000000', '0000000000']
