@@ -24,8 +24,6 @@ import com.techelevator.model.PrizeDAO;
 
 import com.techelevator.model.ReadingActivity;
 
-import com.techelevator.model.PrizeListInfo;
-
 import com.techelevator.model.ReadingEvent;
 import com.techelevator.model.ReadingEventDAO;
 import com.techelevator.model.User;
@@ -136,8 +134,6 @@ public class ApiController {
     
     @RequestMapping(path = "/addPrize", method = RequestMethod.POST)
     public boolean addPrize(@RequestBody Prize newPrize) {
-    	
-    	System.out.println(newPrize.getUserGroup());
     	prizeDAO.createNewPrize(newPrize);
     	return true;
     }
@@ -152,10 +148,9 @@ public class ApiController {
     }
     
 
-	@RequestMapping(path = "/getPrizeList", method = RequestMethod.GET)
-	public List<PrizeListInfo> getPrizeList() {
-
-		return prizeDAO.getPrizeListInfo(authDAO.getCurrentUser().getRole(), authDAO.getCurrentUser().getId());
+	@RequestMapping(path = "/getPrizes", method = RequestMethod.GET)
+	public List<Prize> getPrizeList() {
+		return prizeDAO.getAllPrizes();
 	}
 
 
@@ -176,10 +171,22 @@ public class ApiController {
 		return true;
 	}
 	
-	@RequestMapping(path = "searchForFriend/{username}", method = RequestMethod.GET)
+	@RequestMapping(path = "/searchForFriend/{username}", method = RequestMethod.GET)
 	public Friend searchForFriend(@PathVariable String username) {
 		return friendDAO.searchForFriend(username);
 	}
+	
+	@RequestMapping(path = "/getPrize/{prizeIdNum}", method = RequestMethod.GET)
+	public Prize getPrize(@PathVariable long prizeIdNum) {
+		return prizeDAO.getPrize(prizeIdNum);
+	}
+	
+	@RequestMapping(path = "/editPrize", method = RequestMethod.POST)
+	public boolean editPrize(@RequestBody Prize prize) {
+		prizeDAO.editExistingPrize(prize);
+		return true;
+	}
+	
 	
 
 }

@@ -54,18 +54,18 @@
         </div>
     </div>           
   
-    <div class="container box">
+    <!-- <div class="container box">
         <div class="columns card-content">
           <div class="column content">
             <prizes></prizes>
           </div>
         </div>
-     </div>
+     </div> -->
 
      <div class="container box">
        <div class="columns card-content">
          <div class="column content">
-           <prize-list></prize-list>
+           <new-prize-list></new-prize-list>
          </div>
        </div>
      </div>
@@ -82,6 +82,7 @@ import PrizeList from '../components/PrizeList';
 import Leaderboard from '../components/Leaderboard';
 import ReadingActivity from '../components/ReadingActivity';
 import Friends from '../components/Friends';
+import NewPrizeList from '../components/NewPrizeList';
 
 
 export default {
@@ -95,6 +96,7 @@ export default {
     Leaderboard,
     ReadingActivity,
     Friends,
+    NewPrizeList,
   },
   data() {
     return {    

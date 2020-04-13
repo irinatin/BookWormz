@@ -34,9 +34,13 @@ public class JDBCPrizeDAO implements PrizeDAO {
 	}
 
 	@Override
-	public Prize editExistingPrize(Prize blingBlung) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean editExistingPrize(Prize prize) {
+		String sqlEditPrize= "UPDATE prize SET prize_name = ?, prize_description = ?, milestone = ?, " + 
+				"user_group = ?, max_prizes = ?, start_date = ?, end_date = ? WHERE prize_id = ?";	
+		jdbcTemplate.update(sqlEditPrize, prize.getPrizeName(), prize.getPrizeDescription(), prize.getMilestone(), prize.getUserGroup(),
+				prize.getNumOfPrizes(), prize.getStartDate(), prize.getEndDate(), prize.getPrizeId()); 
+				
+		return true;
 	}
 
 	@Override
@@ -49,8 +53,10 @@ public class JDBCPrizeDAO implements PrizeDAO {
 
 	@Override
 	public List<Prize> getAllPrizes() {
+		
 		List<Prize> allPrizes = new ArrayList<Prize>();
-		String getAllPrizes = "SELECT *" + "FROM prize";
+		
+		String getAllPrizes = "SELECT * FROM prize";
 		Prize blingBling = new Prize();
 		SqlRowSet results = jdbcTemplate.queryForRowSet(getAllPrizes);
 
@@ -59,7 +65,7 @@ public class JDBCPrizeDAO implements PrizeDAO {
 			allPrizes.add(blingBling);
 		}
 
-		return null;
+		return allPrizes;
 	}
 
 	public long getNextPrizeId() {
@@ -87,26 +93,39 @@ public class JDBCPrizeDAO implements PrizeDAO {
 		return blingBling;
 
 	}
-	
-	public List<PrizeListInfo> getPrizeListInfo(String role, Long userId) {
-		List<PrizeListInfo> dummyPrizeInfo = new ArrayList<PrizeListInfo>();
-		String getAllPrizes = "SELECT prize.prize_name, prize.milestone, prize.user_group FROM prize WHERE prize.user_group = ?";
-		SqlRowSet nextPrizeResult = jdbcTemplate.queryForRowSet(getAllPrizes, role);
-		String readingTime = "SELECT SUM(user_book.reading_time) AS totaltime FROM user_book WHERE user_id = ?";
-		SqlRowSet readingTimeResult = jdbcTemplate.queryForRowSet(readingTime, userId);
-		while(nextPrizeResult.next()) {
-			PrizeListInfo prize = new PrizeListInfo();
-			prize.setPrizeName(nextPrizeResult.getString("prize_name"));
-			prize.setMilestone(nextPrizeResult.getInt("milestone"));
-			prize.setUserGroup(nextPrizeResult.getString("user_group"));
-			dummyPrizeInfo.add(prize);
+
+	@Override
+	public Prize getPrize(long prizeId) {
+		Prize prize = new Prize();
+		
+		String sqlGetPrize = "SELECT * FROM prize WHERE prize_id = ?";
+		SqlRowSet result = jdbcTemplate.queryForRowSet(sqlGetPrize, prizeId);
+		
+		if(result.next()) {
+			prize = mapRowToPrize(result);
 		}
-		int i = 0;
-		while(readingTimeResult.next()) {
-			int totalReadingTime = readingTimeResult.getInt("totaltime");
-			dummyPrizeInfo.get(i).setReadingTime(totalReadingTime);
-			i++;
-		}
-		return dummyPrizeInfo;
+		return prize;
 	}
+	
+//	public List<PrizeListInfo> getPrizeListInfo(String role, Long userId) {
+//		List<PrizeListInfo> dummyPrizeInfo = new ArrayList<PrizeListInfo>();
+//		String getAllPrizes = "SELECT prize.prize_name, prize.milestone, prize.user_group FROM prize WHERE prize.user_group = ?";
+//		SqlRowSet nextPrizeResult = jdbcTemplate.queryForRowSet(getAllPrizes, role);
+//		String readingTime = "SELECT SUM(user_book.reading_time) AS totaltime FROM user_book WHERE user_id = ?";
+//		SqlRowSet readingTimeResult = jdbcTemplate.queryForRowSet(readingTime, userId);
+//		while(nextPrizeResult.next()) {
+//			PrizeListInfo prize = new PrizeListInfo();
+//			prize.setPrizeName(nextPrizeResult.getString("prize_name"));
+//			prize.setMilestone(nextPrizeResult.getInt("milestone"));
+//			prize.setUserGroup(nextPrizeResult.getString("user_group"));
+//			dummyPrizeInfo.add(prize);
+//		}
+//		int i = 0;
+//		while(readingTimeResult.next()) {
+//			int totalReadingTime = readingTimeResult.getInt("totaltime");
+//			dummyPrizeInfo.get(i).setReadingTime(totalReadingTime);
+//			i++;
+//		}
+//		return dummyPrizeInfo;
+//	}
 }
