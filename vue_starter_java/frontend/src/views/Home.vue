@@ -14,8 +14,8 @@
     <div class="container">
         <div class="columns tile is-ancestor has-text-centered">
           
-          <div class="column is-parent box-margin purple ">
-            <div class="tile is-child box has-background-primary">
+          <div class="column is-parent box-margin has-background-primary">
+            <div class="tile is-child box has-background-white">
                <family></family>
             </div>
           </div>
@@ -26,7 +26,7 @@
              </div>
           </div>
 
-           <div class="column is-parent box-margin">
+           <div class="column is-parent box-margin has-background-primary">
             <div class="tile is-child box">
                 <reading-activity></reading-activity>
                 <prizes-per-user></prizes-per-user>
@@ -123,6 +123,10 @@ export default {
 </script>
 
 <style scoped>
+.box {
+  min-height: 400px;
+  
+}
   .box-margin {
     margin-top: 3%;
     margin-bottom: 2%;
