@@ -45,7 +45,10 @@ public class JDBCPrizeDAO implements PrizeDAO {
 
 	@Override
 	public boolean deletePrize(Prize blingBling) {
-		String deleteFromPrize = "DELETE FROM prize WHERE prizeId = ?";
+		String deleteUserPrize = "DELETE FROM user_prize WHERE prize_id = ?";
+		jdbcTemplate.update(deleteUserPrize, blingBling.getPrizeId());
+		
+		String deleteFromPrize = "DELETE FROM prize WHERE prize_id = ?";
 		jdbcTemplate.update(deleteFromPrize, blingBling.getPrizeId());
 
 		return true;

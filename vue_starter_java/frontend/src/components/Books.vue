@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 <template>
   <div>
     <div class="header">
@@ -99,7 +100,6 @@ export default {
           )
 
           .then(response => {
-            console.log(response.data);
 
             //this.book.title = response.data['ISBN:1847246923'].title; THIS WORKS!!!
             let tempIsbn = this.book.isbn;
@@ -126,8 +126,8 @@ export default {
             Authorization: "Bearer " + localStorage.getItem("Authorization")
           }
         })
+        // eslint-disable-next-line no-unused-vars
         .then(response => {
-          console.log(response);
           this.success = true;
           this.manualBook = false;
           this.book.isbn = "";
@@ -144,8 +144,8 @@ export default {
             Authorization: "Bearer " + localStorage.getItem("Authorization")
           }
         })
+        // eslint-disable-next-line no-unused-vars
         .then(response => {
-          console.log(response);
           this.success = true;
           this.showBook = false;
           this.book.isbn = "";

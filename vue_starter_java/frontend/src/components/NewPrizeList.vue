@@ -8,7 +8,6 @@
       <button v-if="showForm" v-on:click="hideFormButton()">Hide Form</button>
     </div>
     <div v-if="showForm">
-      <form class="new_prize_form" @submit.prevent="savePrize">
         <label for="prize_name">Prize Name</label>
         <input
           type="text"
@@ -82,11 +81,11 @@
           autofocus
         />
         <br />
-        <button class="add_prize_button" type="submit">Add Prize</button>
-      </form>
+        <button v-on:click="savePrize()" v-if="this.prizeIdNum == 0" class="add_prize_button" type="submit">Add Prize</button>
+        <button v-on:click="savePrize()" v-if="this.prizeIdNum != 0" class="add_prize_button" type="submit">Edit Prize</button>
     </div>
 
-    <new-prize v-if="!showForm" v-on:editPrize="editPrize($event);showFormButton();"></new-prize>
+    <new-prize v-if="!showForm" v-on:editPrize="editPrize($event) ; showFormButton()" v-on:deletePrize="deletePrize($event) ; hideFormButton()"></new-prize>
   </div>
 </template>
 
@@ -103,6 +102,7 @@ export default {
 
   data() {
     return {
+      isParent: false,
       showForm: false,
       prizeIdNum: 0,
       prizeinfo: {
@@ -121,11 +121,10 @@ export default {
   },
 
   methods: {
-    savePrize(){
-        this.prizeIdNum === 0 ? this.addNewPrize() : this.updatePrize();
+    savePrize() {
+      this.prizeIdNum === 0 ? this.addNewPrize() : this.updatePrize();
     },
     editPrize(id) {
-      this.showForm = true;
       this.prizeIdNum = id;
     },
     addNewPrize() {
@@ -142,29 +141,16 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .then(response => {
           this.showForm = false;
-          axios
-            .get(`${process.env.VUE_APP_REMOTE_API}/api/getPrizes`, {
-              headers: {
-                Authorization: "Bearer " + localStorage.getItem("Authorization")
-              }
-            })
-            .then(response => {
-              this.prizeList = response.data;
-            })
-            .catch(error => {
-              this.noPrizes = true;
-              console.log(error + " there was an error");
-            });
         })
         .catch(error => {
           console.log(error + " there was an error");
         });
     },
     updatePrize() {
-        console.log(this.prizeInfo)
       axios
         .post(
-          `${process.env.VUE_APP_REMOTE_API}/api/editPrize`, this.prizeinfo,
+          `${process.env.VUE_APP_REMOTE_API}/api/editPrize`,
+          this.prizeinfo,
           {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("Authorization")
@@ -173,30 +159,56 @@ export default {
         )
         // eslint-disable-next-line no-unused-vars
         .then(response => {
-          
+          this.showForm = false;
         })
         .catch(error => {
           console.log(error + " there was an error");
         });
     },
-    showFormButton() {
-      if (this.prizeIdNum != 0) {
-        axios.get(`${process.env.VUE_APP_REMOTE_API}/api/getPrize/${this.prizeIdNum}`, {
+    deletePrize(id) {
+      this.prizeinfo.prizeId = id;
+      axios
+        .post(
+          `${process.env.VUE_APP_REMOTE_API}/api/deletePrize`,
+          this.prizeinfo,
+          {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("Authorization")
             }
-            })
-              .then(response => {
-                this.prizeinfo = response.data;
-                if(this.prizeinfo.userGroup == "user"){
-                    this.prizeinfo.userGroup = "Parent";
-                }
-              })
-              .catch(err => console.error(err))
           }
-      },
+        )
+        // eslint-disable-next-line no-unused-vars
+        .then(response => {
+        })
+        .catch(error => {
+          console.log(error + " there was an error");
+        });
+    },
+
+    showFormButton() {
+      this.showForm = true;
+      if (this.prizeIdNum != 0) {
+        axios
+          .get(
+            `${process.env.VUE_APP_REMOTE_API}/api/getPrize/${this.prizeIdNum}`,
+            {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("Authorization")
+              }
+            }
+          )
+          .then(response => {
+            this.prizeinfo = response.data;
+            if (this.prizeinfo.userGroup == "user") {
+              this.prizeinfo.userGroup = "Parent";
+            }
+          })
+          .catch(err => console.error(err));
+      }
+    },
     hideFormButton() {
       this.showForm = false;
+      
     }
   }
 };

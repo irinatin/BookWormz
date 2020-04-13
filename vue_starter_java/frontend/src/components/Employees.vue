@@ -52,7 +52,6 @@ export default {
           )
 
           .then(response => {
-            console.log(response);
             let tempIsbn = isbn;
             this.book.title = response.data["ISBN:" + tempIsbn].title;
             this.book.author =
