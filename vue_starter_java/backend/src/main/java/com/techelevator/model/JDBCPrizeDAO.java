@@ -56,7 +56,7 @@ public class JDBCPrizeDAO implements PrizeDAO {
 		
 		List<Prize> allPrizes = new ArrayList<Prize>();
 		
-		String getAllPrizes = "SELECT * FROM prize";
+		String getAllPrizes = "SELECT * FROM prize ORDER BY prize_id";
 		Prize blingBling = new Prize();
 		SqlRowSet results = jdbcTemplate.queryForRowSet(getAllPrizes);
 
