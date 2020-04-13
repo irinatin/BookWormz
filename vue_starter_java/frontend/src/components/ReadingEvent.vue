@@ -3,13 +3,12 @@
     
       <h2>Reading Event</h2>
 
-  
+  <span class="label">Select Book:</span>
     <select id="books" v-on:click="showFamUsersBtn()" v-model="readingEvent.bookId">
       <option v-for="book in books" v-bind:key="book.id" :value="book.id">{{book.title}}</option>
     </select>
-    <button v-if= "showUsersButton" v-on:click="showFamUsers()">Select Family Member</button>
-    <br>
-    <select  v-if= "showUsers" id="users" v-model="readingEvent.userId">
+    <span v-if= "showUsersButton" class="label">Select Family Member:</span>
+    <select  v-if= "showUsersButton" id="users" v-model="readingEvent.userId">
       <option v-for="user in users" v-bind:key="user.id" :value="user.id">{{user.username}}</option>
     </select>
 
@@ -28,12 +27,15 @@
       </div>
     </div>
 
+    <span class="label">Select Reading Format:</span>
     <select id="format" v-model="readingEvent.format">
       <option v-for="format in formats" v-bind:key="format.id">{{format.format}}</option>
     </select> 
     <br>
+    <label class ="label" for="checkbox"> Book Completed</label>
     <input type="checkbox" id="checkbox" v-model="readingEvent.completed">
-    <label for="checkbox"> Book Completed</label>
+    <br>
+    
 
     <div>
           <button v-on:click="addReadingEvent">Submit</button>
