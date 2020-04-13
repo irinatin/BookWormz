@@ -55,7 +55,7 @@ public class JDBCBookDAO implements BookDAO{
 		long familyId = famResults.getLong(1);
 		
 		
-		String getAllFamBooks = "SELECT * FROM book WHERE family_id = ?";
+		String getAllFamBooks = "SELECT * FROM book WHERE family_id = ? ORDER BY title";
 		
 		Book bookie = new Book();
 		SqlRowSet results = jdbcTemplate.queryForRowSet(getAllFamBooks, familyId);
