@@ -3,10 +3,15 @@
         <h2>{{title}}</h2>
         <ul>
             <li>
-                <img v-bind:src="data.photo" />
+                <img class="photo" v-bind:src="data.photo" alt="employee photo"/>
             </li>
-            <li v-for="isbn in data.adult" v-bind:isbn="book.isbn" >
+            <li v-for="isbn in searchBooks(data.adult)" v-bind:isbn="book.isbn">
+           
                 
+                {{this.book.thumbnail }}
+                {{this.book.title}}
+                {{this.book.author}}
+
                 
             </li>
             <!-- <li v-for="isbn in data.adult" v-bind:isbn="book.isbn" > -->
@@ -18,18 +23,18 @@
 </template>
 
 <script>
-import image from '../views/assets/BookWorm.jpg'
+import axios from "axios";
 
 export default {
     
     name: 'employees',
     props: {
         title: String,
-        data: Array
+        data: Object
     },
     data() {
         return {
-    photo : "../views/assets/BookWorm.jpg",
+  
     book: {
         isbn: "",
         title: "",
@@ -43,15 +48,12 @@ export default {
         axios
           .get(
             "https://openlibrary.org/api/books?format=json&jscmd=data&bibkeys=ISBN:" +
-              this.book.isbn
+              isbn
           )
 
           .then(response => {
-            console.log(response.data);
-
-           
-            let tempIsbn = this.book.isbn;
-
+            console.log(response);
+            let tempIsbn = isbn;
             this.book.title = response.data["ISBN:" + tempIsbn].title;
             this.book.author =
               response.data["ISBN:" + tempIsbn].authors[0].name;
@@ -70,6 +72,11 @@ export default {
 </script>
 
 <style>
+
+.photo {
+    width: 30%;
+    height: auto;
+}
 .shopping-list {
     width:450px;
     background: #fff;

@@ -29,6 +29,7 @@
            <div class="column is-parent box-margin">
             <div class="tile is-child box">
                 <reading-activity></reading-activity>
+                <prizes-per-user></prizes-per-user>
             </div>
           </div>
 
@@ -77,12 +78,11 @@ import axios from "axios";
 import Family from '../components/Family';
 import ReadingEvent from '../components/ReadingEvent';
 import Books from '../components/Books';
-import Prizes from '../components/Prizes';
-import PrizeList from '../components/PrizeList';
 import Leaderboard from '../components/Leaderboard';
 import ReadingActivity from '../components/ReadingActivity';
 import Friends from '../components/Friends';
 import NewPrizeList from '../components/NewPrizeList';
+import PrizesPerUser from '../components/PrizesPerUser';
 
 
 export default {
@@ -91,12 +91,11 @@ export default {
     Family,
     ReadingEvent,
     Books,
-    Prizes,
-    PrizeList,
     Leaderboard,
     ReadingActivity,
     Friends,
     NewPrizeList,
+    PrizesPerUser
   },
   data() {
     return {    

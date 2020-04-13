@@ -10,4 +10,7 @@ public interface PrizeDAO {
 	public List<Prize> getAllPrizes();
 	public Prize getPrize(long prizeId);
 //	public List<PrizeListInfo> getPrizeListInfo(String role, Long userId);
+	public List<String> getPrizesPerUser(Long userId);
+	
+	
 }

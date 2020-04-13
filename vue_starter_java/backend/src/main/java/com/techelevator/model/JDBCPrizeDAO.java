@@ -128,4 +128,15 @@ public class JDBCPrizeDAO implements PrizeDAO {
 //		}
 //		return dummyPrizeInfo;
 //	}
+
+	@Override
+	public List<String> getPrizesPerUser(Long userId) {
+		List<String> prizesPerUser = new ArrayList<String>();
+		String getAllPrizesPerUser = "SELECT prize.prize_name FROM prize JOIN user_prize ON prize.prize_id = user_prize.prize_id WHERE user_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(getAllPrizesPerUser, userId);
+		while(results.next()) {
+			prizesPerUser.add(results.getString(1));
+		}
+		return prizesPerUser;
+	}
 }
