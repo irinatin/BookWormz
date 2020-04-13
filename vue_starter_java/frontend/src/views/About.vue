@@ -34,7 +34,7 @@
       <h2 class="has-background-info has-text-black-bis">Irina</h2>
         <div class="columns">
         <div class="column has-text-centered">
-                <img class="photo" src="./assets/ki8oxyX7T.jpg" alt="employee photo"/>
+                <img class="photo" src="./assets/Irina.png" alt="employee photo"/>
         </div>
         <div class="column">
             Favorite Book: 
