@@ -9,4 +9,7 @@ public interface PrizeDAO {
 	public boolean deletePrize(Prize blingBling);
 	public List<Prize> getAllPrizes();
 	public List<PrizeListInfo> getPrizeListInfo(String role, Long userId);
+	public List<String> getPrizesPerUser(Long userId);
+	
+	
 }
