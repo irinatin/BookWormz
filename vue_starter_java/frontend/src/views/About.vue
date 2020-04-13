@@ -17,10 +17,10 @@
                 <img class="photo" src="./assets/BookWorm.jpg" alt="employee photo"/>
         </div>
         <div class="column">
-            Favorite Book: 
+            <h1 class="has-text-weight-bold">Favorite Book: </h1>
             <br>
             <br>
-            Favorite Kids Book: 
+            <h1 class="has-text-weight-bold">Favorite Kid's Book: </h1>
             <br>
             <img src="https://covers.openlibrary.org/b/id/24239-S.jpg"/>
             Trollhunters By: Guillermo Del Toro, Daniel Kraus, Sean Murray
@@ -37,13 +37,13 @@
                 <img class="photo" src="./assets/Irina.png" alt="employee photo"/>
         </div>
         <div class="column">
-            Favorite Book: 
+            <h1 class="has-text-weight-bold">Favorite Book: </h1>
             <br>
             <img src="https://covers.openlibrary.org/b/id/8869747-S.jpg"/>
             Goodbye, Things: The New Japanese Minimilism By: Fumio Sasaki
             <br>
             <br>
-            Favorite Kids Book: 
+            <h1 class="has-text-weight-bold">Favorite Kid's Book: </h1>
             <br>
             <img src="https://covers.openlibrary.org/b/id/8507700-S.jpg"/>
             Pippi Longstocking By: Astrid Lindgren
@@ -60,13 +60,13 @@
                 <img class="photo" src="./assets/Joe.jpeg" alt="employee photo"/>
         </div>
         <div class="column">
-            Favorite Book: 
+            <h1 class="has-text-weight-bold">Favorite Book: </h1>
             <br>
             <img class="thumbnail" src="https://images2.penguinrandomhouse.com/cover/9780767930611"/>
             Breathers: A Zombie's Lament By: SG Browne
             <br>
             <br>
-            Favorite Kids Book: 
+            <h1 class="has-text-weight-bold">Favorite Kid's Book: </h1>
             <br>
             <img class="thumbnail" src="https://images.randomhouse.com/cover/9780525428893"/>
             High Five by Adam Rubin
@@ -83,13 +83,13 @@
                 <img class="photo" src="./assets/Leigh.jpeg" alt="employee photo"/>
         </div>
         <div class="column">
-            Favorite Book: 
+            <h1 class="has-text-weight-bold">Favorite Book: </h1>
             <br>
             <img src="https://covers.openlibrary.org/b/id/27764-S.jpg"/>
             One Hundred Years of Solitude By: Gabriel García Márquez
             <br>
             <br>
-            Favorite Kids Book: 
+            <h1 class="has-text-weight-bold">Favorite Kid's Book: </h1>
             <br>
             <img class="thumbnail" src="https://www.akpress.org/pub/media/catalog/product/cache/1ec012b46cbfe4262fc94f3e95ab2d9c/r/u/ruleistobreak_72.jpg"/>
             <br>
@@ -107,9 +107,9 @@
                 <img class="photo" src="./assets/Ryan.jpg" alt="employee photo"/>
         </div>
         <div class="column">
-            Favorite Book: 
+            <h1 class="has-text-weight-bold">Favorite Book: </h1>
             <br>
-            Favorite Kids Book: 
+            <h1 class="has-text-weight-bold">Favorite Kid's Book: </h1>
             <br>
             <img src="https://covers.openlibrary.org/b/id/24239-S.jpg"/>
             Trollhunters By: by Guillermo Del Toro, Daniel Kraus, Sean Murray
@@ -127,9 +127,7 @@ import Employees from "../components/Employees"
 
 export default {
   name: 'about',
-  components: {
-    Employees 
-  },
+  
   data() {
     return {
  
@@ -139,9 +137,15 @@ export default {
 </script>
 
 <style scoped>
+.columns{
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
 .photo {
     width: 30%;
     height: auto;
+    /* padding-top: 5%;
+    padding-bottom: 5%; */
 }
 .thumbnail{
   width: 10%;
