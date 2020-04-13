@@ -1,8 +1,21 @@
 <template>
   <div>
-    <h2 class="label">Monthly Leaderboard</h2>
+    <h2 class="label purple">Monthly Leaderboard</h2>
     <div>
-      <div v-for="user in leaderboard" v-bind:key="user.userName">{{user.userName}}     Total: {{user.totalReading}} min</div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>BookWorm</th>
+            <th>Total Minutes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="user in leaderboard" v-bind:key="user.userName" >
+            <td class="has-text-centered">{{user.userName}}</td>    
+            <td class="has-text-centered">{{user.totalReading}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     
   </div>
@@ -43,4 +56,7 @@ export default {
 
 
 <style>
+.purple {
+    background-color: #b366ff;
+  }
 </style>
