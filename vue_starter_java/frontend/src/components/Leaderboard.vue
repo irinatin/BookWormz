@@ -26,7 +26,12 @@
 <script>
 import axios from "axios";
 
+
 export default {
+  props :{
+  newLeaderboard: Object,
+  isNewLeaderboard: Boolean,
+},
   data() {
     return {
       leaderboard: {}
