@@ -142,7 +142,9 @@ public class ApiController {
     
     @RequestMapping(path = "/addPrize", method = RequestMethod.POST)
     public boolean addPrize(@RequestBody Prize newPrize) {
-    	prizeDAO.createNewPrize(newPrize);
+    	this.userId = authDAO.getCurrentUser().getId();
+		Long familyId = userInfoDAO.getFamilyId(userId);
+    	prizeDAO.createNewPrize(newPrize, familyId);
     	return true;
     }
     
@@ -159,7 +161,9 @@ public class ApiController {
 
 	@RequestMapping(path = "/getPrizes", method = RequestMethod.GET)
 	public List<Prize> getPrizeList() {
-		return prizeDAO.getAllPrizes(authDAO.getCurrentUser().getRole());
+		this.userId = authDAO.getCurrentUser().getId();
+		Long familyId = userInfoDAO.getFamilyId(userId);
+		return prizeDAO.getAllPrizes(authDAO.getCurrentUser().getRole(), familyId);
 	}
 
 

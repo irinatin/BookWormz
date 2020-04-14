@@ -35,9 +35,9 @@ VALUES (DEFAULT, (SELECT id FROM users WHERE username = 'BethCampbell'), (SELECT
 (DEFAULT, (SELECT id FROM users WHERE username = 'TomMedvitz'), (SELECT book_id FROM book WHERE title = 'CSS for Dummies'), '60', '2020-04-14', 'Digital/Kindle', false);
 
 INSERT INTO prize
-VALUES (DEFAULT, 'Booze', 'Whatever you want', '120', 'user', '10', '2020-01-01', '2020-12-31'),
-(DEFAULT, 'Video Games', 'An hour of video games', '120', 'child', '10', '2020-01-01', '2020-12-31'),
-(DEFAULT, 'Candy', 'YAY Candy!!!', '30', 'child', '10', '2020-01-01', '2020-12-31');
+VALUES (DEFAULT, 'Booze', 'Whatever you want', '120', 'user', '10', '2020-01-01', '2020-12-31', (SELECT family_id FROM family WHERE family_name = 'TE Fam')),
+(DEFAULT, 'Video Games', 'An hour of video games', '120', 'child', '10', '2020-01-01', '2020-12-31', (SELECT family_id FROM family WHERE family_name = 'TE Fam')),
+(DEFAULT, 'Candy', 'YAY Candy!!!', '30', 'child', '10', '2020-01-01', '2020-12-31', (SELECT family_id FROM family WHERE family_name = 'TE Fam'));
 
 
 INSERT INTO user_prize

@@ -13,7 +13,7 @@
       </div>
 <br />
       <span v-if="addChildForm">
-        <label for="username">Username</label>
+        <label for="username">Username: </label>
         <input
           type="text"
           id="username"
@@ -26,7 +26,7 @@
       </span>
       <br>
       <span v-if="addChildForm">
-        <label for="password">Password</label>
+        <label for="password">Password: </label>
         <input
           type="text"
           id="password"
@@ -39,9 +39,9 @@
       </span>
       <br>
       <span v-if="addChildForm">
-        <label for="firstName">First Name</label>
+        <label for="firstName">First Name: </label>
         <input
-          type="text"
+          type="text "
           id="firstName"
           class="form-control"
           placeholder="First Name"
@@ -52,7 +52,7 @@
       </span>
       <br>
       <span v-if="addChildForm">
-        <label for="lastName">Last Name</label>
+        <label for="lastName">Last Name: </label>
         <input
           type="text"
           id="lastName"
@@ -76,7 +76,7 @@
 <script>
 import {eventBus} from "../main.js";
 import axios from "axios";
-import 'bulma/css/bulma.css'
+//import 'bulma/css/bulma.css'
 export default {
   props: {
   },
@@ -187,4 +187,8 @@ export default {
 .purple {
     background-color: #b366ff;
   }
+
+  
+
+
 </style>
