@@ -1,13 +1,10 @@
 <template>
   <div>
+    <div v-if="noPrizes">No prizes entered. Please enter a prize to begin</div>
     <div v-for="prize in prizes" :key="prize.id">
-      <a href="#" class="edit-review" v-on:click="editPrize(parseInt(prize.prizeId))">
-        <i class="far fa-edit"></i> Edit
-      </a>
+      <a href="#" v-if="isParent" v-on:click="editPrize(parseInt(prize.prizeId))">Edit</a>
       <br />
-      <a href="#" class="delete-review" v-on:click="deletePrize(prize.id)">
-        <i class="far fa-trash-alt"></i> Delete
-      </a>
+      <a href="#" v-if="isParent" v-on:click="deletePrize(parseInt(prize.prizeId))">Delete</a>
       <br />
       {{prize.prizeName}}
       {{prize.prizeDescription}}
@@ -26,14 +23,21 @@ export default {
 
   data() {
     return {
+      isParent: false,
+      noPrizes: true,
       prizes: []
     };
   },
 
   methods: {
     editPrize(id) {
-      this.$emit('editPrize', id)
+      this.$emit("editPrize", id);
     },
+    deletePrize(id){
+      this.$emit("deletePrize", id);
+      const index = this.prizes.map(prize => prize.prizeId).indexOf(id);
+      this.prizes.splice(index,1);
+    }
   },
   created() {
     axios
@@ -44,6 +48,24 @@ export default {
       })
       .then(response => {
         this.prizes = response.data;
+        if (response.data != null) {
+          this.noPrizes = false;
+        }
+      })
+      .catch(error => {
+        console.log(error + " there was an error");
+      });
+    axios
+      .get(`${process.env.VUE_APP_REMOTE_API}/api/getCurrentUser`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Authorization")
+        }
+      })
+      .then(response => {
+        this.currentUser = response.data;
+        if (this.currentUser.role === "user") {
+          this.isParent = true;
+        }
       })
       .catch(error => {
         console.log(error + " there was an error");

@@ -190,5 +190,11 @@ public class ApiController {
 		return prizeDAO.getPrizesPerUser(currentUserId);
 	}
 	
+	@RequestMapping(path = "/deletePrize", method = RequestMethod.POST)
+	public boolean deletePrize(@RequestBody Prize prize) {
+		prizeDAO.deletePrize(prize);
+		return true;
+	}
+	
 
 }

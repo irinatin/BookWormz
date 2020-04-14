@@ -78,7 +78,6 @@ export default {
           }
         })
         .then(response => {
-          console.log(response.data);
           this.requestUsername = response.data.username;
           axios
         .get(`${process.env.VUE_APP_REMOTE_API}/api/getReadingActivity/${this.requestUsername}`, {
@@ -90,7 +89,6 @@ export default {
 
           this.showResultsBtn = true;
           this.readingActivity = response.data;
-          console.log(this.readingActivity);
         })
         .catch(error => {
           console.log(error + " there was an error");
@@ -116,7 +114,6 @@ export default {
 
           this.showResultsBtn = true;
           this.readingActivity = response.data;
-          console.log(this.readingActivity);
         })
         .catch(error => {
           console.log(error + " there was an error");

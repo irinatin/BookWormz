@@ -150,8 +150,8 @@ export default {
             }
           }
         )
+        // eslint-disable-next-line no-unused-vars
         .then(response => {
-          console.log(response);
           axios
             .get(`${process.env.VUE_APP_REMOTE_API}/api/getPrizeList`, {
               headers: {
@@ -160,7 +160,6 @@ export default {
             })
             .then(response => {
               this.prizeList = response.data;
-              console.log(this.prizeList);
             })
             .catch(error => {
               this.noPrizes = true;
