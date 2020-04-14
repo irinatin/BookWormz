@@ -117,7 +117,6 @@ export default {
           }
         })
         .then(response => {
-          console.log(response.data);
           this.currentUser = response.data;
           if (this.currentUser.role === "user"){
           this.showUsersButton = true;
@@ -134,7 +133,6 @@ export default {
           }
         })
         .then(response => {
-          console.log(response);
           this.books = response.data;
         })
         .catch(error => {
@@ -147,7 +145,6 @@ export default {
           }
         })
         .then(response => {
-          console.log(response);
           this.users = response.data;
           
         })
@@ -168,7 +165,6 @@ export default {
     },
 
     showFamUsers(){
-      console.log(this.currentUser);
       if (this.currentUser.role === "user"){
         this.showUsers = true;
       }
@@ -184,7 +180,6 @@ export default {
           }
         })
         .then(response => {
-          console.log(response);
           this.books = response.data;
         })
         .catch(error => {
@@ -200,7 +195,6 @@ export default {
           }
         })
         .then(response => {
-          console.log(response);
           this.users = response.data;
           
         })
@@ -217,7 +211,6 @@ export default {
       if (document.querySelector("#checkbox").checked){
         this.readingEvent.completed = true;
       }
-      console.log(this.readingEvent);
       axios
         .post(
           `${process.env.VUE_APP_REMOTE_API}/api/addReadingEvent`,
@@ -228,8 +221,8 @@ export default {
             }
           }
         )
+        // eslint-disable-next-line no-unused-vars
         .then(response => {
-          console.log(response);
           this.showForm = false;
           alert("Your reading event has been saved, BookWorm!");
           this.readingEvent.userId = '';
@@ -251,7 +244,6 @@ export default {
           }
         })
         .then(response => {
-          console.log(response.data);
           this.currentUser = response.data;
         })
         .catch(error => {
