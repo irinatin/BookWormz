@@ -2,9 +2,9 @@
   <div>
     <div v-if="noPrizes">No prizes entered. Please enter a prize to begin</div>
     <div v-for="prize in prizes" :key="prize.id">
-      <a href="#" v-if="isParent" v-on:click="editPrize(parseInt(prize.prizeId))">Edit</a>
+      <a href="#" v-if="isParent" v-on:click="editPrize(parseInt(prize.prizeId))"><i class="fas fa-edit"></i></a>
       <br />
-      <a href="#" v-if="isParent" v-on:click="deletePrize(parseInt(prize.prizeId))">Delete</a>
+      <a class="delete" href="#" v-if="isParent" v-on:click="deletePrize(parseInt(prize.prizeId))"></a>
       <br />
       {{prize.prizeName}}
       {{prize.prizeDescription}}
@@ -18,6 +18,9 @@
 
 <script>
 import axios from "axios";
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
+
 export default {
   props: {},
 
