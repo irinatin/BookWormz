@@ -22,7 +22,7 @@
           
           <div class="column is-parent box-margin">
             <div class="tile is-child box">
-                <leaderboard></leaderboard>
+                <leaderboard v-bind:leaderboard="leaderboard"></leaderboard>
              </div>
           </div>
 
@@ -51,7 +51,7 @@
           </div>
 
           <div class="column is-child box tile ">
-            <reading-event></reading-event>
+            <reading-event v-on:eventSaved ="refresh()"></reading-event>
           </div>
         </div>
     </div>           
@@ -127,6 +127,11 @@ export default {
       
   },
   
+  methods: {
+    refresh(){
+      //this fires
+    }
+  }
 }
 </script>
 
