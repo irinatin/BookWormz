@@ -1,7 +1,10 @@
 package com.techelevator.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -14,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class JDBCPrizeDAO implements PrizeDAO {
 
 	private JdbcTemplate jdbcTemplate;
-	
+
 	@Autowired
 	public JDBCPrizeDAO(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -22,7 +25,7 @@ public class JDBCPrizeDAO implements PrizeDAO {
 
 	@Override
 	public boolean createNewPrize(Prize blingBling) {
-		if(blingBling.getUserGroup().toLowerCase().equals("parent")) {
+		if (blingBling.getUserGroup().toLowerCase().equals("parent")) {
 			blingBling.setUserGroup("user");
 		}
 		long prizeId = getNextPrizeId();
@@ -35,11 +38,12 @@ public class JDBCPrizeDAO implements PrizeDAO {
 
 	@Override
 	public boolean editExistingPrize(Prize prize) {
-		String sqlEditPrize= "UPDATE prize SET prize_name = ?, prize_description = ?, milestone = ?, " + 
-				"user_group = ?, max_prizes = ?, start_date = ?, end_date = ? WHERE prize_id = ?";	
-		jdbcTemplate.update(sqlEditPrize, prize.getPrizeName(), prize.getPrizeDescription(), prize.getMilestone(), prize.getUserGroup(),
-				prize.getNumOfPrizes(), prize.getStartDate(), prize.getEndDate(), prize.getPrizeId()); 
-				
+		String sqlEditPrize = "UPDATE prize SET prize_name = ?, prize_description = ?, milestone = ?, "
+				+ "user_group = ?, max_prizes = ?, start_date = ?, end_date = ? WHERE prize_id = ?";
+		jdbcTemplate.update(sqlEditPrize, prize.getPrizeName(), prize.getPrizeDescription(), prize.getMilestone(),
+				prize.getUserGroup(), prize.getNumOfPrizes(), prize.getStartDate(), prize.getEndDate(),
+				prize.getPrizeId());
+
 		return true;
 	}
 
@@ -47,7 +51,7 @@ public class JDBCPrizeDAO implements PrizeDAO {
 	public boolean deletePrize(Prize blingBling) {
 		String deleteUserPrize = "DELETE FROM user_prize WHERE prize_id = ?";
 		jdbcTemplate.update(deleteUserPrize, blingBling.getPrizeId());
-		
+
 		String deleteFromPrize = "DELETE FROM prize WHERE prize_id = ?";
 		jdbcTemplate.update(deleteFromPrize, blingBling.getPrizeId());
 
@@ -55,13 +59,13 @@ public class JDBCPrizeDAO implements PrizeDAO {
 	}
 
 	@Override
-	public List<Prize> getAllPrizes() {
-		
+	public List<Prize> getAllPrizes(String userGroup) {
+
 		List<Prize> allPrizes = new ArrayList<Prize>();
-		
-		String getAllPrizes = "SELECT * FROM prize ORDER BY prize_id";
+
+		String getAllPrizes = "SELECT * FROM prize WHERE user_group = ? AND start_date < ? AND end_date > ? ORDER BY prize_id";
 		Prize blingBling = new Prize();
-		SqlRowSet results = jdbcTemplate.queryForRowSet(getAllPrizes);
+		SqlRowSet results = jdbcTemplate.queryForRowSet(getAllPrizes, userGroup, LocalDate.now(), LocalDate.now());
 
 		while (results.next()) {
 			blingBling = mapRowToPrize(results);
@@ -100,16 +104,16 @@ public class JDBCPrizeDAO implements PrizeDAO {
 	@Override
 	public Prize getPrize(long prizeId) {
 		Prize prize = new Prize();
-		
+
 		String sqlGetPrize = "SELECT * FROM prize WHERE prize_id = ?";
 		SqlRowSet result = jdbcTemplate.queryForRowSet(sqlGetPrize, prizeId);
-		
-		if(result.next()) {
+
+		if (result.next()) {
 			prize = mapRowToPrize(result);
 		}
 		return prize;
 	}
-	
+
 //	public List<PrizeListInfo> getPrizeListInfo(String role, Long userId) {
 //		List<PrizeListInfo> dummyPrizeInfo = new ArrayList<PrizeListInfo>();
 //		String getAllPrizes = "SELECT prize.prize_name, prize.milestone, prize.user_group FROM prize WHERE prize.user_group = ?";
@@ -137,9 +141,50 @@ public class JDBCPrizeDAO implements PrizeDAO {
 		List<String> prizesPerUser = new ArrayList<String>();
 		String getAllPrizesPerUser = "SELECT prize.prize_name FROM prize JOIN user_prize ON prize.prize_id = user_prize.prize_id WHERE user_id = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(getAllPrizesPerUser, userId);
-		while(results.next()) {
+		while (results.next()) {
 			prizesPerUser.add(results.getString(1));
 		}
 		return prizesPerUser;
+	}
+
+	@Override
+	public boolean awardPrize(String userGroup, long userId) {
+
+		List<Prize> prizes = new ArrayList<Prize>();
+
+		String sqlGetPrizes = "SELECT * FROM prize WHERE user_group = ? AND start_date < ? AND end_date > ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetPrizes, userGroup, LocalDate.now(), LocalDate.now());
+
+		while (results.next()) {
+			Prize prize = new Prize();
+			prize = mapRowToPrize(results);
+			prizes.add(prize);
+		}
+
+		for (Prize p : prizes) {
+
+			String sqlSumTotalMinutes = "SELECT SUM(reading_time) FROM user_book WHERE user_id = ? AND reading_date >= ? AND reading_date <= ?";
+			SqlRowSet resultsMins = jdbcTemplate.queryForRowSet(sqlSumTotalMinutes, userId, p.getStartDate(),
+					p.getEndDate());
+
+			resultsMins.next();
+			int totalMin = resultsMins.getInt(1);
+			if (totalMin >= p.getMilestone()) {
+				try {
+					if(p.getNumOfPrizes() > 0) {
+					String sqlAddPrize = "INSERT INTO user_prize VALUES (?, ?)";
+					jdbcTemplate.update(sqlAddPrize, p.getPrizeId(), userId);
+					
+					String sqlUpdatePrizeQty = "UPDATE prize SET max_prizes = ? WHERE prize_id = ?";
+					jdbcTemplate.update(sqlUpdatePrizeQty, p.getNumOfPrizes() - 1, p.getPrizeId());
+					}
+				} catch (Exception e) {
+					System.out.println("Caught you");
+					continue;
+				}
+			}
+		}
+
+		return true;
 	}
 }

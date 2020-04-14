@@ -61,6 +61,9 @@ public class ApiController {
 	
 	@Autowired
 	private FriendDAO friendDAO;
+	
+	private long userId;
+	private String userRole;
 
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public String authorizedOnly() throws UnauthorizedException {
@@ -93,10 +96,20 @@ public class ApiController {
     	endUser.setUsername(middleUser.getUsername());
     	return endUser;
     }
+	
+	@RequestMapping(path = "/addChild", method = RequestMethod.POST)
+    public boolean addChild(@RequestBody ChildInfo child) {
+    	userDAO.saveUser(child.getUsername(), child.getPassword(), "child");
+    	long childId = userDAO.getUserByUsername(child.getUsername()).getId();
+    	Long familyId = userInfoDAO.getFamilyId(userId);
+    	userInfoDAO.saveUserInfo(child.getFirstName(), child.getLastName(), familyId, childId);
+    	
+    	return true;
+    }
 
 	@RequestMapping(path = "/addBook", method = RequestMethod.POST)
 	public boolean addBook(@RequestBody Book newBook) {
-		return bookDAO.addNewBook(newBook, userInfoDAO.getFamilyId(authDAO.getCurrentUser().getId()));
+		return bookDAO.addNewBook(newBook, userInfoDAO.getFamilyId(userId));
 	}
 	
 	@RequestMapping(path = "/getAllBooks", method = RequestMethod.GET)
@@ -108,12 +121,16 @@ public class ApiController {
 
 	@RequestMapping(path = "/addReadingEvent", method = RequestMethod.POST)
 	public ReadingEvent addReadingEvent(@RequestBody ReadingEvent reads) {
-		return reDAO.addReadingEvent(reads);
+		ReadingEvent reading = reDAO.addReadingEvent(reads);
+		prizeDAO.awardPrize(userRole, userId);
+		return reading;
 	}
 
 	@RequestMapping(path = "/getFamilyList", method = RequestMethod.GET)
 	public List<UserInfo> getFamilyList() {
-		Long familyId = userInfoDAO.getFamilyId(authDAO.getCurrentUser().getId());
+		this.userId = authDAO.getCurrentUser().getId();
+		Long familyId = userInfoDAO.getFamilyId(userId);
+		this.userRole = authDAO.getCurrentUser().getRole();
 		List<UserInfo> familyMembers = familyDAO.getAllFamilyMembers(familyId);
 		for (UserInfo i : familyMembers) {
 			i.setFamilyName(familyDAO.getFamilyNameById(i.getFamilyId()));
@@ -140,7 +157,7 @@ public class ApiController {
 
 	@RequestMapping(path = "/getPrizes", method = RequestMethod.GET)
 	public List<Prize> getPrizeList() {
-		return prizeDAO.getAllPrizes();
+		return prizeDAO.getAllPrizes(authDAO.getCurrentUser().getRole());
 	}
 
 
