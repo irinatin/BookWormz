@@ -57,6 +57,19 @@ export default {
 
 </script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+.navbar-brand {
+font-family: 'Pacifico', cursive;
+font-size: 30px;
+}
+
+.navbar-menu {
+ font-family: 'Comfortaa', cursive;
+ 
+}
+
+
 .product-img {
   width: auto;
   height: auto;

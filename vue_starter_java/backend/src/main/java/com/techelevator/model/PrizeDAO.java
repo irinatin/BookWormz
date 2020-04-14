@@ -6,7 +6,7 @@ public interface PrizeDAO {
 
 	public boolean createNewPrize(Prize blingBling);
 	public boolean editExistingPrize(Prize blingBlung);
-	public boolean deletePrize(Prize blingBling);
+	public boolean deletePrize(long id);
 	public List<Prize> getAllPrizes();
 	public Prize getPrize(long prizeId);
 //	public List<PrizeListInfo> getPrizeListInfo(String role, Long userId);
