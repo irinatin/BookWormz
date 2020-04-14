@@ -73,6 +73,7 @@
 
 <script>
 import axios from "axios";
+import {eventBus} from "../main.js";
 
 
 export default {
@@ -146,6 +147,7 @@ export default {
           this.success = true;
           this.manualBook = false;
           this.book.isbn = "";
+          eventBus.$emit('refreshBooks');
         })
         .catch(error => {
           console.log(error + " there was an error");
@@ -164,6 +166,7 @@ export default {
           this.success = true;
           this.showBook = false;
           this.book.isbn = "";
+          eventBus.$emit('refreshBooks');
         })
         .catch(error => {
           console.log(error + " there was an error");

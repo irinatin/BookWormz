@@ -21,8 +21,8 @@
 
           <div class="column is-parent box-margin " >
             <div class="tile is-child box">
-              <leaderboard></leaderboard>
-            </div>
+                <leaderboard v-bind:leaderboard="leaderboard"></leaderboard>
+             </div>
           </div>
 
           <div class="column is-parent box-margin">
@@ -46,8 +46,9 @@
           <reading-activity></reading-activity>
         </div>
 
-        <div class="column is-child box tile ">
-          <reading-event></reading-event>
+          <div class="column is-child box tile ">
+            <reading-event v-on:eventSaved ="refresh()"></reading-event>
+          </div>
         </div>
       </div>
     </div>
@@ -118,8 +119,16 @@ export default {
       .catch(error => {
         console.log(error + " there was an error");
       });
+     
+      
+  },
+  
+  methods: {
+    refresh(){
+      //this fires
+    }
   }
-};
+}
 </script>
 
 <style scoped>
