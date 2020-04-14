@@ -12,6 +12,7 @@
       <button v-on:click="showResults()">Update</button>
 
       <div>
+        <ul class="has-text-left">
         <h4>Completed Books: {{readingActivity.completedBooks}}</h4>
         <h4>Total Reading Time (mins): {{readingActivity.totalReadingTime}}</h4>
         <h4>Progress Towards Prize:</h4>
@@ -21,6 +22,7 @@
         >{{name}}:{{value}}</p>
         <h4>Current Books:</h4>
         <p v-bind:key="book" v-for="book in readingActivity.currentBooks">"{{book}}"</p>
+        </ul>
       </div>
     </div>
   </div>

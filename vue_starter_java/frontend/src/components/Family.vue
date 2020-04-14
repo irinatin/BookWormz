@@ -41,7 +41,7 @@
       <span v-if="addChildForm">
         <label for="firstName">First Name</label>
         <input
-          type="text"
+          type="text "
           id="firstName"
           class="form-control"
           placeholder="First Name"
@@ -75,7 +75,7 @@
 
 <script>
 import axios from "axios";
-import 'bulma/css/bulma.css'
+//import 'bulma/css/bulma.css'
 export default {
   props: {
   },
@@ -185,4 +185,8 @@ export default {
 .purple {
     background-color: #b366ff;
   }
+
+  
+
+
 </style>
