@@ -127,11 +127,6 @@ public class ApiController {
     	return true;
     }
     
-    @RequestMapping(path= "/deletePrize/{id}", method = RequestMethod.DELETE)
-    public boolean deletePrize(@PathVariable long id) {
-    	prizeDAO.deletePrize(id);
-    	return true;
-    }
     
     @RequestMapping( path = "/getReadingActivity/{username}", method = RequestMethod.GET)
     public ReadingActivity getReadingActivityObject(@PathVariable String username) {
