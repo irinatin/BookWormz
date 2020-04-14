@@ -8,7 +8,7 @@
     </select>
     <span v-if="showUsersButton" class="label">Select Family Member:</span>
     <select v-if="showUsersButton" id="users" v-model="readingEvent.userId">
-      <option v-for="user in users" v-bind:key="user.id" :value="user.id">{{user.username}}</option>
+      <option v-for="user in users" v-bind:key="user.id" :value="user.id">{{user.firstName}}</option>
     </select>
 
     <div class="form">
