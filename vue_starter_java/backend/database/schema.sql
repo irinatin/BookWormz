@@ -96,7 +96,8 @@ CREATE TABLE user_prize (
   user_id int NOT NULL,
 
 CONSTRAINT fk_prize_id FOREIGN KEY (prize_id) REFERENCES prize (prize_id),
-CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
+CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id),
+CONSTRAINT UC_user_prize UNIQUE (prize_id, user_id)
 );
 
 COMMIT;
