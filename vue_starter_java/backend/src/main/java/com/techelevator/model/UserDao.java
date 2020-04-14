@@ -41,6 +41,6 @@ public interface UserDao {
     
     public void deleteUser (Long userId);
     
-    public List<User> getAllUsersByFamily(Long userId);
+    public List<UserFirst> getAllUsersByFamily(Long userId);
 
 }

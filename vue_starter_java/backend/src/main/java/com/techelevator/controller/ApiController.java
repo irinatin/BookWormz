@@ -28,6 +28,7 @@ import com.techelevator.model.ReadingEvent;
 import com.techelevator.model.ReadingEventDAO;
 import com.techelevator.model.User;
 import com.techelevator.model.UserDao;
+import com.techelevator.model.UserFirst;
 import com.techelevator.model.UserInfo;
 import com.techelevator.model.UserInfoDao;
 
@@ -82,7 +83,7 @@ public class ApiController {
 	}
 	
 	@RequestMapping(path = "/getUser", method = RequestMethod.GET)
-    public List<User> getAllUsers() {
+    public List<UserFirst> getAllUsersbyFam() {
     	User currentUser = authDAO.getCurrentUser();
     	long currentUserId = currentUser.getId(); 
     	return userDAO.getAllUsersByFamily(currentUserId);
@@ -96,7 +97,7 @@ public class ApiController {
     	endUser.setRole(middleUser.getRole());
     	endUser.setUsername(middleUser.getUsername());
     	return endUser;
-    }
+    } 
 	
 	@RequestMapping(path = "/addChild", method = RequestMethod.POST)
     public boolean addChild(@RequestBody ChildInfo child) {

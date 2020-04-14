@@ -6,7 +6,7 @@
       <button v-if="showUsersButton">Show Members</button>
 
       <select id="users" v-model="requestUsername">
-        <option v-for="user in users" v-bind:key="user.id" :value="user.username">{{user.username}}</option>
+        <option v-for="user in users" v-bind:key="user.id" :value="user.username">{{user.firstName}}</option>
       </select>
 
       <button v-on:click="showResults()">Update</button>
