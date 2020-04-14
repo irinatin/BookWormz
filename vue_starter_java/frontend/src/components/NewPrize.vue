@@ -2,9 +2,9 @@
   <div>
     <div v-if="noPrizes">No prizes entered. Please enter a prize to begin</div>
     <div v-for="prize in prizes" :key="prize.id">
-      <a href="#" v-if="isParent" v-on:click="editPrize(parseInt(prize.prizeId))">Edit</a>
+      <a href="#" v-if="isParent" v-on:click.prevent="editPrize(parseInt(prize.prizeId))">Edit</a>
       <br />
-      <a href="#" v-if="isParent" v-on:click="deletePrize(parseInt(prize.prizeId))">Delete</a>
+      <a href="#" v-if="isParent" v-on:click.prevent="deletePrize(parseInt(prize.prizeId))">Delete</a>
       <br />
       {{prize.prizeName}}
       {{prize.prizeDescription}}

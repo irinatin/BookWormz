@@ -51,17 +51,12 @@
         />
         <br>
 
-        <label for="user_group">User Group (Parent/Child)</label>
-        <br>
-        <input
-          type="text"
-          id="user_group"
-          name="user_group"
-          placeholder="Enter User Group"
-          v-model="prizeinfo.userGroup"
-          required
-          autofocus
-        />
+        <label for="user_group">Parent/Child Prize</label>
+        <select id="users" v-model="prizeinfo.userGroup">
+          <option>Parent</option>
+          <option>Child</option>
+        </select>  
+
         <br>
 
         <label for="max_prizes">Prize Cap</label>

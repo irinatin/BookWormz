@@ -115,6 +115,20 @@ export default {
           console.log(error + " there was an error");
         });
     });
+    eventBus.$on("refreshFamily", () => {
+      axios
+        .get(`${process.env.VUE_APP_REMOTE_API}/api/getUser`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("Authorization")
+          }
+        })
+        .then(response => {
+          this.users = response.data;
+        })
+        .catch(error => {
+          console.log(error + " there was an error");
+        });
+    });
   },
 
   methods: {
