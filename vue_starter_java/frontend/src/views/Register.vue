@@ -1,5 +1,5 @@
 <template>
-<body class="has-background-info">
+<body class="has-background-primary">
   <div class="columns">
     <div class="column is-half has-text-centered">
       <h1>Welcome to BookWormz:</h1>
