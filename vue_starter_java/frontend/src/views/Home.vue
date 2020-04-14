@@ -21,7 +21,7 @@
 
           <div class="column is-parent box-margin " >
             <div class="tile is-child box">
-                <leaderboard v-bind:leaderboard="leaderboard"></leaderboard>
+                <leaderboard></leaderboard>
              </div>
           </div>
 
