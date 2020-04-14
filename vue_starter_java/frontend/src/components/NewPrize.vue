@@ -1,17 +1,38 @@
 <template>
   <div>
+    
+       
+          
     <div v-if="noPrizes">No prizes entered. Please enter a prize to begin</div>
-    <div v-for="prize in prizes" :key="prize.id">
-      <a href="#" v-if="isParent" v-on:click.prevent="editPrize(parseInt(prize.prizeId))"><i class="fas fa-edit"></i></a>
-      <br />
-      <a class="delete" href="#" v-if="isParent" v-on:click.prevent="deletePrize(parseInt(prize.prizeId))"></a>
-      <br />
-      {{prize.prizeName}}
-      {{prize.prizeDescription}}
-      {{prize.milestone}}
-      {{prize.numOfPrizes}}
-      {{prize.startDate}}
-      {{prize.endDate}}
+    <table class="table">
+       <thead>
+         <tr>
+           <th></th>
+           <th></th>
+           <th></th>
+           <th></th>
+           <th>Prize Name</th>
+           <th>Description</th>
+           <th>Milestone</th>
+           <th>Quantity of Prizes</th>
+           <th>Start Date</th>
+           <th>End Date</th>
+         </tr>
+       </thead>  
+       <tr v-for="prize in prizes" :key="prize.id">
+        <td><a href="#" v-if="isParent" v-on:click.prevent="editPrize(parseInt(prize.prizeId))"><i class="fas fa-edit"></i></a><td>
+      
+      <td><a class="delete" href="#" v-if="isParent" v-on:click.prevent="deletePrize(parseInt(prize.prizeId))"></a><td>
+      
+      <td>{{prize.prizeName}}</td>
+      <td>{{prize.prizeDescription}}</td>
+     <td> {{prize.milestone}}</td>
+     <td> {{prize.numOfPrizes}}</td>
+      <td>{{prize.startDate}}</td>
+      <td>{{prize.endDate}}</td>
+          </tr>
+      
+      </table>
     </div>
   </div>
 </template>
@@ -80,4 +101,7 @@ export default {
 
 
 <style>
+.salmon {
+  background-color: #ff6666;
+}
 </style>
