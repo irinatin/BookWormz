@@ -11,7 +11,7 @@
         </thead>
         <tbody>
           <tr v-for="user in leaderboard" v-bind:key="user.userName" >
-            <td class="has-text-centered">{{user.userName}}</td>    
+            <td class="has-text-centered">{{user.firstName}} {{user.lastName}}</td>    
             <td class="has-text-centered">{{user.totalReading}}</td>
           </tr>
         </tbody>

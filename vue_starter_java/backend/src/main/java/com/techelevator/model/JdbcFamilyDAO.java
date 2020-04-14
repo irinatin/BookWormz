@@ -116,18 +116,20 @@ public class JdbcFamilyDAO implements FamilyDAO {
 		List<Leaderboard> familyLeaderboard = new ArrayList<Leaderboard>();
 		LocalDate now = LocalDate.now().withDayOfMonth(1);
 		
-		String sqlGetLeaderboard = "SELECT users.username, SUM(user_book.reading_time) AS totalmins " + 
+		String sqlGetLeaderboard = "SELECT users.username, user_info.first_name, user_info.last_name, SUM(user_book.reading_time) AS totalmins " + 
 				"FROM users " + 
 				"JOIN user_book ON user_book.user_id = users.id " + 
 				"JOIN user_info ON user_info.user_id = users.id " + 
-				"WHERE user_info.family_id = ? AND user_book.reading_date >= ?" + 
-				"GROUP BY username " +
+				"WHERE user_info.family_id = ? AND user_book.reading_date >= ? " + 
+				"GROUP BY user_info.first_name, user_info.last_name, users.username " +
 				"ORDER BY totalmins DESC "; 
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetLeaderboard, familyId, now);
 		
 		while(results.next()) {
 			Leaderboard leaderboard = new Leaderboard();
 			leaderboard.setUserName(results.getString("username"));
+			leaderboard.setFirstName(results.getString("first_name"));
+			leaderboard.setLastName(results.getString("last_name"));
 			leaderboard.setTotalReading(results.getInt("totalmins"));
 			familyLeaderboard.add(leaderboard);
 		}
