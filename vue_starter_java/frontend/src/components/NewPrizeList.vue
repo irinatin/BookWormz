@@ -1,14 +1,14 @@
 <template>
   <div>
     <div>
-      <h2 class="label">Prizes</h2>
+      <h2 class="label salmon">Prizes</h2>
       <div v-if="formErrors">There were problems creating this prize.</div>
       <div v-if="noPrizes">There are no prizes entered! Add a prize!!!</div>
       <button v-if="!showForm" v-on:click="showFormButton()">Create New Prize</button>
       <button v-if="showForm" v-on:click="hideFormButton()">Hide Form</button>
     </div>
     <div v-if="showForm">
-      <label for="prize_name">Prize Name</label>
+      <span><label for="prize_name">Prize Name</label>
       <input
         type="text"
         id="prize_name"
@@ -37,7 +37,7 @@
         v-model="prizeinfo.milestone"
         required
         autofocus
-      />
+      /></span>
       <br />
 
       <label for="user_group">Parent/Child Prize</label>
@@ -236,4 +236,7 @@ export default {
 
 
 <style>
+.salmon {
+  background-color: #ff6666;
+}
 </style>
