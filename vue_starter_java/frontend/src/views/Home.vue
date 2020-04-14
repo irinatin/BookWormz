@@ -22,16 +22,10 @@
           
           <div class="column is-parent box-margin">
             <div class="tile is-child box">
-                <leaderboard></leaderboard>
+                <leaderboard v-bind:leaderboard="leaderboard"></leaderboard>
              </div>
           </div>
 
-           <div class="column is-parent box-margin has-background-primary">
-            <div class="tile is-child box">
-                <reading-activity></reading-activity>
-                <prizes-per-user></prizes-per-user>
-            </div>
-          </div>
 
           <div class="column is-parent box-margin">
             <div class="tile is-child box">
@@ -42,15 +36,22 @@
         </div>    
      </div>
 </section>
- 
+    <div class="container box">
+       <div class="columns card-content">
+         <div class="column content">
+            <books></books>
+         </div>
+       </div>
+     </div>
     <div class="container box has-text-centered">
         <div class="columns card-content">
           <div class="column tile is-child box">
-            <books></books>
+           
+            <reading-activity></reading-activity>
           </div>
 
           <div class="column is-child box tile ">
-            <reading-event></reading-event>
+            <reading-event v-on:eventSaved ="refresh()"></reading-event>
           </div>
         </div>
     </div>           
@@ -67,6 +68,13 @@
        <div class="columns card-content">
          <div class="column content">
            <new-prize-list></new-prize-list>
+         </div>
+       </div>
+     </div>
+     <div class="container box">
+       <div class="columns card-content">
+         <div class="column content">
+           <prizes-per-user></prizes-per-user>
          </div>
        </div>
      </div>
@@ -119,6 +127,11 @@ export default {
       
   },
   
+  methods: {
+    refresh(){
+      //this fires
+    }
+  }
 }
 </script>
 

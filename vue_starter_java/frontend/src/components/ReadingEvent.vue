@@ -223,14 +223,18 @@ export default {
         )
         // eslint-disable-next-line no-unused-vars
         .then(response => {
-          this.showForm = false;
-          alert("Your reading event has been saved, BookWorm!");
-          this.readingEvent.userId = '';
-          this.readingEvent.bookId = '';
-          this.readingEvent.readingTime = 0;
-          this.readingEvent.readingDate = '';
-          this.readingEvent.format = '';
-          this.readingEvent.completed = false;
+          if(response.status = 200){
+            alert("Your reading event has been saved, BookWorm!");
+            this.$emit("eventSaved");
+            this.readingEvent.userId = '';
+            this.readingEvent.bookId = '';
+            this.readingEvent.readingTime = 0;
+            this.readingEvent.readingDate = '';
+            this.readingEvent.format = '';
+            this.readingEvent.completed = false;
+          } else {
+              alert ("Your event did not save");
+          }
         })
         .catch(error => {
           console.log(error + " there was an error");
