@@ -6,22 +6,19 @@
     <div v-for="user in allFriends" v-bind:key="user.username">{{user.firstName}} {{user.lastName}}</div>
     <div>
       <br />
-      <span> Search for friends!!! </span>
-     <br />
+      <span>Search for friends!!!</span>
+      <br />
       <input type="text" v-model="friend.username" placeholder="Username" />
     </div>
     <div>
       <button :disabled="!isValidForm" v-on:click="friendSearch">Friend Search</button>
     </div>
-    <span
-      v-if="showFriend && !friendError"
-    >Name: {{friend.firstName}} {{friend.lastName}}</span>
+    <span v-if="showFriend && !friendError">Name: {{friend.firstName}} {{friend.lastName}}</span>
     <span v-if="friendError">There was a problem locating that user</span>
     <br />
     <span v-if="friendError">Please try again</span>
     <div>
       <button v-if="showFriend && !friendError" v-on:click="addFriend">Add Friend</button>
-      <p v-if="success">Friend Added!!</p>
     </div>
   </div>
 </template>
@@ -35,7 +32,6 @@ export default {
     return {
       friendError: false,
       showFriend: false,
-      success: false,
       allFriends: {},
       friend: {
         username: "",
@@ -92,7 +88,6 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .then(response => {
           this.friend.username = "";
-          this.success = false;
           axios
             .get(`${process.env.VUE_APP_REMOTE_API}/api/getAllFriends`, {
               headers: {
