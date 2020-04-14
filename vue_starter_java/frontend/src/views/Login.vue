@@ -112,10 +112,8 @@ h1 {
   font-size: 200%;
 }
 body {
-  /* margin: 0px; */
   padding: 100px 100px;
   padding-bottom: 400px;
-  /* background: linear-gradient(to bottom, rgba(102, 255, 102, 0.7), rgba(0, 128, 0, 0.25)); */
   background-size: cover;
   background-position: center;
   font-family: sans-serif;
@@ -132,10 +130,6 @@ body {
   height: auto;
   background: rgba(0, 0, 0, 0.55);
   color: #fff;
-  /* top: 50%;
-  left: 50%; */
-  
-  /* transform: translate(-50%, -50%); */
   box-sizing: border-box;
   box-shadow: 0px 0px 8px rgba(0,0,0,0.9);
   padding-left: 20%;
