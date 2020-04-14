@@ -24,17 +24,23 @@ public class JDBCPrizeDAO implements PrizeDAO {
 	}
 
 	@Override
-	public boolean createNewPrize(Prize blingBling) {
+	public boolean createNewPrize(Prize blingBling, long familyId) {
+		if(blingBling.getUserGroup().toLowerCase().equals("parent")) {
+			blingBling.setUserGroup("user");
+		}
 		long prizeId = getNextPrizeId();
-		String insertIntoPrize = "INSERT INTO prize VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		String insertIntoPrize = "INSERT INTO prize VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		jdbcTemplate.update(insertIntoPrize, prizeId, blingBling.getPrizeName(), blingBling.getPrizeDescription(),
 				blingBling.getMilestone(), blingBling.getUserGroup(), blingBling.getNumOfPrizes(),
-				blingBling.getStartDate(), blingBling.getEndDate());
+				blingBling.getStartDate(), blingBling.getEndDate(), familyId);
 		return true;
 	}
 
 	@Override
 	public boolean editExistingPrize(Prize prize) {
+		if(prize.getUserGroup().toLowerCase().equals("parent")) {
+			prize.setUserGroup("user");
+		}
 		String sqlEditPrize = "UPDATE prize SET prize_name = ?, prize_description = ?, milestone = ?, "
 				+ "user_group = ?, max_prizes = ?, start_date = ?, end_date = ? WHERE prize_id = ?";
 		jdbcTemplate.update(sqlEditPrize, prize.getPrizeName(), prize.getPrizeDescription(), prize.getMilestone(),
@@ -56,13 +62,13 @@ public class JDBCPrizeDAO implements PrizeDAO {
 	}
 
 	@Override
-	public List<Prize> getAllPrizes(String userGroup) {
+	public List<Prize> getAllPrizes(String userGroup, long familyId) {
 
 		List<Prize> allPrizes = new ArrayList<Prize>();
 
-		String getAllPrizes = "SELECT * FROM prize WHERE user_group = ? AND start_date < ? AND end_date > ? ORDER BY prize_id";
+		String getAllPrizes = "SELECT * FROM prize WHERE user_group = ? AND start_date < ? AND end_date > ? AND family_id = ? ORDER BY prize_id";
 		Prize blingBling = new Prize();
-		SqlRowSet results = jdbcTemplate.queryForRowSet(getAllPrizes, userGroup, LocalDate.now(), LocalDate.now());
+		SqlRowSet results = jdbcTemplate.queryForRowSet(getAllPrizes, userGroup, LocalDate.now(), LocalDate.now(), familyId);
 
 		while (results.next()) {
 			blingBling = mapRowToPrize(results);
