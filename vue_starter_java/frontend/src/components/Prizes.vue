@@ -114,6 +114,7 @@
 
 <script>
 import axios from "axios";
+
 export default {
   props: {
     apiURL: String

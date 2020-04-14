@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home has-background-primary">
     <section class="hero is-primary">
     <div class="container">
         <div class="columns">
@@ -123,6 +123,14 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&display=swap');
+.home {
+  font-family: 'Comfortaa', cursive;
+  font-size: 17px;
+}
+
+
+
 .box {
   min-height: 400px;
   
@@ -134,6 +142,7 @@ export default {
   .purple {
     background-color: #b366ff;
   }
+  
 /* body {
   margin: 0px;
   padding: 400px 100px;

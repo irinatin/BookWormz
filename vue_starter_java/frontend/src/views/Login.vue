@@ -103,6 +103,11 @@ export default {
 
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&display=swap');
+.columns {
+  font-family: 'Comfortaa', cursive;
+  font-size: 20px;
+}
 h1 {
   font-size: 200%;
 }

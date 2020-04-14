@@ -14,7 +14,6 @@ import com.techelevator.authentication.AuthProvider;
 import com.techelevator.authentication.UnauthorizedException;
 import com.techelevator.model.Book;
 import com.techelevator.model.BookDAO;
-import com.techelevator.model.ChildInfo;
 import com.techelevator.model.FamilyDAO;
 import com.techelevator.model.Friend;
 import com.techelevator.model.FriendDAO;
@@ -144,6 +143,7 @@ public class ApiController {
     	prizeDAO.createNewPrize(newPrize);
     	return true;
     }
+    
     
     @RequestMapping( path = "/getReadingActivity/{username}", method = RequestMethod.GET)
     public ReadingActivity getReadingActivityObject(@PathVariable String username) {
