@@ -6,7 +6,7 @@
       <button v-if="showUsersButton">Show Members</button>
 
       <select id="users" v-model="requestUsername">
-        <option v-for="user in users" v-bind:key="user.id" :value="user.username">{{user.username}}</option>
+        <option v-for="user in users" v-bind:key="user.id" :value="user.username">{{user.firstName}}</option>
       </select>
 
       <button v-on:click="showResults()">Update</button>
@@ -110,6 +110,20 @@ export default {
         .then(response => {
           this.showResultsBtn = true;
           this.readingActivity = response.data;
+        })
+        .catch(error => {
+          console.log(error + " there was an error");
+        });
+    });
+    eventBus.$on("refreshFamily", () => {
+      axios
+        .get(`${process.env.VUE_APP_REMOTE_API}/api/getUser`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("Authorization")
+          }
+        })
+        .then(response => {
+          this.users = response.data;
         })
         .catch(error => {
           console.log(error + " there was an error");

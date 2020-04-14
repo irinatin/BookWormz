@@ -8,84 +8,94 @@
       <button v-if="showForm" v-on:click="hideFormButton()">Hide Form</button>
     </div>
     <div v-if="showForm">
-        <label for="prize_name">Prize Name</label>
-        <input
-          type="text"
-          id="prize_name"
-          name="prize_name"
-          placeholder="Enter Prize Name"
-          v-model="prizeinfo.prizeName"
-          required
-          autofocus
-        />
-        <label for="description">Description</label>
-        <input
-          type="text"
-          id="description"
-          name="description"
-          placeholder="Enter Prize Description"
-          v-model="prizeinfo.prizeDescription"
-          required
-          autofocus
-        />
-        <label for="milestone">Milestone (minutes reading)</label>
-        <input
-          type="text"
-          id="milestone"
-          name="milestone"
-          placeholder="Enter Milestone"
-          v-model="prizeinfo.milestone"
-          required
-          autofocus
-        />
-        <br />
+      <label for="prize_name">Prize Name</label>
+      <input
+        type="text"
+        id="prize_name"
+        name="prize_name"
+        placeholder="Enter Prize Name"
+        v-model="prizeinfo.prizeName"
+        required
+        autofocus
+      />
+      <label for="description">Description</label>
+      <input
+        type="text"
+        id="description"
+        name="description"
+        placeholder="Enter Prize Description"
+        v-model="prizeinfo.prizeDescription"
+        required
+        autofocus
+      />
+      <label for="milestone">Milestone (minutes reading)</label>
+      <input
+        type="text"
+        id="milestone"
+        name="milestone"
+        placeholder="Enter Milestone"
+        v-model="prizeinfo.milestone"
+        required
+        autofocus
+      />
+      <br />
 
-        <label for="user_group">User Group (Parent/Child)</label>
-        <input
-          type="text"
-          id="user_group"
-          name="user_group"
-          placeholder="Enter User Group"
-          v-model="prizeinfo.userGroup"
-          required
-          autofocus
-        />
-        <label for="max_prizes">Prize Cap</label>
-        <input
-          type="text"
-          id="numOfPrizes"
-          name="numOfPrizes"
-          placeholder="Enter Prize Cap"
-          v-model="prizeinfo.numOfPrizes"
-          required
-          autofocus
-        />
-        <label for="start_date">Start Date</label>
-        <input
-          type="text"
-          id="start_date"
-          name="start_date"
-          placeholder="yyyy-mm-dd"
-          v-model="prizeinfo.startDate"
-          required
-          autofocus
-        />
-        <label for="end_date">End Date</label>
-        <input
-          type="text"
-          id="end_date"
-          name="end_date"
-          placeholder="yyyy-mm-dd"
-          v-model="prizeinfo.endDate"
-          required
-          autofocus
-        />
-        <br />
-        <button v-on:click="savePrize()" v-if="this.prizeIdNum == 0" class="add_prize_button" type="submit">Add Prize</button>
-        <button v-on:click="savePrize()" v-if="this.prizeIdNum != 0" class="add_prize_button" type="submit">Edit Prize</button>
+      <label for="user_group">Parent/Child Prize</label>
+      <select id="users" v-model="prizeinfo.userGroup">
+        <option :value="parent">Parent</option>
+        <option :value="child">Child</option>
+      </select>
+
+      <label for="max_prizes">Prize Cap</label>
+      <input
+        type="text"
+        id="numOfPrizes"
+        name="numOfPrizes"
+        placeholder="Enter Prize Cap"
+        v-model="prizeinfo.numOfPrizes"
+        required
+        autofocus
+      />
+      <label for="start_date">Start Date</label>
+      <input
+        type="text"
+        id="start_date"
+        name="start_date"
+        placeholder="yyyy-mm-dd"
+        v-model="prizeinfo.startDate"
+        required
+        autofocus
+      />
+      <label for="end_date">End Date</label>
+      <input
+        type="text"
+        id="end_date"
+        name="end_date"
+        placeholder="yyyy-mm-dd"
+        v-model="prizeinfo.endDate"
+        required
+        autofocus
+      />
+      <br />
+      <button
+        v-on:click="savePrize()"
+        v-if="this.prizeIdNum == 0"
+        class="add_prize_button"
+        type="submit"
+      >Add Prize</button>
+      <button
+        v-on:click="savePrize()"
+        v-if="this.prizeIdNum != 0"
+        class="add_prize_button"
+        type="submit"
+      >Edit Prize</button>
     </div>
 
-    <new-prize v-if="!showForm" v-on:editPrize="editPrize($event) ; showFormButton()" v-on:deletePrize="deletePrize($event) ; hideFormButton()"></new-prize>
+    <new-prize
+      v-if="!showForm"
+      v-on:editPrize="editPrize($event) ; showFormButton()"
+      v-on:deletePrize="deletePrize($event) ; hideFormButton()"
+    ></new-prize>
   </div>
 </template>
 
@@ -102,6 +112,8 @@ export default {
 
   data() {
     return {
+      parent: "user",
+      child: "child",
       isParent: false,
       showForm: false,
       prizeIdNum: 0,
@@ -178,14 +190,21 @@ export default {
           }
         )
         // eslint-disable-next-line no-unused-vars
-        .then(response => {
-        })
+        .then(response => {})
         .catch(error => {
           console.log(error + " there was an error");
         });
     },
 
     showFormButton() {
+      this.prizeinfo.prizeId = "";
+      this.prizeinfo.prizeName = "";
+      this.prizeinfo.prizeDescription = "";
+      this.prizeinfo.milestone = "";
+      this.prizeinfo.userGroup = "";
+      this.prizeinfo.numOfPrizes = "";
+      this.prizeinfo.startDate = "";
+      this.prizeinfo.endDate = "";
       this.showForm = true;
       if (this.prizeIdNum != 0) {
         axios
@@ -207,8 +226,8 @@ export default {
       }
     },
     hideFormButton() {
+      this.prizeIdNum = 0;
       this.showForm = false;
-      
     }
   }
 };

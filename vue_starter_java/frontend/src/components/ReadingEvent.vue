@@ -8,7 +8,7 @@
     </select>
     <span v-if="showUsersButton" class="label">Select Family Member:</span>
     <select v-if="showUsersButton" id="users" v-model="readingEvent.userId">
-      <option v-for="user in users" v-bind:key="user.id" :value="user.id">{{user.username}}</option>
+      <option v-for="user in users" v-bind:key="user.id" :value="user.id">{{user.firstName}}</option>
     </select>
 
     <div class="form">
@@ -157,7 +157,21 @@ export default {
         .catch(error => {
           console.log(error + " there was an error");
         });
-    });ß
+    });
+    eventBus.$on("refreshFamily", () => {
+      axios
+      .get(`${process.env.VUE_APP_REMOTE_API}/api/getUser`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Authorization")
+        }
+      })
+      .then(response => {
+        this.users = response.data;
+      })
+      .catch(error => {
+        console.log(error + " there was an error");
+      });
+      });
   },
 
   methods: {
