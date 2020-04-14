@@ -13,7 +13,7 @@
       </div>
 <br />
       <span v-if="addChildForm">
-        <label for="username">Username</label>
+        <label for="username">Username: </label>
         <input
           type="text"
           id="username"
@@ -26,7 +26,7 @@
       </span>
       <br>
       <span v-if="addChildForm">
-        <label for="password">Password</label>
+        <label for="password">Password: </label>
         <input
           type="text"
           id="password"
@@ -39,7 +39,7 @@
       </span>
       <br>
       <span v-if="addChildForm">
-        <label for="firstName">First Name</label>
+        <label for="firstName">First Name: </label>
         <input
           type="text "
           id="firstName"
@@ -52,7 +52,7 @@
       </span>
       <br>
       <span v-if="addChildForm">
-        <label for="lastName">Last Name</label>
+        <label for="lastName">Last Name: </label>
         <input
           type="text"
           id="lastName"

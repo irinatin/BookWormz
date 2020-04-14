@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h2 class="label"> Prizes </h2>
+  <h2 class="label">Prizes</h2>
   <div class="create_new_prize">
     <div
       class="alert alert-danger"

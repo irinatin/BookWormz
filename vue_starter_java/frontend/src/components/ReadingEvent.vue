@@ -1,38 +1,39 @@
 <template>
   <div>
-    <h2>Reading Event</h2>
-
-    <span class="label">Select Book:</span>
+    <h2 class="label">Record A Reading Event</h2>
+    <br>
+    <span class="field-container">Select Book: </span>
     <select id="books" v-on:click="showFamUsersBtn()" v-model="readingEvent.bookId">
       <option v-for="book in books" v-bind:key="book.id" :value="book.id">{{book.title}}</option>
-    </select>
-    <span v-if="showUsersButton" class="label">Select Family Member:</span>
+    </select> <br>
+    <span v-if="showUsersButton" class="field-container">Select Family Member: </span>
     <select v-if="showUsersButton" id="users" v-model="readingEvent.userId">
       <option v-for="user in users" v-bind:key="user.id" :value="user.id">{{user.firstName}}</option>
     </select>
 
     <div class="form">
       <div class="form-input">
-        <span class="label">Enter Reading Time:</span>
+        <span class="field-container is-rounded">Enter Reading Time: </span>
         <input type="number" placeholder="In Minutes" v-model="readingEvent.readingTime" />
       </div>
     </div>
 
     <div class="form">
       <div class="form-input">
-        <span class="label">Enter Reading Date:</span>
+        <span class="field-container">Enter Reading Date: </span>
         <input type="text" placeholder="YYYY-MM-dd" v-model="readingEvent.readingDate" />
       </div>
     </div>
 
-    <span class="label">Select Reading Format:</span>
+    <span class="field-container">Select Reading Format: </span>
     <select id="format" v-model="readingEvent.format">
       <option v-for="format in formats" v-bind:key="format.id">{{format.format}}</option>
     </select>
     <br />
-    <label class="label" for="checkbox">Book Completed</label>
+    <label class="field-container" for="checkbox">Book Completed: </label>
     <input type="checkbox" id="checkbox" v-model="readingEvent.completed" />
     <br />
+    
 
     <div>
       <button v-on:click="addReadingEvent">Submit</button>
