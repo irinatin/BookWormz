@@ -87,8 +87,10 @@ CREATE TABLE prize (
   max_prizes int NOT NULL,
   start_date date,
   end_date date,
+  family_id int NOT NULL,
 
-  CONSTRAINT pk_prize_id PRIMARY KEY(prize_id)
+  CONSTRAINT pk_prize_id PRIMARY KEY(prize_id),
+  CONSTRAINT fk_family_id FOREIGN KEY (family_id) REFERENCES family (family_id) 
 );
 
 CREATE TABLE user_prize (

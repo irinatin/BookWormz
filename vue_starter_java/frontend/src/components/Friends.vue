@@ -53,6 +53,7 @@ export default {
           }
         )
         .then(response => {
+          this.friendError = false;
           if (response.data.username == null) {
             this.friendError = true;
             this.friend.username = "";
