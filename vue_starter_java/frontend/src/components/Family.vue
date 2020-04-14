@@ -74,6 +74,7 @@
 
 
 <script>
+import {eventBus} from "../main.js";
 import axios from "axios";
 import 'bulma/css/bulma.css'
 export default {
