@@ -4,60 +4,76 @@
     <div class="header">
       <h2 class="label has-background-primary">Book Search</h2>
     </div>
-    <img class="book" src="../views/assets/Book.gif"/>
-    <div class="form">
-      <div class="form-input">
-        <span>Enter Book ISBN:</span><br>
-        <input type="text" v-model="book.isbn" placeholder="Enter ISBN Here" />
+
+    <div class="columns">
+      <div class="column">
+        <div class="has-text-centered">
+          <img class="book" src="../views/assets/Book.gif" />
+        </div>
       </div>
-      <button :disabled="!isValidForm" v-on:click="searchBooks(10, 13)">
-        Search
-      </button>
-    </div>
+      <div class="column">
+          <div class="form">
+            <div class="form-input">
+              <span>Enter Book ISBN:</span><br />
+              <input
+                type="text"
+                v-model="book.isbn"
+                placeholder="Enter ISBN Here"
+              />
+            </div>
+            <button :disabled="!isValidForm" v-on:click="searchBooks(10, 13)">
+              Search
+            </button>
+          </div>
+      <br>
 
-    <br />
-
-    <div>
-      <span v-if="showBook"
-        ><img v-bind:src="book.thumbnail"/> Title: {{ book.title }} 
-        <p>Author: {{ book.author }}</p> </span>
-    </div>
-  <br>
-    <div>
-      <p v-if="showBook">
-        To add this book to your personal library, click below:
-      </p>
-      <button v-if="showBook" v-on:click="addBookToLibrary">
-        Add Book To Library
-      </button>
-      <p v-if="success">Book Added Successfully!</p>
-    </div>
-
-    <div class="form" v-if="manualBook">
-      <div class="form-input">
-        <p>Your book could not be found. Please add it below:</p>
-        <span class="label">Title:</span>
-        <input
-          type="text"
-          v-model="book.title"
-          placeholder="Enter Title Here"
-        />
-        <span class="label">Author:</span>
-        <input
-          type="text"
-          v-model="book.author"
-          placeholder="Enter Author Here"
-        />
+        <div>
+          <span v-if="showBook"
+            ><img v-bind:src="book.thumbnail" /> Title: {{ book.title }}
+            <p>Author: {{ book.author }}</p>
+          </span>
+        </div>
+      <br>
+        <div>
+          <h1 class="has-text-black is-size-6" v-if="showBook">
+            To add this book to your personal library, click below:
+          </h1>
+          <button v-if="showBook" v-on:click="addBookToLibrary">
+            Add Book To Library
+          </button>
+          <p class="has-text-info" v-if="success">Book Added Successfully!</p>
+        </div>
       </div>
-      <button v-on:click="addBookToLibraryManually">Add Book</button
-      ><button v-on:click="clearSearch">Cancel</button>
-      <p v-if="success2">Book Added Successfully!</p>
+      <div class="column"
+      <div class="form" v-if="manualBook">
+        <div class="form-input">
+          <p class="has-text-danger">Your book could not be found. Please add it below:</p>
+          <span class="label">Title:</span>
+          <input
+            type="text"
+            v-model="book.title"
+            placeholder="Enter Title Here"
+          />
+          <span class="label">Author:</span>
+          <input
+            type="text"
+            v-model="book.author"
+            placeholder="Enter Author Here"
+          />
+        </div>
+        <button v-on:click="addBookToLibraryManually">Add Book</button
+        ><button v-on:click="clearSearch">Cancel</button>
+        <p v-if="success2">Book Added Successfully!</p>
+      </div>
+      <i class="gg-trophy"></i>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+
 
 export default {
   props: {
@@ -100,7 +116,6 @@ export default {
           )
 
           .then(response => {
-
             //this.book.title = response.data['ISBN:1847246923'].title; THIS WORKS!!!
             let tempIsbn = this.book.isbn;
 
@@ -176,12 +191,13 @@ export default {
 
 <style scoped>
 .book {
-  width: 25%;
+  width: 35%;
   height: auto;
-  display: inline;
-  float: left;
-  padding-top: 3%;
-  padding-left: 10%;
+  display: block;
+ 
+  margin-left: 30%;
+  padding-top: 5%;
+  
 }
 .form-input {
   padding-top: 3%;
