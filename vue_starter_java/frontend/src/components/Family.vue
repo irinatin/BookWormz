@@ -132,6 +132,7 @@ export default {
         })
         // eslint-disable-next-line no-unused-vars
         .then(response => {
+          eventBus.$emit("refreshFamily");
           this.addChildForm = false;
           this.getFamilyList();
           this.child.username = "";
