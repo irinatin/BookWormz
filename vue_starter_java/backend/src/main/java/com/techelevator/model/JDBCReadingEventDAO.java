@@ -84,9 +84,14 @@ public class JDBCReadingEventDAO implements ReadingEventDAO {
         
         familyReadingActivity.setCurrentBooks(currentBooksTitles);
         
-        String sqlProgressTowardsPrize = "SELECT prize_name, milestone FROM prize WHERE user_group = ? AND start_date < ? AND end_date > ?";
+       String sqlFindUserFamId = "SELECT user_info.family_id FROM user_info JOIN users on users.id = user_info.user_id WHERE user_id = ?";
+       SqlRowSet famIdResults = jdbcTemplate.queryForRowSet(sqlFindUserFamId, userId);
+        famIdResults.next();
+        Long familyId = famIdResults.getLong(1);
         
-        SqlRowSet resultsPrizes = jdbcTemplate.queryForRowSet(sqlProgressTowardsPrize, userRole, LocalDate.now(), LocalDate.now());
+        String sqlProgressTowardsPrize = "SELECT prize_name, milestone FROM prize WHERE user_group = ? AND start_date < ? AND end_date > ? AND family_id = ? AND max_prizes > 0";
+        
+        SqlRowSet resultsPrizes = jdbcTemplate.queryForRowSet(sqlProgressTowardsPrize, userRole, LocalDate.now(), LocalDate.now(), familyId);
         
         Map<String, Integer> progress = new HashMap<String, Integer>();
         
@@ -95,7 +100,9 @@ public class JDBCReadingEventDAO implements ReadingEventDAO {
         while(resultsPrizes.next()) {
             double resultsMinutes = (Double.valueOf(resultsMins.getInt(1)) / resultsPrizes.getInt(2)) * 100;
             Integer resultsPercentage = (int)(resultsMinutes);
-            progress.put(resultsPrizes.getString(1), resultsPercentage);
+            if (resultsPercentage <100) {
+            	progress.put(resultsPrizes.getString(1), resultsPercentage);
+            }
         }
         
         familyReadingActivity.setProgressTowardsPrize(progress);
