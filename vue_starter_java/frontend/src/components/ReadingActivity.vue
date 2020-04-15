@@ -11,34 +11,21 @@
       </select>
 
       <button v-on:click="showResults()">Update</button>
-        <table class="table is-fullwidth">
+      
+        <div>Completed Books:
+        {{readingActivity.completedBooks}}</div>
+      
+        <div>Total Reading Time (mins):
+         {{readingActivity.totalReadingTime}}</div>
         
-        <tbody>
-          
-      <tr>
-        <td>Completed Books:</td>
-        <td> {{readingActivity.completedBooks}}</td>
-      </tr>
-      <tr>
-        <td>Total Reading Time (mins):</td>
-        <td> {{readingActivity.totalReadingTime}}</td>
-        </tr>
-        <tr>
-        <td>Progress Towards Available Prizes:</td>
-        <td v-bind:key="name"
+        <div>Progress Towards Available Prizes:
+        <div v-bind:key="name"
           v-for="(value, name) in readingActivity.progressTowardsPrize"
-        >{{name}}: {{value}}% There!</td>
-        </tr>
-        <tr>
-        <td>Current Books:</td>
-        <td v-bind:key="book" v-for="book in readingActivity.currentBooks">"{{book}}"</td>
-        </tr>
+        >{{name}}: {{value}}% There!</div>
         
-       
-        
-        </tbody>
-        
-      </table>
+        <div>Current Books:</div>
+        <div v-bind:key="book" v-for="book in readingActivity.currentBooks">"{{book}}"</div>
+        </div>
       </div>
       
     </div>
