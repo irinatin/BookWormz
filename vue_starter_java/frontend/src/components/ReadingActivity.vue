@@ -2,8 +2,8 @@
   <div>
     <div>
       <h2 class="label blue">Reading Activity</h2>
-      </div>
-      <div>
+    </div>
+    <div>
       <button v-if="showUsersButton">Show Members</button>
 
       <select id="users" v-model="requestUsername">
@@ -29,7 +29,6 @@
       </div>
       
     </div>
-  
 </template>
 
 <script>
@@ -103,6 +102,25 @@ export default {
         console.log(error + " there was an error");
       });
 
+    eventBus.$on("refreshCreatePrize", () => {
+      axios
+        .get(
+          `${process.env.VUE_APP_REMOTE_API}/api/getReadingActivity/${this.requestUsername}`,
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("Authorization")
+            }
+          }
+        )
+        .then(response => {
+          this.showResultsBtn = true;
+          this.readingActivity = response.data;
+        })
+        .catch(error => {
+          console.log(error + " there was an error");
+        });
+    });
+
     eventBus.$on("refreshReadingEvent", () => {
       axios
         .get(
@@ -121,6 +139,7 @@ export default {
           console.log(error + " there was an error");
         });
     });
+
     eventBus.$on("refreshFamily", () => {
       axios
         .get(`${process.env.VUE_APP_REMOTE_API}/api/getUser`, {
@@ -167,6 +186,6 @@ export default {
 
 <style scoped>
 .blue {
-  background: #0099ff
+  background: #0099ff;
 }
 </style>

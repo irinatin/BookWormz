@@ -197,7 +197,7 @@ export default {
           this.book.isbn = "";
           this.book.title = "";
           this.book.author = "";
-          this.book.thumbnail = "";ß
+          this.book.thumbnail = "";
           console.log(error + " there was an error");
         });
     },

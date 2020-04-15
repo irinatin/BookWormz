@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div v-if="noPrizes">No prizes entered. Please enter a prize to begin</div>
     <div class="table-container">
     <table class="table">
       <thead>
@@ -57,7 +56,6 @@ export default {
   data() {
     return {
       isParent: false,
-      noPrizes: true,
       prizes: []
     };
   },
@@ -88,6 +86,7 @@ export default {
       .catch(error => {
         console.log(error + " there was an error");
       });
+      
     axios
       .get(`${process.env.VUE_APP_REMOTE_API}/api/getCurrentUser`, {
         headers: {
@@ -103,6 +102,7 @@ export default {
       .catch(error => {
         console.log(error + " there was an error");
       });
+
     eventBus.$on("refreshReadingEvent", () => {
       axios
         .get(`${process.env.VUE_APP_REMOTE_API}/api/getPrizes`, {
@@ -127,13 +127,9 @@ export default {
 
 
 <style>
-<<<<<<< HEAD
-
-=======
 .yellow {
   background: #ffff00;
 }
->>>>>>> aec32dbcc6a78ae18e61366df5d3f4f34dd004a0
 .salmon {
   background-color: #ff6666;
 }
