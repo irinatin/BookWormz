@@ -192,7 +192,6 @@ public class JDBCPrizeDAO implements PrizeDAO {
 					jdbcTemplate.update(sqlUpdatePrizeQty, p.getNumOfPrizes() - 1, p.getPrizeId());
 					}
 				} catch (Exception e) {
-					System.out.println("Caught you");
 					continue;
 				}
 			}

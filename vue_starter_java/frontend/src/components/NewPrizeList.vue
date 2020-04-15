@@ -166,6 +166,8 @@
 <script>
 import axios from "axios";
 import NewPrize from "@/components/NewPrize";
+import { eventBus } from "../main.js";
+
 export default {
   components: {
     NewPrize
@@ -225,6 +227,8 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .then(response => {
           this.showForm = false;
+          eventBus.$emit("refreshCreatePrize");
+          console.log("Create Prize fired");
         })
         .catch(error => {
           console.log(error + " there was an error");
@@ -244,6 +248,7 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .then(response => {
           this.showForm = false;
+          eventBus.$emit("refreshCreatePrize");
         })
         .catch(error => {
           console.log(error + " there was an error");
@@ -251,6 +256,7 @@ export default {
     },
     deletePrize(id) {
       this.prizeinfo.prizeId = id;
+      eventBus.$emit("refreshCreatePrize");
       axios
         .post(
           `${process.env.VUE_APP_REMOTE_API}/api/deletePrize`,

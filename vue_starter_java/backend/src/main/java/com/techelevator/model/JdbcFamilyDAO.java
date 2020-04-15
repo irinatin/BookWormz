@@ -103,12 +103,15 @@ public class JdbcFamilyDAO implements FamilyDAO {
 			user.setFirstName(results.getString("first_name"));
 			user.setLastName(results.getString("last_name"));
 			user.setFamilyId(results.getLong("family_id"));
-			user.setRole(results.getString("role"));
+			if(results.getString("role").equals("user")) {
+				user.setRole("Parent");
+			}
+			if(results.getString("role").equals("child")) {
+				user.setRole("Child");
+			}
 			
 			family.add(user);
 		}
-		
-		
 		return family;
 	}
 
