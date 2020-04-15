@@ -228,6 +228,7 @@ export default {
         .then(response => {
           this.showForm = false;
           eventBus.$emit("refreshCreatePrize");
+          console.log("Create Prize fired");
         })
         .catch(error => {
           console.log(error + " there was an error");
@@ -255,6 +256,7 @@ export default {
     },
     deletePrize(id) {
       this.prizeinfo.prizeId = id;
+      eventBus.$emit("refreshCreatePrize");
       axios
         .post(
           `${process.env.VUE_APP_REMOTE_API}/api/deletePrize`,

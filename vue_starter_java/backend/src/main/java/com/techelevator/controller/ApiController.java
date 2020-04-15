@@ -146,6 +146,7 @@ public class ApiController {
     	this.userId = authDAO.getCurrentUser().getId();
 		Long familyId = userInfoDAO.getFamilyId(userId);
     	prizeDAO.createNewPrize(newPrize, familyId);
+    	prizeDAO.awardPrize(userRole, userId, userInfoDAO.getFamilyId(userId));
     	return true;
     }
     
@@ -198,12 +199,13 @@ public class ApiController {
 	@RequestMapping(path = "/editPrize", method = RequestMethod.POST)
 	public boolean editPrize(@RequestBody Prize prize) {
 		prizeDAO.editExistingPrize(prize);
+		prizeDAO.awardPrize(userRole, userId, userInfoDAO.getFamilyId(userId));
 		return true;
 	}
 	
-	
 	@RequestMapping( path = "/getPrizesPerUser", method = RequestMethod.GET)
 	public List<AwardedPrize> getPrizesPerUser() {
+		prizeDAO.awardPrize(userRole, userId, userInfoDAO.getFamilyId(userId));
 		User currentUser = authDAO.getCurrentUser();
 		Long currentUserId = currentUser.getId();
 		return prizeDAO.getPrizesPerUser(currentUserId);
