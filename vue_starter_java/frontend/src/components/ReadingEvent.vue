@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="label">Record A Reading Event</h2>
+    <h2 class="label yellow">Record A Reading Event</h2>
     <br>
     <span class="field-container">Select Book: </span>
     <select id="books" v-on:click="showFamUsersBtn()" v-model="readingEvent.bookId">
@@ -288,4 +288,7 @@ export default {
 
 
 <style>
+.yellow {
+  background: #ffff00;
+}
 </style>

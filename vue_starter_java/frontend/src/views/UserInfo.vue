@@ -53,7 +53,7 @@
         autofocus
       />
       </span>
-      <br><br>
+      <br>
 
       <span v-if="!userinfo.newFamily">
         <label for="newFamilyName">Search For Family</label>
@@ -70,6 +70,7 @@
 
       <a v-if="userinfo.newFamily" href="#" v-on:click="userinfo.newFamily = false">Search For Family 
       </a>
+      <br>
 
       <a v-if="!userinfo.newFamily" href="#" v-on:click="userinfo.newFamily = true">Make New Family 
       </a>

@@ -1,8 +1,12 @@
 <template>
   <div>
     <div>
-      <h2 class="label">Reading Activity</h2>
-
+      <h2 class="label blue">Reading Activity</h2>
+      </div>
+      <div>
+        <table class="table isfullwidth">
+        <thead>
+          <tr>
       <button v-if="showUsersButton">Show Members</button>
 
       <select id="users" v-model="requestUsername">
@@ -10,9 +14,11 @@
       </select>
 
       <button v-on:click="showResults()">Update</button>
-
-      <div>
-        <ul class="has-text-left">
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <ul class="has-text-centered">
         <h4>Completed Books: {{readingActivity.completedBooks}}</h4>
         <h4>Total Reading Time (mins): {{readingActivity.totalReadingTime}}</h4>
         <h4>Progress Towards Prize: </h4>
@@ -23,9 +29,14 @@
         <h4>Current Books: </h4>
         <p v-bind:key="book" v-for="book in readingActivity.currentBooks">"{{book}}"</p>
         </ul>
+        </tr>
+        </tbody>
+        
+      </table>
       </div>
+      
     </div>
-  </div>
+  
 </template>
 
 <script>
@@ -160,3 +171,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.blue {
+  background: #0099ff
+}
+</style>

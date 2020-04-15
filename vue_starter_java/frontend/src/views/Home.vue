@@ -40,18 +40,20 @@
         </div>
       </div>
     </div>
+    
     <div class="container box has-text-centered">
       <div class="columns card-content">
         <div class="column tile is-child box">
           <reading-activity></reading-activity>
         </div>
+        
 
           <div class="column is-child box tile ">
             <reading-event v-on:eventSaved ="refresh()"></reading-event>
           </div>
         </div>
       </div>
-   
+    
 
     <!-- <div class="container box">
         <div class="columns card-content">
@@ -60,7 +62,7 @@
           </div>
         </div>
      </div> -->
-
+    
     <div class="container box">
       <div class="columns card-content">
         <div class="column content">
@@ -68,6 +70,7 @@
         </div>
       </div>
     </div>
+    
     <div class="container box">
       <div class="columns card-content">
         <div class="column content">
