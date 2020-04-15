@@ -101,6 +101,9 @@ export default {
 
 
 <style>
+.yellow {
+  background: #ffff00;
+  }
 .salmon {
   background-color: #ff6666;
 }
