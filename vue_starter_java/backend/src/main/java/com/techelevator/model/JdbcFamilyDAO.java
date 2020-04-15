@@ -107,8 +107,6 @@ public class JdbcFamilyDAO implements FamilyDAO {
 			
 			family.add(user);
 		}
-		
-		
 		return family;
 	}
 

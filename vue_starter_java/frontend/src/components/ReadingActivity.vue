@@ -2,8 +2,8 @@
   <div>
     <div>
       <h2 class="label blue">Reading Activity</h2>
-      </div>
-      <div>
+    </div>
+    <div>
       <button v-if="showUsersButton">Show Members</button>
 
       <select id="users" v-model="requestUsername">
@@ -11,38 +11,31 @@
       </select>
 
       <button v-on:click="showResults()">Update</button>
-        <table class="table is-fullwidth">
-        
+      <table class="table is-fullwidth">
         <tbody>
-          
-      <tr>
-        <td>Completed Books:</td>
-        <td> {{readingActivity.completedBooks}}</td>
-      </tr>
-      <tr>
-        <td>Total Reading Time (mins):</td>
-        <td> {{readingActivity.totalReadingTime}}</td>
-        </tr>
-        <tr>
-        <td>Progress Towards Available Prizes:</td>
-        <td v-bind:key="name"
-          v-for="(value, name) in readingActivity.progressTowardsPrize"
-        >{{name}}: {{value}}% There!</td>
-        </tr>
-        <tr>
-        <td>Current Books:</td>
-        <td v-bind:key="book" v-for="book in readingActivity.currentBooks">"{{book}}"</td>
-        </tr>
-        
-       
-        
+          <tr>
+            <td>Completed Books:</td>
+            <td>{{readingActivity.completedBooks}}</td>
+          </tr>
+          <tr>
+            <td>Total Reading Time (mins):</td>
+            <td>{{readingActivity.totalReadingTime}}</td>
+          </tr>
+          <tr>
+            <td>Progress Towards Available Prizes:</td>
+            <td
+              v-bind:key="name"
+              v-for="(value, name) in readingActivity.progressTowardsPrize"
+            >{{name}}: {{value}}% There!</td>
+          </tr>
+          <tr>
+            <td>Current Books:</td>
+            <td v-bind:key="book" v-for="book in readingActivity.currentBooks">"{{book}}"</td>
+          </tr>
         </tbody>
-        
       </table>
-      </div>
-      
     </div>
-  
+  </div>
 </template>
 
 <script>
@@ -134,6 +127,7 @@ export default {
           console.log(error + " there was an error");
         });
     });
+
     eventBus.$on("refreshFamily", () => {
       axios
         .get(`${process.env.VUE_APP_REMOTE_API}/api/getUser`, {
@@ -143,6 +137,25 @@ export default {
         })
         .then(response => {
           this.users = response.data;
+        })
+        .catch(error => {
+          console.log(error + " there was an error");
+        });
+    });
+
+    eventBus.$on("refreshCreatePrize", () => {
+      axios
+        .get(
+          `${process.env.VUE_APP_REMOTE_API}/api/getReadingActivity/${this.requestUsername}`,
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("Authorization")
+            }
+          }
+        )
+        .then(response => {
+          this.showResultsBtn = true;
+          this.readingActivity = response.data;
         })
         .catch(error => {
           console.log(error + " there was an error");
@@ -180,6 +193,6 @@ export default {
 
 <style scoped>
 .blue {
-  background: #0099ff
+  background: #0099ff;
 }
 </style>
