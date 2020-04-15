@@ -2,7 +2,7 @@
 <template>
   <div>
     <div class="header">
-      <h2 class="label has-background-primary">Book Search</h2>
+      <h2 class="label">Book Search</h2>
     </div>
 
     <div class="columns">
@@ -227,6 +227,9 @@ export default {
 </script>
 
 <style scoped>
+h2 {
+  background-color:forestgreen;
+}
 .book {
   width: 35%;
   height: auto;

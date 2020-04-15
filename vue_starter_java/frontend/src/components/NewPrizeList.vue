@@ -331,8 +331,8 @@ export default {
 
 
 
-<style>
-.salmon {
-  background-color: #ff6666;
+<style scoped>
+h2 {
+  background-color:crimson;
 }
 </style>
