@@ -10,7 +10,7 @@ public interface PrizeDAO {
 	public List<Prize> getAllPrizes(String userGroup, long familyId);
 	public Prize getPrize(long prizeId);
 //	public List<PrizeListInfo> getPrizeListInfo(String role, Long userId);
-	public List<String> getPrizesPerUser(Long userId);
+	public List<AwardedPrize> getPrizesPerUser(Long userId);
 	public boolean awardPrize(String userGroup, long userId, long familyId);
 	
 	

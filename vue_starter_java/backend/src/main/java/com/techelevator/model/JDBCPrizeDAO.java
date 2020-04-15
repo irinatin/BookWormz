@@ -144,12 +144,18 @@ public class JDBCPrizeDAO implements PrizeDAO {
 //	}
 
 	@Override
-	public List<String> getPrizesPerUser(Long userId) {
-		List<String> prizesPerUser = new ArrayList<String>();
-		String getAllPrizesPerUser = "SELECT prize.prize_name FROM prize JOIN user_prize ON prize.prize_id = user_prize.prize_id WHERE user_id = ?";
+	public List<AwardedPrize> getPrizesPerUser(Long userId) {
+		List<AwardedPrize> prizesPerUser = new ArrayList<AwardedPrize>();
+		String getAllPrizesPerUser = "SELECT prize.prize_name, prize.prize_description, prize.milestone, user_prize.award_date FROM prize JOIN user_prize ON prize.prize_id = user_prize.prize_id WHERE user_id = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(getAllPrizesPerUser, userId);
+		
 		while (results.next()) {
-			prizesPerUser.add(results.getString(1));
+			AwardedPrize myPrize = new AwardedPrize();
+			myPrize.setPrizeName(results.getString(1));
+			myPrize.setPrizeDescription(results.getString(2));
+			myPrize.setMilestone(results.getInt(3));
+			myPrize.setAwardDate(results.getDate(4));
+			prizesPerUser.add(myPrize);
 		}
 		return prizesPerUser;
 	}
@@ -179,8 +185,8 @@ public class JDBCPrizeDAO implements PrizeDAO {
 			if (totalMin >= p.getMilestone()) {
 				try {
 					if(p.getNumOfPrizes() > 0) {
-					String sqlAddPrize = "INSERT INTO user_prize VALUES (?, ?)";
-					jdbcTemplate.update(sqlAddPrize, p.getPrizeId(), userId);
+					String sqlAddPrize = "INSERT INTO user_prize VALUES (?, ?, ?)";
+					jdbcTemplate.update(sqlAddPrize, p.getPrizeId(), userId, LocalDate.now());
 					
 					String sqlUpdatePrizeQty = "UPDATE prize SET max_prizes = ? WHERE prize_id = ?";
 					jdbcTemplate.update(sqlUpdatePrizeQty, p.getNumOfPrizes() - 1, p.getPrizeId());
