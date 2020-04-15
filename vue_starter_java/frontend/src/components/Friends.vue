@@ -29,14 +29,14 @@
       <input type="text" v-model="friend.username" placeholder="Username" />
     </div>
     <div>
-      <button :disabled="!isValidForm" v-on:click="friendSearch">Friend Search</button>
+      <button class="button is-info is-small" :disabled="!isValidForm" v-on:click="friendSearch">Friend Search</button>
     </div>
     <span v-if="showFriend && !friendError">Name: {{friend.firstName}} {{friend.lastName}}</span>
     <span v-if="friendError">There was a problem locating that user</span>
     <br />
     <span v-if="friendError">Please try again</span>
     <div>
-      <button v-if="showFriend && !friendError" v-on:click="addFriend">Add Friend</button>
+      <button class="button is-info is-small" v-if="showFriend && !friendError" v-on:click="addFriend">Add Friend</button>
     </div>
   </div>
 </template>
