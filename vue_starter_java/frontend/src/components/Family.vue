@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 class="label has-background-primary">Family Members</h2>
-    <div v-for="user in family" v-bind:key="user.firstName">{{user.firstName}} {{user.lastName}}</div>
+    <div v-for="user in family" v-bind:key="user.firstName">{{user.firstName}} {{user.lastName}} ({{user.role}})</div>
     <form class="form-register" @submit.prevent="registerChild">
         <br>
         <button v-if="!addChildForm && isParent" v-on:click="showForm" type="submit">Add Child</button>
