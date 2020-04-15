@@ -4,10 +4,10 @@
     <div v-for="user in family" v-bind:key="user.firstName">{{user.firstName}} {{user.lastName}} ({{user.role}})</div>
     <form class="form-register" @submit.prevent="registerChild">
         <br>
-        <button v-if="!addChildForm && isParent" v-on:click="showForm" type="submit">Add Child</button>
+        <button class="button is-info is-small" v-if="!addChildForm && isParent" v-on:click="showForm" type="submit">Add Child</button>
         <br />
         <br>
-        <button v-if="addChildForm && isParent" v-on:click="hideForm" type="submit">Hide Form</button>
+        <button class="button is-info is-small" v-if="addChildForm && isParent" v-on:click="hideForm" type="submit">Hide Form</button>
         
       <div>
       </div>
@@ -65,7 +65,7 @@
       </span>
 
       <br />
-      <button v-if="addChildForm" class="create-account-button" type="submit">Submit Child Info</button>
+      <button v-if="addChildForm" class="button is-info is-small" type="submit">Submit Child Info</button>
      
     </form>
   </div>

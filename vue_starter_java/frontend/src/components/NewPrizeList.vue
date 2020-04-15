@@ -4,10 +4,10 @@
       <h2 class="label salmon">Available Prizes</h2>
       <div class="has-text-danger" v-if="formErrors">There were problems creating this prize.</div>
       <div v-if="noPrizes">There are no prizes entered! Add a prize!!!</div>
-      <button v-if="!showForm && isParent" v-on:click="showFormButton()">
+      <button class="button is-info is-small" v-if="!showForm && isParent" v-on:click="showFormButton()">
         Create New Prize
       </button>
-      <button v-if="showForm" v-on:click="hideFormButton()">Hide Form</button>
+      <button class="button is-info is-small" v-if="showForm" v-on:click="hideFormButton()">Hide Form</button>
     </div>
     <br>
     <div v-if="showForm">
@@ -137,7 +137,7 @@
       <button
         v-on:click="savePrize()"
         v-if="this.prizeIdNum == 0"
-        class="add_prize_button"
+        class="button is-info is-small"
         type="submit"
       >
         Add Prize
@@ -145,7 +145,7 @@
       <button
         v-on:click="savePrize()"
         v-if="this.prizeIdNum != 0"
-        class="add_prize_button"
+        class="button is-info is-small"
         type="submit"
       >
         Edit Prize

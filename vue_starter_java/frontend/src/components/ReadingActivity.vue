@@ -5,12 +5,12 @@
     </div>
     <div>
       <button v-if="showUsersButton">Show Members</button>
-
-      <select id="users" v-model="requestUsername">
+      <br>
+      <select class="select" id="users" v-model="requestUsername">
         <option v-for="user in users" v-bind:key="user.id" :value="user.username">{{user.firstName}}</option>
       </select>
 
-      <button v-on:click="showResults()">Update</button>
+      <button  class="button is-info is-small" v-on:click="showResults()">Update</button>
         <table class="table is-fullwidth">
           <tbody>
             <tr>
