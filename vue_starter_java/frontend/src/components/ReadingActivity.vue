@@ -1,8 +1,9 @@
 <template>
   <div>
     <div>
-      <h2 class="label">Reading Activity</h2>
-
+      <h2 class="label blue">Reading Activity</h2>
+      </div>
+      <div>
       <button v-if="showUsersButton">Show Members</button>
 
       <select id="users" v-model="requestUsername">
@@ -10,22 +11,38 @@
       </select>
 
       <button v-on:click="showResults()">Update</button>
-
-      <div>
-        <ul class="has-text-left">
-        <h4>Completed Books: {{readingActivity.completedBooks}}</h4>
-        <h4>Total Reading Time (mins): {{readingActivity.totalReadingTime}}</h4>
-        <h4>Progress Towards Available Prizes: </h4>
-        <p
-          v-bind:key="name"
+        <table class="table is-fullwidth">
+        
+        <tbody>
+          
+      <tr>
+        <td>Completed Books:</td>
+        <td> {{readingActivity.completedBooks}}</td>
+      </tr>
+      <tr>
+        <td>Total Reading Time (mins):</td>
+        <td> {{readingActivity.totalReadingTime}}</td>
+        </tr>
+        <tr>
+        <td>Progress Towards Available Prizes:</td>
+        <td v-bind:key="name"
           v-for="(value, name) in readingActivity.progressTowardsPrize"
-        >{{name}}: {{value}}% There!</p>
-        <h4>Current Books: </h4>
-        <p v-bind:key="book" v-for="book in readingActivity.currentBooks">"{{book}}"</p>
-        </ul>
+        >{{name}}: {{value}}% There!</td>
+        </tr>
+        <tr>
+        <td>Current Books:</td>
+        <td v-bind:key="book" v-for="book in readingActivity.currentBooks">"{{book}}"</td>
+        </tr>
+        
+       
+        
+        </tbody>
+        
+      </table>
       </div>
+      
     </div>
-  </div>
+  
 </template>
 
 <script>
@@ -160,3 +177,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.blue {
+  background: #0099ff
+}
+</style>

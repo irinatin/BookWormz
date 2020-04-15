@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="label">Record A Reading Event</h2>
+    <h2 class="label pink">Record A Reading Event</h2>
     <br>
     <span class="field-container">Select Book: </span>
     <select id="books" v-on:click="showFamUsersBtn()" v-model="readingEvent.bookId">
@@ -287,4 +287,7 @@ export default {
 
 
 <style>
+.pink {
+  background: #ff33cc
+}
 </style>
