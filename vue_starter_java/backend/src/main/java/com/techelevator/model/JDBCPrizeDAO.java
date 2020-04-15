@@ -66,7 +66,7 @@ public class JDBCPrizeDAO implements PrizeDAO {
 
 		List<Prize> allPrizes = new ArrayList<Prize>();
 
-		String getAllPrizes = "SELECT * FROM prize WHERE user_group = ? AND start_date < ? AND end_date > ? AND family_id = ? ORDER BY prize_id";
+		String getAllPrizes = "SELECT * FROM prize WHERE user_group = ? AND start_date < ? AND end_date > ? AND family_id = ? AND max_prizes > 0 ORDER BY prize_id";
 		Prize blingBling = new Prize();
 		SqlRowSet results = jdbcTemplate.queryForRowSet(getAllPrizes, userGroup, LocalDate.now(), LocalDate.now(), familyId);
 
