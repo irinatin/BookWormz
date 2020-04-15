@@ -56,21 +56,21 @@
         required
         autofocus
       />
-      <label for="start_date">Start Date</label>
+      <label for="startDate">Start Date</label>
       <input
         type="text"
-        id="start_date"
-        name="start_date"
+        id="startDate"
+        name="startDate"
         placeholder="yyyy-mm-dd"
         v-model="prizeinfo.startDate"
         required
         autofocus
       />
-      <label for="end_date">End Date</label>
+      <label for="endDate">End Date</label>
       <input
         type="text"
-        id="end_date"
-        name="end_date"
+        id="endDate"
+        name="endDate"
         placeholder="yyyy-mm-dd"
         v-model="prizeinfo.endDate"
         required
