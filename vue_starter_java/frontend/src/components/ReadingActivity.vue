@@ -4,9 +4,6 @@
       <h2 class="label blue">Reading Activity</h2>
       </div>
       <div>
-        <table class="table isfullwidth">
-        <thead>
-          <tr>
       <button v-if="showUsersButton">Show Members</button>
 
       <select id="users" v-model="requestUsername">
@@ -14,22 +11,33 @@
       </select>
 
       <button v-on:click="showResults()">Update</button>
+        <table class="table is-fullwidth">
+        <thead>
+          <tr>
+            <th class="has-text-centered">Stats</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-        <ul class="has-text-centered">
+          
+      <tr>
+        
+          
         <h4>Completed Books: {{readingActivity.completedBooks}}</h4>
+        </tr>
         <h4>Total Reading Time (mins): {{readingActivity.totalReadingTime}}</h4>
+        
         <h4>Progress Towards Available Prizes: </h4>
         <p
           v-bind:key="name"
           v-for="(value, name) in readingActivity.progressTowardsPrize"
         >{{name}}: {{value}}% There!</p>
+        
         <h4>Current Books: </h4>
         <p v-bind:key="book" v-for="book in readingActivity.currentBooks">"{{book}}"</p>
-        </ul>
-        </tr>
+        
+        
+       
+        
         </tbody>
         
       </table>
