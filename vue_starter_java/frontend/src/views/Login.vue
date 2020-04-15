@@ -19,7 +19,7 @@
               Thank you for registering, please sign in.
             </div>
             <span>
-            <label for="username" class="sr-only">Username</label><br>
+            <label for="username" class="need-account">Username</label><br>
               <input
                 type="text"
                 id="username"
@@ -30,7 +30,7 @@
                 autofocus
               /></span>
               <br><br>
-              <label for="password" class="sr-only">Password</label><br>
+              <label for="password" class="need-account">Password</label><br>
               <input
                 type="password"
                 id="password"
@@ -158,6 +158,7 @@ body {
 }
 .sign-in-button{
   margin: 10px;
+
   
 } */
 
