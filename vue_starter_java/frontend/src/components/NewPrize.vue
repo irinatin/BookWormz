@@ -4,6 +4,7 @@
        
           
     <div v-if="noPrizes">No prizes entered. Please enter a prize to begin</div>
+    <div class="table-container">
     <table class="table">
        <thead>
          <tr>
@@ -33,6 +34,7 @@
           </tr>
       
       </table>
+      </div>
     </div>
   </div>
 </template>
@@ -101,9 +103,7 @@ export default {
 
 
 <style>
-.yellow {
-  background: #ffff00;
-  }
+
 .salmon {
   background-color: #ff6666;
 }
