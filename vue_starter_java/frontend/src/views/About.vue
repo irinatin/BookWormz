@@ -124,9 +124,6 @@
 </template>
 
 <script>
-import axios from "axios";
-import Employees from "../components/Employees"
-
 export default {
   name: 'about',
   

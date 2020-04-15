@@ -155,6 +155,7 @@ export default {
   background-color: #b366ff;
 }
 
+
 /* body {
   margin: 0px;
   padding: 400px 100px;

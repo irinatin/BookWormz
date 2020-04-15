@@ -129,7 +129,9 @@ left: 50%; */
   margin: 10px;
 }
 .have-an-account {
+  color:mediumblue;
   margin: 10px;
+  text-decoration:underline;
 }
 .create-account-button {
   margin: 10px;

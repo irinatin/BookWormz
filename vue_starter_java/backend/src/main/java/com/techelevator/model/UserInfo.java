@@ -16,6 +16,16 @@ public class UserInfo {
 	
 	private boolean newFamily;
 	
+	private String role;
+	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public boolean isNewFamily() {
 		return newFamily;
 	}

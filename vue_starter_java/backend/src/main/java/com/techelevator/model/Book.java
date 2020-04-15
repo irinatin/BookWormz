@@ -10,7 +10,16 @@ public class Book {
 	@NotBlank(message = "Author is required")
     private String author;
 	
+	private long isbn;
 	
+	public long getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(long isbn) {
+		this.isbn = isbn;
+	}
+
 	private long id;
 	
 	private long family_id;

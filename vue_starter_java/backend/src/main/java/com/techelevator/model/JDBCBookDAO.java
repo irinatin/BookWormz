@@ -38,8 +38,8 @@ public class JDBCBookDAO implements BookDAO{
 	@Override
 	public boolean addNewBook(Book bookie, long familyId) {
 		long bookId = getNextBookId();
-		String insertIntoBook = "INSERT INTO book VALUES (?, ?, ?, ?)";
-		jdbcTemplate.update(insertIntoBook, bookId, bookie.getTitle(), bookie.getAuthor(), familyId); 
+		String insertIntoBook = "INSERT INTO book VALUES (?, ?, ?, ?, ?)";
+		jdbcTemplate.update(insertIntoBook, bookId, bookie.getIsbn(), bookie.getTitle(), bookie.getAuthor(), familyId); 
 		
 		return true;
 	}

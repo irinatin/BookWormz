@@ -4,7 +4,7 @@
       <h2 class="label salmon">Available Prizes</h2>
       <div class="has-text-danger" v-if="formErrors">There were problems creating this prize.</div>
       <div v-if="noPrizes">There are no prizes entered! Add a prize!!!</div>
-      <button v-if="!showForm" v-on:click="showFormButton()">
+      <button v-if="!showForm && isParent" v-on:click="showFormButton()">
         Create New Prize
       </button>
       <button v-if="showForm" v-on:click="hideFormButton()">Hide Form</button>
@@ -166,6 +166,8 @@
 <script>
 import axios from "axios";
 import NewPrize from "@/components/NewPrize";
+import { eventBus } from "../main.js";
+
 export default {
   components: {
     NewPrize
@@ -225,6 +227,8 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .then(response => {
           this.showForm = false;
+          eventBus.$emit("refreshCreatePrize");
+          console.log("Create Prize fired");
         })
         .catch(error => {
           console.log(error + " there was an error");
@@ -244,6 +248,7 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .then(response => {
           this.showForm = false;
+          eventBus.$emit("refreshCreatePrize");
         })
         .catch(error => {
           console.log(error + " there was an error");
@@ -251,6 +256,7 @@ export default {
     },
     deletePrize(id) {
       this.prizeinfo.prizeId = id;
+      eventBus.$emit("refreshCreatePrize");
       axios
         .post(
           `${process.env.VUE_APP_REMOTE_API}/api/deletePrize`,

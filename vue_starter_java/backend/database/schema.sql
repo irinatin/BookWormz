@@ -56,12 +56,14 @@ CREATE TABLE friends (
 
 CREATE TABLE book (
   book_id serial NOT NULL,
-  title varchar(100) NOT NULL UNIQUE,
+  isbn BIGINT,
+  title varchar(100) NOT NULL,
   author varchar(100) NOT NULL,
   family_id int NOT NULL, 
 
   CONSTRAINT pk_book_id PRIMARY KEY(book_id),
-  CONSTRAINT fk_family_id FOREIGN KEY (family_id) REFERENCES family (family_id)
+  CONSTRAINT fk_family_id FOREIGN KEY (family_id) REFERENCES family (family_id),
+  CONSTRAINT UC_book UNIQUE (isbn, family_id)
 );
 
 CREATE TABLE user_book (
@@ -96,6 +98,7 @@ CREATE TABLE prize (
 CREATE TABLE user_prize (
   prize_id int NOT NULL,
   user_id int NOT NULL,
+  award_date DATE NULL,
 
 CONSTRAINT fk_prize_id FOREIGN KEY (prize_id) REFERENCES prize (prize_id),
 CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id),
