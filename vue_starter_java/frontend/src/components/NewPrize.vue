@@ -41,6 +41,7 @@
         <td>{{prize.endDate}}</td>
       </tr>
     </table>
+    </div>
   </div>
 </template>
 
