@@ -12,29 +12,27 @@
 
       <button v-on:click="showResults()">Update</button>
         <table class="table is-fullwidth">
-        <thead>
-          <tr>
-            <th class="has-text-centered">Stats</th>
-        </tr>
-        </thead>
+        
         <tbody>
           
       <tr>
-        
-          
-        <h4>Completed Books: {{readingActivity.completedBooks}}</h4>
+        <td>Completed Books:</td>
+        <td> {{readingActivity.completedBooks}}</td>
+      </tr>
+      <tr>
+        <td>Total Reading Time (mins):</td>
+        <td> {{readingActivity.totalReadingTime}}</td>
         </tr>
-        <h4>Total Reading Time (mins): {{readingActivity.totalReadingTime}}</h4>
-        
-        <h4>Progress Towards Available Prizes: </h4>
-        <p
-          v-bind:key="name"
+        <tr>
+        <td>Progress Towards Available Prizes:</td>
+        <td v-bind:key="name"
           v-for="(value, name) in readingActivity.progressTowardsPrize"
-        >{{name}}: {{value}}% There!</p>
-        
-        <h4>Current Books: </h4>
-        <p v-bind:key="book" v-for="book in readingActivity.currentBooks">"{{book}}"</p>
-        
+        >{{name}}: {{value}}% There!</td>
+        </tr>
+        <tr>
+        <td>Current Books:</td>
+        <td v-bind:key="book" v-for="book in readingActivity.currentBooks">"{{book}}"</td>
+        </tr>
         
        
         

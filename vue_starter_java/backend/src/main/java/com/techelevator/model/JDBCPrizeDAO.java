@@ -70,7 +70,7 @@ public class JDBCPrizeDAO implements PrizeDAO {
 
 		List<Prize> allPrizes = new ArrayList<Prize>();
 
-		String getAllPrizes = "SELECT * FROM prize WHERE user_group = ? AND start_date < ? AND end_date > ? AND family_id = ? ORDER BY prize_id";
+		String getAllPrizes = "SELECT * FROM prize WHERE user_group = ? AND start_date < ? AND end_date > ? AND family_id = ? AND max_prizes > 0 ORDER BY prize_id";
 		Prize blingBling = new Prize();
 		SqlRowSet results = jdbcTemplate.queryForRowSet(getAllPrizes, userGroup, LocalDate.now(), LocalDate.now(), familyId);
 
@@ -155,12 +155,12 @@ public class JDBCPrizeDAO implements PrizeDAO {
 	}
 
 	@Override
-	public boolean awardPrize(String userGroup, long userId) {
+	public boolean awardPrize(String userGroup, long userId, long familyId) {
 
 		List<Prize> prizes = new ArrayList<Prize>();
 
-		String sqlGetPrizes = "SELECT * FROM prize WHERE user_group = ? AND start_date < ? AND end_date > ?";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetPrizes, userGroup, LocalDate.now(), LocalDate.now());
+		String sqlGetPrizes = "SELECT * FROM prize WHERE user_group = ? AND start_date < ? AND end_date > ? AND family_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetPrizes, userGroup, LocalDate.now(), LocalDate.now(), familyId);
 
 		while (results.next()) {
 			Prize prize = new Prize();
