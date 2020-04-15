@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h2 class="label blue">Reading Activity</h2>
+      <h2 class="label">Reading Activity</h2>
     </div>
     <div>
       <button v-if="showUsersButton">Show Members</button>
@@ -206,7 +206,7 @@ export default {
 </script>
 
 <style scoped>
-.blue {
-  background: #0099ff;
+h2 {
+  background-color:orchid;
 }
 </style>

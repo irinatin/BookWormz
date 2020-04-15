@@ -1,6 +1,6 @@
 <template>
 <div>
-<h2 class="yellow label">Your Prizes</h2>
+<h2 class="label">Your Prizes</h2>
     <ul>
         <li v-for="prize in prizes" v-bind:key="prize">{{prize}}</li>
     </ul>
@@ -63,8 +63,8 @@ export default {
   }
 };
 </script>
-<style>
-.yellow {
-  background: #ffff00;
-  }
+<style scoped>
+h2 {
+  background-color:gold;
+}
 </style>
