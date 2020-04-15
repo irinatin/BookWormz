@@ -91,7 +91,7 @@ public class JdbcFamilyDAO implements FamilyDAO {
 	@Override
 	public List<UserInfo> getAllFamilyMembers(Long familyId) {
 		
-		String sqlGetFamily = "SELECT * FROM user_info WHERE family_id = ?";
+		String sqlGetFamily = "SELECT * FROM user_info JOIN users ON users.id = user_info.user_id WHERE family_id = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetFamily, familyId);
 		
 		List<UserInfo> family = new ArrayList<UserInfo>();
@@ -103,6 +103,7 @@ public class JdbcFamilyDAO implements FamilyDAO {
 			user.setFirstName(results.getString("first_name"));
 			user.setLastName(results.getString("last_name"));
 			user.setFamilyId(results.getLong("family_id"));
+			user.setRole(results.getString("role"));
 			
 			family.add(user);
 		}

@@ -19,7 +19,7 @@
               Thank you for registering, please sign in.
             </div>
             <span>
-            <label for="username" class="need-account">Username</label><br>
+            <label for="username" class="login">Username</label><br>
               <input
                 type="text"
                 id="username"
@@ -30,7 +30,7 @@
                 autofocus
               /></span>
               <br><br>
-              <label for="password" class="need-account">Password</label><br>
+              <label for="password" class="login">Password</label><br>
               <input
                 type="password"
                 id="password"
@@ -41,7 +41,8 @@
               />
               <br>
               <button type="submit" class="sign-in-button">Sign in</button>
-              <br>
+              <br><br>
+
              <span><router-link :to="{ name: 'register' }" class="need-account">Need an account?</router-link></span>
           </form>
     
@@ -137,6 +138,10 @@ body {
   padding-right: 15%;
   padding-bottom: 20%;
 }
+.need-account{
+  color:mediumblue;
+  text-decoration:underline;
+}
 
 .product-image {
   width: 50%;
@@ -153,9 +158,7 @@ body {
 /* .form-control{
   margin: 10px;
 }
-.need-account{
-  margin: 20px;
-}
+
 .sign-in-button{
   margin: 10px;
 
