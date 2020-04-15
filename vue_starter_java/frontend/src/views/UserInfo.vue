@@ -42,7 +42,7 @@
       <br><br>
       
       <span v-if="userinfo.newFamily">
-      <label for="familyName">Family Name</label>
+      <label for="familyName">Create New Family</label>
       <input
         type="text"
         id="familyName"
@@ -56,19 +56,20 @@
       <br><br>
 
       <span v-if="!userinfo.newFamily">
-        <label for="newFamilyName">Search For Family</label>
+        <label for="newFamilyName">Join Existing Family</label>
       <input
         type="text"
         id="newFamilyName"
         class="form-control"
-        placeholder="Search For Family"
+        placeholder="Family Name"
         v-model="userinfo.familyName"
         required
         autofocus
       />
       </span>
+      <br>
 
-      <a v-if="userinfo.newFamily" href="#" v-on:click="userinfo.newFamily = false">Search For Family 
+      <a v-if="userinfo.newFamily" href="#" v-on:click="userinfo.newFamily = false">Join Existing Family
       </a>
 
       <a v-if="!userinfo.newFamily" href="#" v-on:click="userinfo.newFamily = true">Make New Family 
