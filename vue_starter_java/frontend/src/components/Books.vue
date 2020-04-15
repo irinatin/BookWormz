@@ -13,16 +13,22 @@
       </div>
       <div class="column">
           <div class="form">
+           
             <div class="form-input">
               <span>Enter Book ISBN:</span><br />
+               <div class="field has-addons">
               <input
                 type="text"
                 v-model="book.isbn"
-                placeholder="Enter ISBN Here"
+                placeholder="10 or 13 digit ISBN"
               />
-            </div>
-            <button :disabled="!isValidForm" v-on:click="searchBooks(10, 13)">
+            
+            <button class="button is-info" :disabled="!isValidForm" v-on:click="searchBooks(10, 13)">
               Search
+            </button>
+            </div></div><br>
+            <button class="button" v-on:click="manualBook = true; clearSearchBT();">
+              No ISBN
             </button>
           </div>
       <br>
@@ -44,10 +50,11 @@
           <p class="has-text-info" v-if="success">Book Added Successfully!</p>
         </div>
       </div>
-      <div class="column"
+      <div class="column">
       <div class="form" v-if="manualBook">
         <div class="form-input">
-          <p class="has-text-danger">Your book could not be found. Please add it below:</p>
+          <p v-if="error1" class="has-text-danger">Your book could not be found.</p> 
+          <p class="has-text-danger">Please add your book below:</p>
           <span class="label">Title:</span>
           <input
             type="text"
@@ -86,6 +93,7 @@ export default {
       manualBook: false,
       success: false,
       success2: false,
+      error1: false,
       book: {
         isbn: "",
         title: "",
@@ -96,6 +104,7 @@ export default {
   },
   methods: {
     searchBooks(minlength, maxlength) {
+      this.manualBook = false;
       this.success = false;
       let mnlen = minlength;
       let mxlen = maxlength;
@@ -119,18 +128,34 @@ export default {
           .then(response => {
             //this.book.title = response.data['ISBN:1847246923'].title; THIS WORKS!!!
             let tempIsbn = this.book.isbn;
+            if (response.data["ISBN:" + tempIsbn].cover.small == null){
+              this.book.thumbnail = '';
+              this.book.title = response.data["ISBN:" + tempIsbn].title;
+            this.book.author =
+              response.data["ISBN:" + tempIsbn].authors[0].name;
 
+            } else if ( response.data["ISBN:" + tempIsbn].authors[0].name == null){
+              this.book.title = response.data["ISBN:" + tempIsbn].title;
+            this.book.author = '';
+            this.book.thumbnail = response.data["ISBN:" + tempIsbn].cover.small;
+            }
+            
+            else{
             this.book.title = response.data["ISBN:" + tempIsbn].title;
             this.book.author =
               response.data["ISBN:" + tempIsbn].authors[0].name;
             this.book.thumbnail = response.data["ISBN:" + tempIsbn].cover.small;
+          }
             this.showBook = true;
+            
             // this.book.isbn = ' ';
           })
           .catch(error => {
-            console.log(error + " there was an error");
+           
             this.manualBook = true;
             this.showBook = false;
+            this.error1 = true;
+            
           });
       }
     },
@@ -182,6 +207,12 @@ export default {
       this.manualBook = false;
       this.success = false;
       this.success2 = false;
+    },
+    clearSearchBT() {
+      this.book.isbn = "";
+      this.book.title = "";
+      this.book.author = "";
+      
     }
   },
   computed: {
