@@ -14,7 +14,7 @@
       <h2 class="has-background-info has-text-black-bis">Adam</h2>
         <div class="columns">
         <div class="column has-text-centered">
-                <img class="photo" src="./assets/BookWorm.jpg" alt="employee photo"/>
+                <img class="photo2" src="./assets/Adam.jpg" alt="employee photo"/>
         </div>
         <div class="column">
             <h1 class="has-text-weight-bold">Favorite Book: </h1>
@@ -57,7 +57,7 @@
       <h2 class="has-background-info has-text-black-bis">Joe</h2>
         <div class="columns">
         <div class="column has-text-centered">
-                <img class="photo" src="./assets/Joe.jpeg" alt="employee photo"/>
+                <img class="photo2" src="./assets/Joe.jpeg" alt="employee photo"/>
         </div>
         <div class="column">
             <h1 class="has-text-weight-bold">Favorite Book: </h1>
@@ -80,7 +80,7 @@
       <h2 class="has-background-info has-text-black-bis">Leigh</h2>
         <div class="columns">
         <div class="column has-text-centered">
-                <img class="photo" src="./assets/Leigh.jpeg" alt="employee photo"/>
+                <img class="photo3" src="./assets/Leigh.jpeg" alt="employee photo"/>
         </div>
         <div class="column">
             <h1 class="has-text-weight-bold">Favorite Book: </h1>
@@ -107,12 +107,14 @@
                 <img class="photo" src="./assets/Ryan.jpg" alt="employee photo"/>
         </div>
         <div class="column">
-            <h1 class="has-text-weight-bold">Favorite Book: </h1>
-            <br>
+            <h1 class="has-text-weight-bold">Favorite Book: </h1><br>
+              <img src="https://covers.openlibrary.org/b/id/419741-S.jpg"/>
+            The Rise and Fall of the Great Powers By: Paul M. Kennedy
+            <br><br>
             <h1 class="has-text-weight-bold">Favorite Kid's Book: </h1>
             <br>
-            <img src="https://covers.openlibrary.org/b/id/24239-S.jpg"/>
-            Trollhunters By: by Guillermo Del Toro, Daniel Kraus, Sean Murray
+            <img src="https://covers.openlibrary.org/b/id/8568808-S.jpg"/>
+            The boxcar children By: Gertrude Chandler Warner
         </div>
       
         </div>
@@ -150,5 +152,14 @@ export default {
 .thumbnail{
   width: 10%;
   height: auto;
+}
+.photo2 {
+   width: 50%;
+    height: auto;
+}
+
+.photo3 {
+   width: 40%;
+    height: auto;
 }
 </style>
