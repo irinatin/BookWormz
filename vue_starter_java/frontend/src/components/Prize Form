@@ -4,10 +4,11 @@
       <h2 class="label salmon">Available Prizes</h2>
       <div class="has-text-danger" v-if="formErrors">There were problems creating this prize.</div>
       <div v-if="noPrizes">There are no prizes entered! Add a prize!!!</div>
-      <button v-if="!showForm" v-on:click="showFormButton()">Create New Prize</button>
+      <button v-if="!showForm" v-on:click="showFormButton()">
+        Create New Prize
+      </button>
       <button v-if="showForm" v-on:click="hideFormButton()">Hide Form</button>
     </div>
-    <br>
     <div v-if="showForm">
       <div class="columns">
         <div class="column">
@@ -136,23 +137,31 @@
         v-on:click="savePrize()"
         v-if="this.prizeIdNum == 0"
         class="add_prize_button"
-        type="submit">
+        type="submit"
+      >
         Add Prize
       </button>
       <button
         v-on:click="savePrize()"
         v-if="this.prizeIdNum != 0"
         class="add_prize_button"
-        type="submit">
+        type="submit"
+      >
         Edit Prize
       </button>
     </div>
 
     <new-prize
       v-if="!showForm"
-      v-on:editPrize="editPrize($event); showFormButton();"
-      v-on:deletePrize="deletePrize($event); hideFormButton();">
-      </new-prize>
+      v-on:editPrize="
+        editPrize($event);
+        showFormButton();
+      "
+      v-on:deletePrize="
+        deletePrize($event);
+        hideFormButton();
+      "
+    ></new-prize>
   </div>
 </template>
 
