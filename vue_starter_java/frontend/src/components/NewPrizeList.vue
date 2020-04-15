@@ -4,7 +4,7 @@
       <h2 class="label salmon">Available Prizes</h2>
       <div class="has-text-danger" v-if="formErrors">There were problems creating this prize.</div>
       <div v-if="noPrizes">There are no prizes entered! Add a prize!!!</div>
-      <button v-if="!showForm" v-on:click="showFormButton()">Create New Prize</button>
+      <button v-if="!showForm && isParent" v-on:click="showFormButton()">Create New Prize</button>
       <button v-if="showForm" v-on:click="hideFormButton()">Hide Form</button>
     </div>
     <br>
@@ -46,6 +46,7 @@
           </div>
         </div>
 
+<<<<<<< HEAD
         <div class="column">
           <div class="field">
             <label class="label" for="milestone"
@@ -132,6 +133,39 @@
 
         
       </div>
+=======
+      <label for="max_prizes">Prize Cap</label>
+      <input
+        type="text"
+        id="numOfPrizes"
+        name="numOfPrizes"
+        placeholder="Enter Prize Cap"
+        v-model="prizeinfo.numOfPrizes"
+        required
+        autofocus
+      />
+      <label for="startDate">Start Date</label>
+      <input
+        type="text"
+        id="startDate"
+        name="startDate"
+        placeholder="yyyy-mm-dd"
+        v-model="prizeinfo.startDate"
+        required
+        autofocus
+      />
+      <label for="endDate">End Date</label>
+      <input
+        type="text"
+        id="endDate"
+        name="endDate"
+        placeholder="yyyy-mm-dd"
+        v-model="prizeinfo.endDate"
+        required
+        autofocus
+      />
+      <br />
+>>>>>>> 5dd46d14872a4d0333b270d21421c9fd4547e7ce
       <button
         v-on:click="savePrize()"
         v-if="this.prizeIdNum == 0"
@@ -183,6 +217,14 @@ export default {
         numOfPrizes: "",
         startDate: "",
         endDate: ""
+      },
+      currentUser: {
+        userId: "",
+        userName: "",
+        password: "",
+        confirmPassword: "",
+        passwordMatching: "",
+        role: ""
       },
       formErrors: false,
       noPrizes: false
@@ -277,6 +319,7 @@ export default {
             this.prizeinfo = response.data;
             if (this.prizeinfo.userGroup == "user") {
               this.prizeinfo.userGroup = "Parent";
+              this.isParent = true;
             }
           })
           .catch(err => console.error(err));
@@ -286,6 +329,23 @@ export default {
       this.prizeIdNum = 0;
       this.showForm = false;
     }
+  },
+  created() {
+    axios
+      .get(`${process.env.VUE_APP_REMOTE_API}/api/getCurrentUser`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Authorization")
+        }
+      })
+      .then(response => {
+        this.currentUser = response.data;
+        if(this.currentUser.role == "user"){
+          this.isParent = true;
+        }
+      })
+      .catch(error => {
+        console.log(error + " there was an error");
+      });
   }
 };
 </script>
