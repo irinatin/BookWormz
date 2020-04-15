@@ -237,5 +237,5 @@ export default {
 }
 .form-input {
   padding-top: 3%;
-}
+} 
 </style>

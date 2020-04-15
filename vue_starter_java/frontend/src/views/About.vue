@@ -124,7 +124,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'about',
   
