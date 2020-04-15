@@ -24,7 +24,7 @@
       </div>
 
       <br />
-      <span>Search for friends!!!</span>
+      <span>Search for new friends!!!</span>
       <br />
       <input type="text" v-model="friend.username" placeholder="Username" />
     </div>
