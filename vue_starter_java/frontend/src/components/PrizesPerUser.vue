@@ -1,7 +1,10 @@
 <template>
-  <ul>
-    <li v-for="prize in prizes" v-bind:key="prize">{{prize}}</li>
-  </ul>
+<div>
+<h2 class="yellow label">Your Prizes</h2>
+    <ul>
+        <li v-for="prize in prizes" v-bind:key="prize">{{prize}}</li>
+    </ul>
+ </div>   
 </template>
 
 <script>
@@ -41,7 +44,12 @@ export default {
         .catch(error => {
           console.log(error + " there was an error");
         });
-    });
+  });
   }
 };
 </script>
+<style>
+.yellow {
+  background: #ffff00;
+  }
+</style>
