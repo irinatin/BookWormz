@@ -4,7 +4,7 @@
       <h2 class="label salmon">Prizes</h2>
       <div v-if="formErrors">There were problems creating this prize.</div>
       <div v-if="noPrizes">There are no prizes entered! Add a prize!!!</div>
-      <button v-if="!showForm" v-on:click="showFormButton()">Create New Prize</button>
+      <button v-if="!showForm && isParent" v-on:click="showFormButton()">Create New Prize</button>
       <button v-if="showForm" v-on:click="hideFormButton()">Hide Form</button>
     </div>
     <div v-if="showForm">
@@ -56,21 +56,21 @@
         required
         autofocus
       />
-      <label for="start_date">Start Date</label>
+      <label for="startDate">Start Date</label>
       <input
         type="text"
-        id="start_date"
-        name="start_date"
+        id="startDate"
+        name="startDate"
         placeholder="yyyy-mm-dd"
         v-model="prizeinfo.startDate"
         required
         autofocus
       />
-      <label for="end_date">End Date</label>
+      <label for="endDate">End Date</label>
       <input
         type="text"
-        id="end_date"
-        name="end_date"
+        id="endDate"
+        name="endDate"
         placeholder="yyyy-mm-dd"
         v-model="prizeinfo.endDate"
         required
@@ -126,6 +126,14 @@ export default {
         numOfPrizes: "",
         startDate: "",
         endDate: ""
+      },
+      currentUser: {
+        userId: "",
+        userName: "",
+        password: "",
+        confirmPassword: "",
+        passwordMatching: "",
+        role: ""
       },
       formErrors: false,
       noPrizes: false
@@ -220,6 +228,7 @@ export default {
             this.prizeinfo = response.data;
             if (this.prizeinfo.userGroup == "user") {
               this.prizeinfo.userGroup = "Parent";
+              this.isParent = true;
             }
           })
           .catch(err => console.error(err));
@@ -229,6 +238,23 @@ export default {
       this.prizeIdNum = 0;
       this.showForm = false;
     }
+  },
+  created() {
+    axios
+      .get(`${process.env.VUE_APP_REMOTE_API}/api/getCurrentUser`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Authorization")
+        }
+      })
+      .then(response => {
+        this.currentUser = response.data;
+        if(this.currentUser.role == "user"){
+          this.isParent = true;
+        }
+      })
+      .catch(error => {
+        console.log(error + " there was an error");
+      });
   }
 };
 </script>

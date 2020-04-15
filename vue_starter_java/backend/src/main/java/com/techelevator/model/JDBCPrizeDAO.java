@@ -2,9 +2,8 @@ package com.techelevator.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -25,9 +24,14 @@ public class JDBCPrizeDAO implements PrizeDAO {
 
 	@Override
 	public boolean createNewPrize(Prize blingBling, long familyId) {
-		if(blingBling.getUserGroup().toLowerCase().equals("parent")) {
-			blingBling.setUserGroup("user");
-		}
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(blingBling.getStartDate()); 
+		c.add(Calendar.DATE, 1);
+		blingBling.setStartDate(c.getTime());
+		Calendar d = Calendar.getInstance(); 
+		d.setTime(blingBling.getEndDate()); 
+		d.add(Calendar.DATE, 1);
+		blingBling.setEndDate(d.getTime());
 		long prizeId = getNextPrizeId();
 		String insertIntoPrize = "INSERT INTO prize VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		jdbcTemplate.update(insertIntoPrize, prizeId, blingBling.getPrizeName(), blingBling.getPrizeDescription(),
