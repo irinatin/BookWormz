@@ -53,7 +53,7 @@
       </div>
     </section>
     <section>
-      <<div class="container">
+      <div class="container">
       <h2 class="has-background-info has-text-black-bis">Joe</h2>
         <div class="columns">
         <div class="column has-text-centered">

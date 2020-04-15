@@ -6,6 +6,7 @@ import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import UserInfo from './views/UserInfo.vue'
 import About from './views/About.vue'
+import ThankYou from './views/ThankYou.vue'
 
 Vue.use(Router)
 
@@ -61,6 +62,15 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
+      },
+      {
+      path: "/thankyou",
+      name: "thankyou",
+      component: ThankYou,
+      meta: {
+        requireAuth: true
+      }
+    
     }
   ]
 })

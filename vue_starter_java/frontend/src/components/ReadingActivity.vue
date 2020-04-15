@@ -2,7 +2,7 @@
   <div>
     <div>
       <h2 class="label blue">Reading Activity</h2>
-      </div>
+    </div>
       <div>
       <button v-if="showUsersButton">Show Members</button>
 
@@ -11,24 +11,32 @@
       </select>
 
       <button v-on:click="showResults()">Update</button>
-      
-        <div>Completed Books:
-        {{readingActivity.completedBooks}}</div>
-      
-        <div>Total Reading Time (mins):
-         {{readingActivity.totalReadingTime}}</div>
+      <br>
+    
+       Completed Books:
+       {{readingActivity.completedBooks}}
+       <br>
+        
+
+       Total Reading Time (mins):
+       {{readingActivity.totalReadingTime}}
+        
         
         <div>Progress Towards Available Prizes:
         <div v-bind:key="name"
-          v-for="(value, name) in readingActivity.progressTowardsPrize"
+        v-for="(value, name) in readingActivity.progressTowardsPrize"
         >{{name}}: {{value}}% There!</div>
+        </div>
+      
         
         <div>Current Books:</div>
         <div v-bind:key="book" v-for="book in readingActivity.currentBooks">"{{book}}"</div>
         </div>
-      </div>
+        
       
-    </div>
+      
+ 
+  </div>
   
 </template>
 

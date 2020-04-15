@@ -41,7 +41,7 @@
         <td>{{prize.endDate}}</td>
       </tr>
     </table>
-    </div>
+</div>
   </div>
 </template>
 
@@ -127,13 +127,9 @@ export default {
 
 
 <style>
-<<<<<<< HEAD
-
-=======
 .yellow {
   background: #ffff00;
 }
->>>>>>> aec32dbcc6a78ae18e61366df5d3f4f34dd004a0
 .salmon {
   background-color: #ff6666;
 }
