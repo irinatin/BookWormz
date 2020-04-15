@@ -3,8 +3,26 @@
     <div>
       <h2 class="label">Friends</h2>
     </div>
-    <div v-for="user in allFriends" v-bind:key="user.username">{{user.firstName}} {{user.lastName}}</div>
     <div>
+      <div>
+        <table class="table is-fullwidth">
+          <thead>
+            <tr>
+              <th class="has-text-centered">Friend</th>
+              <th class="has-text-centered">Total Minutes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <p class="is-small">
+              <tr v-for="user in allFriends" v-bind:key="user.userName">
+                <td class="has-text-centered">{{user.firstName}} {{user.lastName}}</td>
+                <td class="has-text-centered">{{user.totalReadingTime}}</td>
+              </tr>
+            </p>
+          </tbody>
+        </table>
+      </div>
+
       <br />
       <span>Search for friends!!!</span>
       <br />
@@ -36,7 +54,8 @@ export default {
       friend: {
         username: "",
         firstName: "",
-        lastName: ""
+        lastName: "",
+        totalReadingTime: ""
       }
     };
   },
@@ -118,6 +137,7 @@ export default {
       })
       .then(response => {
         this.allFriends = response.data;
+        console.log(this.allFriends);
       })
       .catch(error => {
         console.log(error + " there was an error");
