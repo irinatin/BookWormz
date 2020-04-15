@@ -98,6 +98,7 @@ CREATE TABLE prize (
 CREATE TABLE user_prize (
   prize_id int NOT NULL,
   user_id int NOT NULL,
+  award_date DATE NULL,
 
 CONSTRAINT fk_prize_id FOREIGN KEY (prize_id) REFERENCES prize (prize_id),
 CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id),
