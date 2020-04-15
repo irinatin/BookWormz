@@ -84,8 +84,6 @@ font-size: 30px;
   font-weight: 700;
 }
 h2{
-    background:#f2f2f2;
-    color:#5c8578;
     padding:10px;
     font-size:24px;
     text-transform: uppercase;

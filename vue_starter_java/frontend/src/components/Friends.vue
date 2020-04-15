@@ -153,5 +153,8 @@ export default {
 
 
 
-<style>
+<style scoped>
+h2 {
+  background-color:darkorange;
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="label purple">Monthly Leaderboard</h2>
+    <h2 class="label">Monthly Leaderboard</h2>
     <div>
       <table class="table is-fullwidth">
         <thead>
@@ -71,8 +71,8 @@ export default {
 
 
 
-<style>
-.purple {
-  background-color: #b366ff;
+<style scoped>
+h2 {
+  background-color:mediumpurple;
 }
 </style>
