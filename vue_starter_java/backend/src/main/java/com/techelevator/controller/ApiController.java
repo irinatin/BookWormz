@@ -124,7 +124,7 @@ public class ApiController {
 	@RequestMapping(path = "/addReadingEvent", method = RequestMethod.POST)
 	public ReadingEvent addReadingEvent(@RequestBody ReadingEvent reads) {
 		ReadingEvent reading = reDAO.addReadingEvent(reads);
-		prizeDAO.awardPrize(userRole, userId);
+		prizeDAO.awardPrize(userRole, userId, userInfoDAO.getFamilyId(userId));
 		return reading;
 	}
 

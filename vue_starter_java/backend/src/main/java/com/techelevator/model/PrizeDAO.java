@@ -11,7 +11,7 @@ public interface PrizeDAO {
 	public Prize getPrize(long prizeId);
 //	public List<PrizeListInfo> getPrizeListInfo(String role, Long userId);
 	public List<String> getPrizesPerUser(Long userId);
-	public boolean awardPrize(String userGroup, long userId);
+	public boolean awardPrize(String userGroup, long userId, long familyId);
 	
 	
 }
