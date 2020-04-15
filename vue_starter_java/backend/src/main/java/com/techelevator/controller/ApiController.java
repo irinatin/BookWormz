@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.authentication.AuthProvider;
 import com.techelevator.authentication.UnauthorizedException;
+import com.techelevator.model.AwardedPrize;
 import com.techelevator.model.Book;
 import com.techelevator.model.BookDAO;
 import com.techelevator.model.ChildInfo;
@@ -202,7 +203,7 @@ public class ApiController {
 	
 	
 	@RequestMapping( path = "/getPrizesPerUser", method = RequestMethod.GET)
-	public List<String> getPrizesPerUser() {
+	public List<AwardedPrize> getPrizesPerUser() {
 		User currentUser = authDAO.getCurrentUser();
 		Long currentUserId = currentUser.getId();
 		return prizeDAO.getPrizesPerUser(currentUserId);
