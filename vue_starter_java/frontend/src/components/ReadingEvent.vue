@@ -240,9 +240,8 @@ export default {
         )
         // eslint-disable-next-line no-unused-vars
         .then(response => {
-          if ((response.status = 200)) {
+          if ((response.status == 200)) {
             alert("Your reading event has been saved, BookWorm!");
-            this.$emit("eventSaved");
             eventBus.$emit("refreshReadingEvent");
             this.readingEvent.userId = "";
             this.readingEvent.bookId = "";
