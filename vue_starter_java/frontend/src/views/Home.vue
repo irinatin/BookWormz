@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="container box">
       <div class="columns card-content">
         <div class="column content">
@@ -72,13 +72,7 @@
         </div>
      </div> -->
     
-    <div class="container box">
-      <div class="columns card-content">
-        <div class="column content">
-          <new-prize-list></new-prize-list>
-        </div>
-      </div>
-    </div>
+  
     
     <div class="container box">
       <div class="columns card-content">
