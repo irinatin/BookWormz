@@ -27,7 +27,7 @@
             </div>
           </div>
           <br />
-          <button class="button is-info is-small" v-on:click="manualBook = true; clearSearchBT();">No ISBN</button>
+          <button class="button is-info is-small" v-on:click="manualBook = true; bookExist=false; clearSearchBT();">No ISBN</button>
         </div>
         <br />
 
@@ -163,6 +163,7 @@ export default {
         .then(response => {
           this.success = true;
           this.manualBook = false;
+          this.bookExist = false;
           this.clearSearchBT();
           eventBus.$emit("refreshBooks");
         })
@@ -189,6 +190,7 @@ export default {
           eventBus.$emit("refreshBooks");
         })
         .catch(error => {
+          this.book.isbn = "";
           this.bookExist = true;
           this.showBook = false;
           this.clearSearchBT();
@@ -205,11 +207,15 @@ export default {
       this.manualBook = false;
       this.success = false;
       this.success2 = false;
+      
     },
     clearSearchBT() {
       this.book.isbn = "";
       this.book.title = "";
       this.book.author = "";
+    },
+    bookExistFlip(){
+      this.bookExit = !this.bookExist
     }
   },
   computed: {

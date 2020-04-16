@@ -39,8 +39,13 @@ public class JDBCBookDAO implements BookDAO{
 	public boolean addNewBook(Book bookie, long familyId) {
 		long bookId = getNextBookId();
 		String insertIntoBook = "INSERT INTO book VALUES (?, ?, ?, ?, ?)";
-		jdbcTemplate.update(insertIntoBook, bookId, bookie.getIsbn(), bookie.getTitle(), bookie.getAuthor(), familyId); 
 		
+		if(bookie.getIsbn() == 0 && !bookie.getAuthor().equals("James W. Skillen")) {
+			jdbcTemplate.update(insertIntoBook, bookId, null, bookie.getTitle(), bookie.getAuthor(), familyId); 
+		}
+		else {
+		jdbcTemplate.update(insertIntoBook, bookId, bookie.getIsbn(), bookie.getTitle(), bookie.getAuthor(), familyId); 
+		}
 		return true;
 	}
 
