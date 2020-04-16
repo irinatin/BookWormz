@@ -7,7 +7,6 @@
       <div class="container">
         <div class="navbar-brand">
         <a class="navbar-item brand-text"><router-link to="/about"><img src="./views/assets/BWLogo.jpg" alt="BookWormz Photo" class="product-img"/>BookWormz</router-link></a>
-        <a class="navbar-item brand-text"><router-link to="/thankyou"><img src="./views/assets/Logo2.jpeg" class="product-img"></router-link></a>
           <a role="button" class="navbar-burger" data-target="navbar-menu" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');" aria-label="menu" aria-expanded="false">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -20,6 +19,7 @@
 
       <div class="navbar-menu">
         <div class="navbar-start">
+          <a class="navbar-item brand-text"><router-link to="/thankyou"><img src="./views/assets/Logo2.jpeg" class="product-img"></router-link></a>
           <a class="navbar-item"><router-link to="/">
           Home 
           </router-link></a>
