@@ -5,51 +5,48 @@
     </div>
     <div>
       <button v-if="showUsersButton">Show Members</button>
-      <br>
+      <br />
       <select class="select" id="users" v-model="requestUsername">
         <option v-for="user in users" v-bind:key="user.id" :value="user.username">{{user.firstName}}</option>
       </select>
 
-      <button  class="button is-info is-small" v-on:click="showResults()">Update</button>
-        <table class="table is-fullwidth">
-          <tbody>
-            <tr>
-        <td>Completed Books:</td>
-        <td>
-        {{readingActivity.completedBooks}}</td>
-            </tr>
-            <tr>
-        <td>Total Reading Time (mins):</td>
-        <td>
-         {{readingActivity.totalReadingTime}}</td>
-        </tr>
-          
-          </tbody>
-        </table>
-        <br>
-        <table class="table is-fullwidth">
-          
+      <button class="button is-info is-small" v-on:click="showResults()">Update</button>
+      <table class="table is-fullwidth">
+        <tbody>
+          <tr>
+            <td>Completed Books:</td>
+            <td>{{readingActivity.completedBooks}}</td>
+          </tr>
+         
+            <td>Total Reading Time (mins):</td>
+            <td>{{readingActivity.totalReadingTime}}</td>
+         
+        </tbody>
+      </table>
+      
+      <table class="table is-fullwidth">
         <th>Progress Towards Available Prizes:</th>
 
-          <tbody>
-        <tr v-bind:key="name"
-          v-for="(value, name) in readingActivity.progressTowardsPrize"
-        ><td>{{name}}:</td><td> {{value}}% There!</td></tr>
-        
+        <tbody>
+          <tr v-bind:key="name" v-for="(value, name) in readingActivity.progressTowardsPrize">
+            <td>{{name}}:</td>
+            <td>{{value}}% There!</td>
+          </tr>
         </tbody>
-        </table>
+      </table>
 
-
-        <table class="table is-fullwidth">
-          
+      <table class="table is-fullwidth">
         <th>Current Books:</th>
         <tbody>
-        <tr class="has-text-left" v-bind:key="book" v-for="book in readingActivity.currentBooks">"{{book}}"</tr>
+          <tr
+            class="has-text-left"
+            v-bind:key="book"
+            v-for="book in readingActivity.currentBooks"
+          >"{{book}}"</tr>
         </tbody>
-        </table>
-      </div>
-      
+      </table>
     </div>
+  </div>
 </template>
 
 <script>
@@ -207,6 +204,6 @@ export default {
 
 <style scoped>
 h2 {
-  background-color:orchid;
+  background-color: orchid;
 }
 </style>
