@@ -204,6 +204,6 @@ export default {
 
 <style scoped>
 h2 {
-  background-color: orchid;
+  background-color:darkorange;
 }
 </style>

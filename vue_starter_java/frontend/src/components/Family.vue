@@ -185,6 +185,6 @@ export default {
 
 <style scoped>
 h2 {
-  background-color:burlywood;
+  background-color:#ff6666;
 }
 </style>
