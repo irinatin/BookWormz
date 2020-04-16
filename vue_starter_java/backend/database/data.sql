@@ -21,9 +21,9 @@ VALUES (DEFAULT, (SELECT id FROM users WHERE username = 'BethCampbell'), 'Beth',
 (DEFAULT, (SELECT id FROM users WHERE username = 'TomMedvitz'), 'Tom', 'Medvitz', (SELECT family_id FROM family WHERE family_name = 'TE Fam'));
 
 INSERT INTO book
-VALUES (DEFAULT, 'Java for Dummies', 'Beth Campbell', (SELECT family_id FROM family WHERE family_name = 'TE Fam')),
-(DEFAULT, 'C Sharp for Dummies', 'Tom Anderson', (SELECT family_id FROM family WHERE family_name = 'TE Fam')),
-(DEFAULT, 'CSS for Dummies', 'Leigh Hartmann', (SELECT family_id FROM family WHERE family_name = 'TE Fam'));
+VALUES (DEFAULT, '1234567890', 'Java for Dummies', 'Beth Campbell', (SELECT family_id FROM family WHERE family_name = 'TE Fam')),
+(DEFAULT, '1234567891', 'C Sharp for Dummies', 'Tom Anderson', (SELECT family_id FROM family WHERE family_name = 'TE Fam')),
+(DEFAULT, '1234567892', 'CSS for Dummies', 'Leigh Hartmann', (SELECT family_id FROM family WHERE family_name = 'TE Fam'));
 
 
 

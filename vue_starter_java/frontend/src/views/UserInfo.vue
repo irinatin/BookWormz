@@ -69,11 +69,11 @@
       </span>
       <br>
 
-      <a v-if="userinfo.newFamily" href="#" v-on:click="userinfo.newFamily = false" class="buttons">Join Existing Family
+      <a v-if="userinfo.newFamily" href="#" v-on:click.prevent="userinfo.newFamily = false" class="buttons">Join Existing Family
       </a>
       <br>
 
-      <a v-if="!userinfo.newFamily" href="#" v-on:click="userinfo.newFamily = true" class="buttons">Make New Family 
+      <a v-if="!userinfo.newFamily" href="#" v-on:click.prevent="userinfo.newFamily = true" class="buttons">Make New Family 
       </a>
 
       <br>
