@@ -13,12 +13,12 @@
             </tr>
           </thead>
           <tbody>
-            <div class="is-small">
+            <p class="is-small">
               <tr v-for="user in allFriends" v-bind:key="user.userName">
                 <td class="has-text-centered">{{user.firstName}} {{user.lastName}}</td>
                 <td class="has-text-centered">{{user.totalReadingTime}}</td>
               </tr>
-            </div>
+            </p>
           </tbody>
         </table>
       </div>
