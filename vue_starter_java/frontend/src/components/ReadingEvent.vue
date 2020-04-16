@@ -2,43 +2,44 @@
   <div>
     <h2 class="label">Record A Reading Event</h2>
     <br>
-    <span class="field-container">Select Book: </span>
+    <span class="field">Select Book: </span>
     <select id="books" v-on:click="showFamUsersBtn()" v-model="readingEvent.bookId">
       <option v-for="book in books" v-bind:key="book.id" :value="book.id">{{book.title}}</option>
-    </select> <br>
-    <span v-if="showUsersButton" class="field-container">Select Family Member: </span>
+    </select> <br> <br>
+    <span v-if="showUsersButton" class="field">Select Family Member: </span>
     <select v-if="showUsersButton" id="users" v-model="readingEvent.userId">
       <option v-for="user in users" v-bind:key="user.id" :value="user.id">{{user.firstName}}</option>
-    </select>
+    </select> <br> <br>
 
     <div class="form">
       <div class="form-input">
-        <span class="field-container is-rounded">Enter Reading Time: </span>
+        <span class="field">Enter Reading Time: </span>
         <input type="number" placeholder="In Minutes" v-model="readingEvent.readingTime" />
       </div>
-    </div>
+    </div> <br> 
 
     <div class="form">
       <div class="form-input">
-        <span class="field-container">Enter Reading Date: </span>
+        <span class="field">Enter Reading Date: </span>
         <input type="text" placeholder="YYYY-MM-dd" v-model="readingEvent.readingDate" />
       </div>
-    </div>
+    </div> <br>
 
-    <span class="field-container">Select Reading Format: </span>
+    <span class="field">Select Reading Format: </span>
     <select id="format" v-model="readingEvent.format">
       <option v-for="format in formats" v-bind:key="format.id">{{format.format}}</option>
     </select>
-    <br />
-    <label class="field-container" for="checkbox">Book Completed: </label>
+    <br><br>
+
+    <label class="field" for="checkbox">Book Completed: </label>
     <input type="checkbox" id="checkbox" v-model="readingEvent.completed" />
-    <br />
+    <br>
     
 
     <div>
       <button v-on:click="addReadingEvent">Submit</button>
-    </div>
-  </div>
+    </div> <br>
+  </div> 
 </template>
 
 
