@@ -163,16 +163,13 @@ export default {
         .then(response => {
           this.success = true;
           this.manualBook = false;
-          this.book.isbn = "";
+          this.clearSearchBT();
           eventBus.$emit("refreshBooks");
         })
         .catch(error => {
           this.bookExist = true;
           this.showBook = false;
-          this.book.isbn = "";
-          this.book.title = "";
-          this.book.author = "";
-          this.book.thumbnail = "";
+          this.clearSearchBT();
           console.log(error + " there was an error");
         });
     },
@@ -188,16 +185,13 @@ export default {
         .then(response => {
           this.success = true;
           this.showBook = false;
-          this.book.isbn = "";
+          this.clearSearchBT();
           eventBus.$emit("refreshBooks");
         })
         .catch(error => {
           this.bookExist = true;
           this.showBook = false;
-          this.book.isbn = "";
-          this.book.title = "";
-          this.book.author = "";
-          this.book.thumbnail = "";
+          this.clearSearchBT();
           console.log(error + " there was an error");
         });
     },
