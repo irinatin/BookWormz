@@ -1,9 +1,32 @@
 <template>
 <div>
 <h2 class="label">Your Prizes</h2>
-    <ul>
-        <li v-for="prize in prizes" v-bind:key="prize">{{prize}}</li>
-    </ul>
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="has-text-black-bis"></th>
+          <th class="has-text-black-bis">Prize Name</th>
+          <th class="has-text-black-bis"> Prize Description</th>
+          <th class="has-text-black-bis">Milestone</th>
+          <th class="has-text-black-bis">Date Awarded</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr v-for="prize in prizes" v-bind:key="prize">
+          <td><img class="star" src="../views/assets/star.png"/></td>
+          <td>{{prize.prizeName}}</td> 
+          <td>{{prize.prizeDescription}} </td>
+          <td>{{prize.milestone}} </td>
+          <td>{{prize.awardDate}}</td>
+
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>  
+    
  </div>   
 </template>
 
@@ -64,6 +87,11 @@ export default {
 };
 </script>
 <style scoped>
+.star {
+  width: 20px;
+  height: auto;
+  padding-right: 0%;
+}
 h2 {
   background-color:gold;
 }
