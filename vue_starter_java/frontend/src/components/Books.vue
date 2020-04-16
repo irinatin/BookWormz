@@ -222,7 +222,7 @@ export default {
 
 <style scoped>
 h2 {
-  background-color:forestgreen;
+  background-color:mediumpurple;
 }
 .book {
   width: 35%;

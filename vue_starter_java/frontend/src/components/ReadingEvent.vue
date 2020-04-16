@@ -293,6 +293,7 @@ export default {
 
 <style scoped>
 h2 {
-  background-color:royalblue;
+  background-color:#ff6666;
 }
+
 </style>

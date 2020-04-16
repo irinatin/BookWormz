@@ -333,6 +333,7 @@ export default {
 
 <style scoped>
 h2 {
-  background-color:crimson;
+  background-color:gold;
 }
+
 </style>
