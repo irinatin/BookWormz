@@ -65,7 +65,7 @@ public class JDBCReadingEventDAO implements ReadingEventDAO {
         familyReadingActivity.setTotalReadingTime(resultsMins.getInt(1));
         
         
-        String sqlCurrentBooks = "SELECT book.title, user_book.completed FROM user_book JOIN book ON book.book_id = user_book.book_id WHERE user_book.user_id = ?";
+        String sqlCurrentBooks = "SELECT book.title, user_book.completed, user_book.reading_date FROM user_book JOIN book ON book.book_id = user_book.book_id WHERE user_book.user_id = ? ORDER BY user_book.reading_date";
         
         SqlRowSet resultsCurrentBooks = jdbcTemplate.queryForRowSet(sqlCurrentBooks, userId);
         Map<String, Boolean> currentBooks = new HashMap<String, Boolean>();
@@ -89,21 +89,31 @@ public class JDBCReadingEventDAO implements ReadingEventDAO {
         famIdResults.next();
         Long familyId = famIdResults.getLong(1);
         
-        String sqlProgressTowardsPrize = "SELECT prize_name, milestone FROM prize WHERE user_group = ? AND start_date < ? AND end_date > ? AND family_id = ? AND max_prizes > 0";
+        String sqlProgressTowardsPrize = "SELECT * FROM prize WHERE user_group = ? AND start_date < ? AND end_date > ? AND family_id = ? AND max_prizes > 0";
         
         SqlRowSet resultsPrizes = jdbcTemplate.queryForRowSet(sqlProgressTowardsPrize, userRole, LocalDate.now(), LocalDate.now(), familyId);
         
         Map<String, Integer> progress = new HashMap<String, Integer>();
         
-        
+        List<Prize> availablePrizes = new ArrayList<>();
         
         while(resultsPrizes.next()) {
-            double resultsMinutes = (Double.valueOf(resultsMins.getInt(1)) / resultsPrizes.getInt(2)) * 100;
-            Integer resultsPercentage = (int)(resultsMinutes);
-            if (resultsPercentage <100) {
-            	progress.put(resultsPrizes.getString(1), resultsPercentage);
-            }
+        	Prize prize = mapRowToPrize(resultsPrizes);
+        	availablePrizes.add(prize);
         }
+        
+        for (Prize p : availablePrizes) {
+        	String sqlSumTotalMinutesPerPrize = "SELECT SUM(reading_time) FROM user_book WHERE user_id = ? AND reading_date >= ? AND reading_date <= ?";
+			SqlRowSet resultsMinsPerPrize = jdbcTemplate.queryForRowSet(sqlSumTotalMinutesPerPrize, userId, p.getStartDate(),p.getEndDate());
+			resultsMinsPerPrize.next();
+			int minutesToPrize = resultsMinsPerPrize.getInt(1);
+			if (minutesToPrize<p.getMilestone()) {
+				double percentage = (double)minutesToPrize/(double)p.getMilestone();
+				int percent = (int)(percentage * 100);
+				progress.put(p.getPrizeName(), percent);
+			}
+        }
+        
         
         familyReadingActivity.setProgressTowardsPrize(progress);
 
@@ -118,5 +128,20 @@ public class JDBCReadingEventDAO implements ReadingEventDAO {
             throw new RuntimeException("Something went wrong with book sequence");
         }
     }
+    
+    private Prize mapRowToPrize(SqlRowSet results) {
+		Prize blingBling = new Prize();
+		blingBling.setPrizeId(results.getLong("prize_id"));
+		blingBling.setPrizeName(results.getString("prize_name"));
+		blingBling.setPrizeDescription(results.getString("prize_description"));
+		blingBling.setMilestone(results.getInt("milestone"));
+		blingBling.setUserGroup(results.getString("user_group"));
+		blingBling.setNumOfPrizes(results.getInt("max_prizes"));
+		blingBling.setStartDate(results.getDate("start_date"));
+		blingBling.setEndDate(results.getDate("end_date"));
+
+		return blingBling;
+
+	}
 
 }

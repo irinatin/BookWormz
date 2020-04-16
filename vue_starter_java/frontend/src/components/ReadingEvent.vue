@@ -36,10 +36,14 @@
     <br>
     
 
-    <div>
+    <!-- <div>
       <button v-on:click="addReadingEvent">Submit</button>
     </div> <br>
-  </div> 
+  </div>  -->
+  <div>
+      <button class="button is-small is-info" v-on:click="addReadingEvent">Submit</button>
+    </div> <br>
+  </div>
 </template>
 
 

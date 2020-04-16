@@ -11,14 +11,17 @@ VALUES (DEFAULT, 'TE Fam');
 INSERT INTO users
 VALUES (DEFAULT, 'BethCampbell', 'z1HHvE71QP5LOfdDT1TjTg==', 'T876nbvOrAo4NgFJBi2wtrnlXmik4WshKHzeey0DEAA/dvG2hqGXYg9DPHBgohYfZob3O0+d47A6vKM86eHGi6irgF3AQzGgLbbkVdBTWbiLon6ZONBqb5RE5CKvUeMdlyNfY1FR6Nfl4E3hEgv0MZ7UqWOMOn8qqD2072LqlkE=', 'user'),
 (DEFAULT, 'TomAnderson', 'z1HHvE71QP5LOfdDT1TjTg==', 'T876nbvOrAo4NgFJBi2wtrnlXmik4WshKHzeey0DEAA/dvG2hqGXYg9DPHBgohYfZob3O0+d47A6vKM86eHGi6irgF3AQzGgLbbkVdBTWbiLon6ZONBqb5RE5CKvUeMdlyNfY1FR6Nfl4E3hEgv0MZ7UqWOMOn8qqD2072LqlkE=', 'user'),
-(DEFAULT, 'TomMedvitz', 'z1HHvE71QP5LOfdDT1TjTg==', 'T876nbvOrAo4NgFJBi2wtrnlXmik4WshKHzeey0DEAA/dvG2hqGXYg9DPHBgohYfZob3O0+d47A6vKM86eHGi6irgF3AQzGgLbbkVdBTWbiLon6ZONBqb5RE5CKvUeMdlyNfY1FR6Nfl4E3hEgv0MZ7UqWOMOn8qqD2072LqlkE=', 'child');
+(DEFAULT, 'TomMedvitz', 'z1HHvE71QP5LOfdDT1TjTg==', 'T876nbvOrAo4NgFJBi2wtrnlXmik4WshKHzeey0DEAA/dvG2hqGXYg9DPHBgohYfZob3O0+d47A6vKM86eHGi6irgF3AQzGgLbbkVdBTWbiLon6ZONBqb5RE5CKvUeMdlyNfY1FR6Nfl4E3hEgv0MZ7UqWOMOn8qqD2072LqlkE=', 'child'),
+(DEFAULT, 'WaltImpellicceiri', 'z1HHvE71QP5LOfdDT1TjTg==', 'T876nbvOrAo4NgFJBi2wtrnlXmik4WshKHzeey0DEAA/dvG2hqGXYg9DPHBgohYfZob3O0+d47A6vKM86eHGi6irgF3AQzGgLbbkVdBTWbiLon6ZONBqb5RE5CKvUeMdlyNfY1FR6Nfl4E3hEgv0MZ7UqWOMOn8qqD2072LqlkE=', 'user');
 
 
 
 INSERT INTO user_info 
 VALUES (DEFAULT, (SELECT id FROM users WHERE username = 'BethCampbell'), 'Beth', 'Campbell', (SELECT family_id FROM family WHERE family_name = 'TE Fam')),
 (DEFAULT, (SELECT id FROM users WHERE username = 'TomAnderson'), 'Tom', 'Anderson', (SELECT family_id FROM family WHERE family_name = 'TE Fam')),
-(DEFAULT, (SELECT id FROM users WHERE username = 'TomMedvitz'), 'Tom', 'Medvitz', (SELECT family_id FROM family WHERE family_name = 'TE Fam'));
+(DEFAULT, (SELECT id FROM users WHERE username = 'TomMedvitz'), 'Tom', 'Medvitz', (SELECT family_id FROM family WHERE family_name = 'TE Fam')),
+(DEFAULT, (SELECT id FROM users WHERE username = 'WaltImpellicceiri'), 'Walt', 'Impellicceiri', (SELECT family_id FROM family WHERE family_name = 'TE Fam'));
+
 
 INSERT INTO book
 VALUES (DEFAULT, '1234567890', 'Java for Dummies', 'Beth Campbell', (SELECT family_id FROM family WHERE family_name = 'TE Fam')),
