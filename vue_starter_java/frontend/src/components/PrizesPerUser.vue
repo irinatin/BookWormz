@@ -5,11 +5,11 @@
     <table class="table">
       <thead>
         <tr>
-          <th class="has-text-black-bis"></th>
-          <th class="has-text-black-bis">Prize Name</th>
-          <th class="has-text-black-bis"> Prize Description</th>
-          <th class="has-text-black-bis">Milestone</th>
-          <th class="has-text-black-bis">Date Awarded</th>
+          <th class="bold has-text-black-bis"></th>
+          <th class="bold has-text-black-bis">Prize Name</th>
+          <th class="bold has-text-black-bis"> Prize Description</th>
+          <th class="bold has-text-black-bis">Milestone</th>
+          <th class="bold has-text-black-bis">Date Awarded</th>
         </tr>
       </thead>
       <tbody>
@@ -87,6 +87,9 @@ export default {
 };
 </script>
 <style scoped>
+.bold {
+  font-weight: 900;
+}
 .star {
   width: 20px;
   height: auto;
