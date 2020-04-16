@@ -45,7 +45,7 @@ public class JdbcUserInfoDao implements UserInfoDao{
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetFamilyId, userId);
 		
 		results.next();
-		Long familyId = results.getLong(1);
+		Long familyId = results.getLong("family_id");
 		return familyId;
 	}
 	

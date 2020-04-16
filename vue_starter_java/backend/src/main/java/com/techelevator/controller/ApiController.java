@@ -112,6 +112,7 @@ public class ApiController {
 
 	@RequestMapping(path = "/addBook", method = RequestMethod.POST)
 	public boolean addBook(@RequestBody Book newBook) {
+		System.out.println(newBook.getIsbn());
 		return bookDAO.addNewBook(newBook, userInfoDAO.getFamilyId(userId));
 	}
 	
