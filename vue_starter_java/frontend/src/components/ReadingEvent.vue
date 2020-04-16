@@ -1,48 +1,51 @@
 <template>
   <div>
     <h2 class="label">Record A Reading Event</h2>
-    <br>
+    <br />
     <span class="field">Select Book: </span>
     <select id="books" v-on:click="showFamUsersBtn()" v-model="readingEvent.bookId">
       <option v-for="book in books" v-bind:key="book.id" :value="book.id">{{book.title}}</option>
-    </select> <br> <br>
+    </select>
+    <br />
+    <br />
     <span v-if="showUsersButton" class="field">Select Family Member: </span>
     <select v-if="showUsersButton" id="users" v-model="readingEvent.userId">
       <option v-for="user in users" v-bind:key="user.id" :value="user.id">{{user.firstName}}</option>
-    </select> <br> <br>
+    </select>
+    <br />
+    <br />
 
     <div class="form">
       <div class="form-input">
         <span class="field">Enter Reading Time: </span>
         <input type="number" placeholder="In Minutes" v-model="readingEvent.readingTime" />
       </div>
-    </div> <br> 
+    </div>
+    <br />
 
     <div class="form">
       <div class="form-input">
         <span class="field">Enter Reading Date: </span>
         <input type="text" placeholder="YYYY-MM-dd" v-model="readingEvent.readingDate" />
       </div>
-    </div> <br>
+    </div>
+    <br />
 
     <span class="field">Select Reading Format: </span>
     <select id="format" v-model="readingEvent.format">
       <option v-for="format in formats" v-bind:key="format.id">{{format.format}}</option>
     </select>
-    <br><br>
+    <br />
+    <br />
 
     <label class="field" for="checkbox">Book Completed: </label>
     <input type="checkbox" id="checkbox" v-model="readingEvent.completed" />
-    <br>
-    
+    <br />
 
-    <!-- <div>
-      <button v-on:click="addReadingEvent">Submit</button>
-    </div> <br>
-  </div>  -->
-  <div>
+    <div>
       <button class="button is-small is-info" v-on:click="addReadingEvent">Submit</button>
-    </div> <br>
+    </div>
+    <br />
   </div>
 </template>
 
@@ -166,18 +169,18 @@ export default {
     });
     eventBus.$on("refreshFamily", () => {
       axios
-      .get(`${process.env.VUE_APP_REMOTE_API}/api/getUser`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("Authorization")
-        }
-      })
-      .then(response => {
-        this.users = response.data;
-      })
-      .catch(error => {
-        console.log(error + " there was an error");
-      });
-      });
+        .get(`${process.env.VUE_APP_REMOTE_API}/api/getUser`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("Authorization")
+          }
+        })
+        .then(response => {
+          this.users = response.data;
+        })
+        .catch(error => {
+          console.log(error + " there was an error");
+        });
+    });
   },
 
   methods: {
@@ -245,7 +248,7 @@ export default {
         )
         // eslint-disable-next-line no-unused-vars
         .then(response => {
-          if ((response.status == 200)) {
+          if (response.status == 200) {
             eventBus.$emit("refreshReadingEvent");
             alert("Your reading event has been saved, BookWorm!");
             this.readingEvent.userId = "";
