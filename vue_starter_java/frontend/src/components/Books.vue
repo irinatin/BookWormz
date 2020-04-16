@@ -27,7 +27,7 @@
             </div>
           </div>
           <br />
-          <button class="button" v-on:click="manualBook = true; clearSearchBT();">No ISBN</button>
+          <button class="button is-info is-small" v-on:click="manualBook = true; clearSearchBT();">No ISBN</button>
         </div>
         <br />
 

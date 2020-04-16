@@ -36,7 +36,7 @@
     
 
     <div>
-      <button v-on:click="addReadingEvent">Submit</button>
+      <button class="button is-small is-info" v-on:click="addReadingEvent">Submit</button>
     </div>
   </div>
 </template>
