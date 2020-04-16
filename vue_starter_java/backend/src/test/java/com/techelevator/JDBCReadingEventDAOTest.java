@@ -9,7 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import com.techelevator.model.ReadingEvent;
 import com.techelevator.model.ReadingEventDAO;
 
-import junit.framework.Assert;
+import junit.framework.*;
+
 
 public class JDBCReadingEventDAOTest {
 	
@@ -17,6 +18,7 @@ public class JDBCReadingEventDAOTest {
 	
 	private JdbcTemplate jdbcTemplate;
 	private ReadingEvent myReadingEvent;
+	private 
 	
 	@Before
 	public void setUp() throws Exception {
@@ -28,6 +30,11 @@ public class JDBCReadingEventDAOTest {
 		long readingEventId = 5;
 		myReadingEvent.setReadingEventId(readingEventId);
 		assertEquals(5, myReadingEvent.getReadingEventId());
+	}
+	
+	@Test
+	public void test_get_and_set_user_id() {
+		long 
 	}
 	
 	
