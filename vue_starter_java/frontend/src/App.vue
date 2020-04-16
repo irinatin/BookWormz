@@ -30,6 +30,7 @@
 
           <a class="navbar-item" ><router-link to="/register">Register</router-link></a>
           <a class="navbar-item" > <router-link v-on:click.native= "quitter" to="/login" >Logout </router-link></a>
+          
         </div>
       </div> 
     </navbar>
