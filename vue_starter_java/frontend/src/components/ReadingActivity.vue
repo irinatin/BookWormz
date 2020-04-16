@@ -41,7 +41,7 @@
             class="has-text-left"
             v-bind:key="book"
             v-for="book in readingActivity.currentBooks"
-          >"{{book}}"</tr>
+          ><td>"{{book}}"</td></tr>
         </tbody>
       </table>
     </div>
