@@ -29,8 +29,7 @@
 
         <tbody>
           <tr v-bind:key="name" v-for="(value, name) in readingActivity.progressTowardsPrize">
-            <td>{{name}}:</td>
-            <td>{{value}}% There!</td>
+            <td>{{name}}: {{value}}% <progress class="progress is-info" v-bind:value="value" max="100"></progress></td>
           </tr>
         </tbody>
       </table>
@@ -55,6 +54,7 @@ import { eventBus } from "../main.js";
 
 export default {
   data() {
+    
     return {
       requestUsername: "",
       showResultsBtn: false,
